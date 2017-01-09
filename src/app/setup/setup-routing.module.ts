@@ -5,6 +5,7 @@ import { SetupComponent } from './setup.component';
 import { LeagueComponent } from '../league/league.component';
 import { DivisionComponent } from '../division/division.component';
 import { TeamComponent } from '../team/team.component';
+import { PlayerComponent } from '../player/player.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'teams',
         component: TeamComponent
+      },
+      {
+        path: 'players',
+        component: PlayerComponent
       }
     ]
   }

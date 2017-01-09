@@ -5,6 +5,7 @@ import { SetupComponent } from './setup.component';
 import { LeagueComponent } from '../league/league.component';
 import { DivisionComponent } from '../division/division.component';
 import { TeamComponent } from '../team/team.component';
+import { PlayerComponent } from '../player/player.component';
 
 import { SetupRoutingModule } from './setup-routing.module';
 
@@ -18,6 +19,7 @@ import { SetupRoutingModule } from './setup-routing.module';
     LeagueComponent,
     DivisionComponent,
     TeamComponent,
+    PlayerComponent,
   ]
 })
 export class SetupModule { }
