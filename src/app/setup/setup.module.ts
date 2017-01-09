@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SetupComponent } from './setup.component';
 import { LeagueComponent } from '../league/league.component';
 import { DivisionComponent } from '../division/division.component';
+import { TeamComponent } from '../team/team.component';
 
 import { SetupRoutingModule } from './setup-routing.module';
 
@@ -16,6 +17,7 @@ import { SetupRoutingModule } from './setup-routing.module';
     SetupComponent,
     LeagueComponent,
     DivisionComponent,
+    TeamComponent,
   ]
 })
 export class SetupModule { }
