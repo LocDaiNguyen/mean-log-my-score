@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SetupComponent } from './setup.component';
 import { LeagueComponent } from '../league/league.component';
+import { DivisionComponent } from '../division/division.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'leagues',
         component: LeagueComponent
+      },
+      {
+        path: 'divisions',
+        component: DivisionComponent
       }
     ]
   }
