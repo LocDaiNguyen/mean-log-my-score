@@ -31,9 +31,29 @@ export class LeagueService {
       .catch(this.handleError);
   }
 
+  getLeague(id: any): Observable<League> {
+    return this.getAllLeagues()
+      .map(leagues => leagues.find(league => league.id === id))
+      .catch(this.handleError);
+  }
+
   createLeague(league: League): Observable<League> {
     return this.http.post(this.leaguesUrl, JSON.stringify(league), {headers: this.headers})
       .map((response: Response) => response.json().data)
+      .catch(this.handleError);
+  }
+
+  updateLeague(league: League): Observable<League> {
+    const leagueUrl = `${this.leaguesUrl}/${league.id}`;
+    return this.http.put(leagueUrl, JSON.stringify(league), {headers: this.headers})
+      .map(() => league)
+      .catch(this.handleError);
+  }
+
+  deleteLeague(id: any): Observable<void> {
+    const leagueUrl = `${this.leaguesUrl}/${id}`;
+    return this.http.delete(leagueUrl, {headers: this.headers})
+      .map(() => null)
       .catch(this.handleError);
   }
 

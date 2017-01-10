@@ -1,0 +1,11 @@
+<div *ngIf="league">
+  <form (ngSubmit)="updateLeague(form)" #form="ngForm" class="mar-top-2">
+    <div class="form-group">
+      <label for="league">League</label>
+      <input [(ngModel)]="league.leagueName" name="league.leagueName" type="text" class="form-control" id="league" placeholder="ex Adult Recreation Hockey League" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    <button (click)="deleteLeague(league.id)" type="button" class="btn btn-danger btn-block">Delete</button>
+    <button (click)="goBack()" type="button" class="btn btn-default btn-block">Cancel</button>
+  </form>
+</div>

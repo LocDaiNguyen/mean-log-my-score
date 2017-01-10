@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LeagueComponent } from './league.component';
 import { LeagueListComponent } from './league-list/league-list.component';
 import { LeagueNewComponent } from './league-new/league-new.component';
+import { LeagueUpdateComponent } from './league-update/league-update.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'new',
         component: LeagueNewComponent
+      },
+      {
+        path: ':id',
+        component: LeagueUpdateComponent
       },
     ]
   }

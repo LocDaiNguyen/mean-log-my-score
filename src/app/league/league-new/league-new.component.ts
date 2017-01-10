@@ -22,13 +22,13 @@ export class LeagueNewComponent implements OnInit {
 
   createLeague(form: NgForm): '' | void {
 
-    let league = new League(form.value.leagueName);
+    let newLeague = new League(form.value.leagueName);
 
-    if (!league) { return; }
+    if (!newLeague) { return; }
 
-    this.leagueService.createLeague(league)
+    this.leagueService.createLeague(newLeague)
       .subscribe(
-        rleague => {this.leagues.push(rleague); console.log(this.leagues);},
+        league => this.leagues.push(league),
         error => this.error = error
       );
 
@@ -38,7 +38,7 @@ export class LeagueNewComponent implements OnInit {
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        rleagues => this.leagues = rleagues,
+        leagues => this.leagues = leagues,
         error => this.error = error
       );
   }
