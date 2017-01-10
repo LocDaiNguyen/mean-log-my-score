@@ -15,6 +15,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
+import { League } from './league.model';
+
 @Injectable()
 export class LeagueService {
 
@@ -23,10 +25,16 @@ export class LeagueService {
 
   constructor(private http: Http) {}
 
-  getAllLeagues():Observable<any[]> {
+  getAllLeagues(): Observable<League[]> {
     return this.http.get(this.leaguesUrl)
       .map((response: Response) => response.json().data)
-      .catch(this.handleError)
+      .catch(this.handleError);
+  }
+
+  createLeague(league: League): Observable<League> {
+    return this.http.post(this.leaguesUrl, JSON.stringify(league), {headers: this.headers})
+      .map((response: Response) => response.json().data)
+      .catch(this.handleError);
   }
 
   private handleError (error: Response | any) {

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LeagueComponent } from './league.component';
 import { LeagueListComponent } from './league-list/league-list.component';
+import { LeagueNewComponent } from './league-new/league-new.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: '',
         component: LeagueListComponent
+      },
+      {
+        path: 'new',
+        component: LeagueNewComponent
       },
     ]
   }

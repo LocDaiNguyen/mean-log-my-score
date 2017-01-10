@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { League } from '../shared/league.model';
 import { LeagueService } from '../shared/league.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { LeagueService } from '../shared/league.service';
 export class LeagueListComponent implements OnInit {
 
   error: string;
-  leagues: any[];
+  leagues: League[];
 
   constructor(
     private leagueService: LeagueService,
@@ -23,10 +24,10 @@ export class LeagueListComponent implements OnInit {
       .subscribe(
         leagues => this.leagues = leagues,
         error => this.error = error
-      )
+      );
   }
 
-  goTo(league): void {
+  goTo(league: League): void {
     this.router.navigate(['/leagues', league.id]);
   }
 
