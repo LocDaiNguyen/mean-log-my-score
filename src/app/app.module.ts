@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AuthModule } from './auth/auth.module';
 import { LeagueModule } from './league/league.module';
+import { DivisionModule } from './division/division.module';
 
 import { LeagueService } from './league/shared/league.service';
 
@@ -26,6 +27,7 @@ import { LeagueService } from './league/shared/league.service';
     AppRoutingModule,
     AuthModule,
     LeagueModule,
+    DivisionModule,
   ],
   providers: [
     LeagueService,
