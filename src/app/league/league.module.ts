@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LeagueComponent } from './league.component';
-
 import { LeagueRoutingModule } from './league-routing.module';
+
+import { LeagueComponent } from './league.component';
+import { LeagueListComponent } from './league-list/league-list.component';
+
 
 @NgModule({
   imports: [
@@ -12,6 +14,7 @@ import { LeagueRoutingModule } from './league-routing.module';
   ],
   declarations: [
     LeagueComponent,
+    LeagueListComponent,
   ]
 })
 export class LeagueModule { }

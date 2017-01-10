@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { LeagueModule } from './league/league.module';
 
+import { LeagueService } from './league/shared/league.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { LeagueModule } from './league/league.module';
     AuthModule,
     LeagueModule,
   ],
-  providers: [],
+  providers: [
+    LeagueService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
