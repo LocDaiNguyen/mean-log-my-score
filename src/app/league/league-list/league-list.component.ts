@@ -13,6 +13,7 @@ export class LeagueListComponent implements OnInit {
 
   error: string;
   leagues: League[];
+  noLeagues: boolean;
 
   constructor(
     private leagueService: LeagueService,
@@ -22,7 +23,14 @@ export class LeagueListComponent implements OnInit {
   getAllLeagues() {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => this.leagues = leagues,
+        (leagues) => {
+          if (leagues.length > 0) {
+            this.leagues = leagues
+            this.noLeagues = false;
+          } else {
+            this.noLeagues = true;
+          }
+        },
         error => this.error = error
       );
   }

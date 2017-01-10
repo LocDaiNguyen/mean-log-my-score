@@ -1,11 +1,11 @@
 <!-- INITIAL SCREEN (NO LEAGUES PRESENT) -->
-<div *ngIf="!leagues" class="mar-top-2">
+<div *ngIf="noLeagues === true" class="mar-top-2">
   <div class="row">
     <div class="col-md-12">
       <div class="text-center">
         <h2><span class="glyphicon glyphicon-star" aria-hidden="true"></span></h2>
         <h3>Add Leagues</h3>
-        <p>You have leagues you want to offer? Good leagues, bad leagues, you want to offer them to as many prospective clients as possible. No problem! Here is where you add your leagues so you can start offering them. Yes, even the bad ones ;)</p>
+        <p>You have leagues you play in. Good leagues, bad leagues, you want to play in them all. No problem! Here is where you add leagues you play in. Yes, even the bad ones ;)</p>
         <a routerLink="/leagues/new" class="btn btn-primary">Add Leagues</a>
       </div>
     </div>
@@ -16,7 +16,7 @@
 
 
 <!-- LEAGUES SCREEN -->
-<div *ngIf="leagues">
+<div *ngIf="noLeagues === false">
   <div class="row">
     <div class="col-md-12">
       <a routerLink="/leagues/new" class="btn btn-primary btn-block">New League</a>
