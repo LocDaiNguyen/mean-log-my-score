@@ -56,7 +56,7 @@ export class DivisionNewComponent implements OnInit {
           this.leagueSelected = leagues[0];
         },
         error => this.error = error
-      )
+      );
   }
 
   goBack(): void {

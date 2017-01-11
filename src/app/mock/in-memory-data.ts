@@ -49,7 +49,7 @@ export class InMemoryData implements InMemoryDbService {
         leagueId: 1,
         leagueName: 'Adult Recreation League',
       },
-    ]
+    ];
 
 
     return {leagues, divisions};

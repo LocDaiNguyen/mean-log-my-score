@@ -42,7 +42,7 @@ export class DivisionListComponent implements OnInit {
   }
 
   goTo(division: Division): void {
-    this.router.navigate(['/divisions', division.id])
+    this.router.navigate(['/divisions', division.id]);
   }
 
   ngOnInit(): void {

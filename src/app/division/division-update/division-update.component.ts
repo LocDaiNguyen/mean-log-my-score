@@ -54,7 +54,7 @@ export class DivisionUpdateComponent implements OnInit {
         leagues => {
           this.leagues = leagues;
           this.leagueSelected = _.find(leagues, function(league) {
-            return league.id === division.leagueId
+            return league.id === division.leagueId;
           });
         },
         error => this.error = error
