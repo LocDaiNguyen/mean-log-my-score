@@ -20,26 +20,30 @@ export class LeagueListComponent implements OnInit {
     private router: Router
   ) { }
 
-  getAllLeagues() {
+  getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => {
-          if (leagues.length > 0) {
-            this.leagues = leagues
-            this.noLeagues = false;
-          } else {
-            this.noLeagues = true;
-          }
+        leagues => {
+          this.leagues = leagues;
+          this.setNoLeagues(leagues);
         },
         error => this.error = error
       );
+  }
+
+  setNoLeagues(leagues): void {
+    if (leagues.length > 0) {
+      this.noLeagues = false;
+    } else {
+      this.noLeagues = true;
+    }
   }
 
   goTo(league: League): void {
     this.router.navigate(['/leagues', league.id]);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAllLeagues();
   }
 

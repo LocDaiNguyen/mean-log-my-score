@@ -8,10 +8,50 @@ export class InMemoryData implements InMemoryDbService {
       {
         id: 1,
         leagueName: 'Adult Recreation League',
+      },
+      {
+        id: 2,
+        leagueName: 'Random Beer League',
       }
     ];
 
 
-    return {leagues};
+
+
+    let divisions = [
+      {
+        id: 1,
+        divisionName: 'A',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+      },
+      {
+        id: 1,
+        divisionName: 'B',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+      },
+      {
+        id: 1,
+        divisionName: 'C',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+      },
+      {
+        id: 1,
+        divisionName: 'D',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+      },
+      {
+        id: 1,
+        divisionName: 'E',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+      },
+    ]
+
+
+    return {leagues, divisions};
   }
 }
