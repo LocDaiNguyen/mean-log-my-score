@@ -42,7 +42,7 @@ export class LeagueUpdateComponent implements OnInit {
     this.router.navigate(['/leagues']);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.params
       .switchMap((params: Params) => this.leagueService.getLeague(+params['id']))
       .subscribe(

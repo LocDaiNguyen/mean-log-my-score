@@ -15,8 +15,9 @@ import { LeagueService } from '../../league/shared/league.service';
 export class DivisionNewComponent implements OnInit {
 
   error: string;
-  divisions: Division[];
+  leagueSelected: League;
   leagues: League[];
+  divisions: Division[];
 
   constructor(
     private divisionService: DivisionService,
@@ -50,7 +51,10 @@ export class DivisionNewComponent implements OnInit {
   getAllLeagues() {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => this.leagues = leagues,
+        leagues => {
+          this.leagues = leagues;
+          this.leagueSelected = leagues[0];
+        },
         error => this.error = error
       )
   }

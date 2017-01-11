@@ -7,6 +7,7 @@ import { DivisionComponent } from './division.component';
 import { DivisionRoutingModule } from './division-routing.module';
 import { DivisionListComponent } from './division-list/division-list.component';
 import { DivisionNewComponent } from './division-new/division-new.component';
+import { DivisionUpdateComponent } from './division-update/division-update.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DivisionNewComponent } from './division-new/division-new.component';
     DivisionComponent,
     DivisionListComponent,
     DivisionNewComponent,
+    DivisionUpdateComponent,
   ]
 })
 export class DivisionModule { }

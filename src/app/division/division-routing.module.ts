@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DivisionComponent } from './division.component';
 import { DivisionListComponent } from './division-list/division-list.component';
 import { DivisionNewComponent } from './division-new/division-new.component';
+import { DivisionUpdateComponent } from './division-update/division-update.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'new',
         component: DivisionNewComponent
+      },
+      {
+        path: ':id',
+        component: DivisionUpdateComponent
       }
     ]
   }

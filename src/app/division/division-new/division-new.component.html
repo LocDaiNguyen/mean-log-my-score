@@ -2,8 +2,8 @@
 <form (ngSubmit)="createDivision(form)" #form="ngForm" class="mar-top-2">
   <label for="league">League</label>
   <select
-    ngModel
-    name="league"
+    [ngModel]="leagueSelected"
+    name="leagueSelected"
     class="form-control"
     id="league"
     required>
