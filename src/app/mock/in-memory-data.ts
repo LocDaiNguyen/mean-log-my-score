@@ -52,6 +52,60 @@ export class InMemoryData implements InMemoryDbService {
     ];
 
 
-    return {leagues, divisions};
+
+
+    let teams = [
+      {
+        id: 1,
+        teamName: 'Falcons',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      },
+      {
+        id: 2,
+        teamName: 'Rebels',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      },
+      {
+        id: 3,
+        teamName: 'Stingers',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      },
+      {
+        id: 4,
+        teamName: 'Boomers',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      },
+      {
+        id: 5,
+        teamName: 'Knights',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      },
+      {
+        id: 6,
+        teamName: 'Warriors',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+      }
+    ];
+
+
+    return {leagues, divisions, teams};
   }
 }

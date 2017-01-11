@@ -16,6 +16,7 @@ import { TeamModule } from './team/team.module';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
+import { TeamService } from './team/shared/team.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DivisionService } from './division/shared/division.service';
   providers: [
     LeagueService,
     DivisionService,
+    TeamService,
   ],
   bootstrap: [AppComponent]
 })
