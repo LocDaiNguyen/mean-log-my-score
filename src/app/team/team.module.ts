@@ -6,6 +6,7 @@ import { TeamComponent } from './team.component';
 
 import { TeamRoutingModule } from './team-routing.module';
 import { TeamListComponent } from './team-list/team-list.component';
+import { TeamNewComponent } from './team-new/team-new.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { TeamListComponent } from './team-list/team-list.component';
   declarations: [
     TeamComponent,
     TeamListComponent,
+    TeamNewComponent,
   ]
 })
 export class TeamModule { }

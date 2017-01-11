@@ -27,7 +27,11 @@ export class DivisionNewComponent implements OnInit {
 
   createDivision(form): '' | void {
 
-    let newDivision = new Division(form.value.league.id, form.value.league.leagueName, form.value.divisionName);
+    let newDivision = new Division(
+      form.value.leagueSelected.id,
+      form.value.leagueSelected.leagueName,
+      form.value.divisionName
+    );
 
     if (!newDivision) { return; }
 
