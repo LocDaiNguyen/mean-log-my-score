@@ -46,14 +46,14 @@ export class DivisionService {
   updateDivision(division): Observable<Division> {
     const divisionUrl = `${this.divisionsUrl}/${division.id}`;
     return this.http.put(divisionUrl, JSON.stringify(division), {headers: this.headers})
-      .map(() => division)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   deleteDivision(id: any): Observable<void> {
     const divisionUrl = `${this.divisionsUrl}/${id}`;
     return this.http.delete(divisionUrl, {headers: this.headers})
-      .map(() => null)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 

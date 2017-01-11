@@ -46,14 +46,14 @@ export class TeamService {
   updateTeam(team): Observable<Team> {
     const teamUrl = `${this.teamsUrl}/${team.id}`;
     return this.http.put(teamUrl, JSON.stringify(team), {headers: this.headers})
-      .map(() => team)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   delteTeam(id: any): Observable<void> {
     const teamUrl = `${this.teamsUrl}/${id}`;
     return this.http.delete(teamUrl, {headers: this.headers})
-      .map(() => null)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 

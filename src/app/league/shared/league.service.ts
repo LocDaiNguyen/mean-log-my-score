@@ -46,14 +46,14 @@ export class LeagueService {
   updateLeague(league: League): Observable<League> {
     const leagueUrl = `${this.leaguesUrl}/${league.id}`;
     return this.http.put(leagueUrl, JSON.stringify(league), {headers: this.headers})
-      .map(() => league)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   deleteLeague(id: any): Observable<void> {
     const leagueUrl = `${this.leaguesUrl}/${id}`;
     return this.http.delete(leagueUrl, {headers: this.headers})
-      .map(() => null)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
