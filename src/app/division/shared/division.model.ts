@@ -1,6 +1,6 @@
 export class Division {
   leagueId: any;
-  leagueName: string:
+  leagueName: string;
   divisionName: string;
   id?: any;
 
