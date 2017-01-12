@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { League } from '../shared/league.model';
 import { LeagueService } from '../shared/league.service';
@@ -16,8 +15,7 @@ export class LeagueListComponent implements OnInit {
   noLeagues: boolean;
 
   constructor(
-    private leagueService: LeagueService,
-    private router: Router
+    private leagueService: LeagueService
   ) { }
 
   getAllLeagues(): void {
@@ -37,10 +35,6 @@ export class LeagueListComponent implements OnInit {
     } else {
       this.noLeagues = true;
     }
-  }
-
-  goTo(league: League): void {
-    this.router.navigate(['/leagues', league.id]);
   }
 
   ngOnInit(): void {

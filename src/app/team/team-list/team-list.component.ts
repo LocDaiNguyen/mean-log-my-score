@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import * as _ from 'lodash';
 
 import { Team } from '../shared/team.model';
 import { TeamService } from '../shared/team.service';
@@ -18,8 +15,7 @@ export class TeamListComponent implements OnInit {
   noTeams: boolean;
 
   constructor(
-    private teamService: TeamService,
-    private router: Router
+    private teamService: TeamService
   ) { }
 
   getAllTeams(): void {
@@ -39,10 +35,6 @@ export class TeamListComponent implements OnInit {
     } else {
       this.noTeams = true;
     }
-  }
-
-  goTo(team: Team): void {
-    this.router.navigate(['/teams', team.id]);
   }
 
   ngOnInit(): void {

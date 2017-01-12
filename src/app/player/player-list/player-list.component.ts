@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Player } from '../shared/player.model';
 import { PlayerService } from '../shared/player.service';

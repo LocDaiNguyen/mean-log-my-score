@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import * as _ from 'lodash';
 
 import { Division } from '../shared/division.model';
 import { DivisionService } from '../shared/division.service';
@@ -18,8 +15,7 @@ export class DivisionListComponent implements OnInit {
   noDivisions: boolean;
 
   constructor(
-    private divisionService: DivisionService,
-    private router: Router
+    private divisionService: DivisionService
   ) { }
 
   getAllDivisions(): void {
@@ -39,10 +35,6 @@ export class DivisionListComponent implements OnInit {
     } else {
       this.noDivisions = true;
     }
-  }
-
-  goTo(division: Division): void {
-    this.router.navigate(['/divisions', division.id]);
   }
 
   ngOnInit(): void {
