@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { LeagueModule } from './league/league.module';
 import { DivisionModule } from './division/division.module';
 import { TeamModule } from './team/team.module';
+import { PlayerModule } from './player/player.module';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
@@ -32,6 +33,7 @@ import { TeamService } from './team/shared/team.service';
     LeagueModule,
     DivisionModule,
     TeamModule,
+    PlayerModule,
   ],
   providers: [
     LeagueService,
