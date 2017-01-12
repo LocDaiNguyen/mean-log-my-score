@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PlayerComponent } from './player.component';
+import { PlayerListComponent } from './player-list/player-list.component';
 
 import { PlayerRoutingModule } from './player-routing.module';
 
@@ -12,6 +13,7 @@ import { PlayerRoutingModule } from './player-routing.module';
   ],
   declarations: [
     PlayerComponent,
+    PlayerListComponent,
   ]
 })
 export class PlayerModule { }
