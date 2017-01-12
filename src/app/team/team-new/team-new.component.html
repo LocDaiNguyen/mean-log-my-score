@@ -1,27 +1,40 @@
 <h2>Add Team</h2>
 <form (ngSubmit)="createTeam(form)" #form="ngForm" class="mar-top-2">
+  
   <label for="league">League</label>
   <select
-    [ngModel]="leagueSelected"
+    ngModel
+    (ngModelChange)="onChangeLeague($event)"
     name="leagueSelected"
     class="form-control"
     id="league"
     required>
     <option *ngFor="let league of leagues" [ngValue]="league">{{league.leagueName}}</option>
   </select>
+  
   <label for="division">Division</label>
   <select
-    [ngModel]="divisionSelected"
+    ngModel
     name="divisionSelected"
     class="form-control"
     id="division"
     required>
-    <option *ngFor="let division of divisions" [ngValue]="division">{{division.divisionName}}</option>
+    <option *ngFor="let division of divisions | filterBy: leagueId" [ngValue]="division">{{division.divisionName}}</option>
   </select>
+  
   <div class="form-group">
     <label for="team">Team</label>
-    <input ngModel name="teamName" type="text" class="form-control" id="team" placeholder="ex Falcons, Sharks" required>
+    <input
+      ngModel
+      name="teamName"
+      type="text"
+      class="form-control"
+      id="team"
+      placeholder="ex Falcons, Sharks"
+      required>
   </div>
-  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  
+  <button type="submit" class="btn btn-primary btn-block">Add</button>
   <button (click)="goBack()" type="button" class="btn btn-danger btn-block">Cancel</button>
+
 </form>

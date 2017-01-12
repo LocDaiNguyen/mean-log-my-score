@@ -49,6 +49,12 @@ export class InMemoryData implements InMemoryDbService {
         leagueId: 1,
         leagueName: 'Adult Recreation League',
       },
+      {
+        id: 6,
+        divisionName: 'TwoFour',
+        leagueId: 2,
+        leagueName: 'Random Beer League',
+      },
     ];
 
 

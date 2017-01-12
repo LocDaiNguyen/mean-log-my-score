@@ -17,9 +17,8 @@ import { DivisionService } from '../../division/shared/division.service';
 export class TeamNewComponent implements OnInit {
 
   error: string;
-  leagueSelected: League;
+  leagueId = {};
   leagues: League[];
-  divisionSelected: Division;
   divisions: Division[];
   teams: Team[];
 
@@ -51,7 +50,7 @@ export class TeamNewComponent implements OnInit {
      this.goBack();
   }
 
-  getAllTeams() {
+  getAllTeams(): void {
     this.teamService.getAllTeams()
       .subscribe(
         teams => this.teams = teams,
@@ -59,33 +58,35 @@ export class TeamNewComponent implements OnInit {
       )
   }
 
-  getAllLeagues() {
+  getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
         leagues => {
           this.leagues = leagues;
-          this.leagueSelected = leagues[0];
         },
         error => this.error = error
       );
   }
 
-  getAllDivisions() {
+  getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
         divisions => {
           this.divisions = divisions;
-          this.divisionSelected = divisions[0];
         },
         error => this.error = error
       );
+  }
+
+  onChangeLeague(league): void {
+    this.leagueId = {leagueId: league.id};
   }
 
   goBack(): void {
     this.router.navigate(['/teams']);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAllTeams();
     this.getAllLeagues();
     this.getAllDivisions();
