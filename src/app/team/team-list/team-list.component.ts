@@ -21,7 +21,7 @@ export class TeamListComponent implements OnInit {
   getAllTeams(): void {
     this.teamService.getAllTeams()
       .subscribe(
-        (teams) => {
+        (teams: Team[]) => {
           this.teams = teams;
           this.setNoTeams(teams);
         },
@@ -29,7 +29,7 @@ export class TeamListComponent implements OnInit {
       );
   }
 
-  setNoTeams(teams): void {
+  setNoTeams(teams: Team[]): void {
     if (teams.length > 0) {
       this.noTeams = false;
     } else {

@@ -44,7 +44,7 @@ export class PlayerUpdateComponent implements OnInit {
     this.playerService.updatePlayer(this.player)
       .subscribe(
         () => { this.goBack(); },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 
@@ -52,7 +52,7 @@ export class PlayerUpdateComponent implements OnInit {
     this.playerService.deletePlayer(id)
       .subscribe(
         () => { this.goBack(); },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       )
   }
 
@@ -122,7 +122,7 @@ export class PlayerUpdateComponent implements OnInit {
           this.leagueId = { leagueId: player.leagueId };
           this.divisionId = { divisionId: player.divisionId };
       },
-      (error) => { this.error = error; }
+      (error: string) => { this.error = error; }
     );
   }
 

@@ -21,7 +21,7 @@ export class PlayerListComponent implements OnInit {
   getAllPlayers(): void {
     this.playerService.getAllPlayers()
       .subscribe(
-        (players) => { 
+        (players: Player[]) => { 
           this.players = players;
           this.setNoPlayers(players);
         },

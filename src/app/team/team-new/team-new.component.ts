@@ -29,7 +29,7 @@ export class TeamNewComponent implements OnInit {
     private router: Router
   ) { }
 
-  createTeam(form): '' | void {
+  createTeam(form: NgForm): '' | void {
 
     let newTeam = new Team(
       form.value.leagueSelected.id,
@@ -43,8 +43,8 @@ export class TeamNewComponent implements OnInit {
 
     this.teamService.createTeam(newTeam)
       .subscribe(
-        (team) => { this.teams.push(team); },
-        (error) => { this.error = error; }
+        (team: Team) => { this.teams.push(team); },
+        (error: string) => { this.error = error; }
       );
 
      this.goBack();
@@ -53,24 +53,24 @@ export class TeamNewComponent implements OnInit {
   getAllTeams(): void {
     this.teamService.getAllTeams()
       .subscribe(
-        (teams) => { this.teams = teams; },
-        (error) => { this.error = error; }
+        (teams: Team[]) => { this.teams = teams; },
+        (error: string) => { this.error = error; }
       );
   }
 
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => { this.leagues = leagues; },
-        (error) => { this.error = error; }
+        (leagues: League[]) => { this.leagues = leagues; },
+        (error: string) => { this.error = error; }
       );
   }
 
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        (divisions) => { this.divisions = divisions; },
-        (error) => { this.error = error; }
+        (divisions: Division[]) => { this.divisions = divisions; },
+        (error: string) => { this.error = error; }
       );
   }
 

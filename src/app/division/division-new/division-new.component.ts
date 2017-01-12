@@ -25,7 +25,7 @@ export class DivisionNewComponent implements OnInit {
     private router: Router
   ) { }
 
-  createDivision(form): '' | void {
+  createDivision(form: NgForm): '' | void {
 
     let newDivision = new Division(
       form.value.leagueSelected.id,
@@ -37,8 +37,8 @@ export class DivisionNewComponent implements OnInit {
 
     this.divisionService.createDivisiion(newDivision)
       .subscribe(
-        (division) => { this.divisions.push(division); },
-        (error) => { this.error = error; }
+        (division: Division) => { this.divisions.push(division); },
+        (error: string) => { this.error = error; }
       );
 
      this.goBack();
@@ -47,19 +47,19 @@ export class DivisionNewComponent implements OnInit {
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        (divisions) => { this.divisions = divisions; },
-        (error) => { this.error = error; }
+        (divisions: Division[]) => { this.divisions = divisions; },
+        (error: string) => { this.error = error; }
       );
   }
 
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => {
+        (leagues: League[]) => {
           this.leagues = leagues;
           this.leagueSelected = leagues[0];
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 

@@ -28,8 +28,8 @@ export class LeagueNewComponent implements OnInit {
 
     this.leagueService.createLeague(newLeague)
       .subscribe(
-        (league) => { this.leagues.push(league); },
-        (error) => { this.error = error; }
+        (league: League) => { this.leagues.push(league); },
+        (error: string) => { this.error = error; }
       );
 
     this.goBack();
@@ -38,8 +38,8 @@ export class LeagueNewComponent implements OnInit {
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => { this.leagues = leagues; },
-        (error) => { this.error = error; }
+        (leagues: League[]) => { this.leagues = leagues; },
+        (error: string) => { this.error = error; }
       );
   }
 

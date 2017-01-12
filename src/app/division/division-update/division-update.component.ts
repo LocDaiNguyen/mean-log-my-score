@@ -32,15 +32,15 @@ export class DivisionUpdateComponent implements OnInit {
     this.divisionService.updateDivision(this.division)
       .subscribe(
         () => { this.goBack(); },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 
-  deleteDivision(id: string): void {
+  deleteDivision(id: any): void {
     this.divisionService.deleteDivision(id)
       .subscribe(
         () => { this.goBack(); },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 
@@ -48,14 +48,14 @@ export class DivisionUpdateComponent implements OnInit {
     this.router.navigate(['/divisions']);
   }
 
-  getAllLeagues(division): void {
+  getAllLeagues(division: Division): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => {
+        (leagues: League[]) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, (league) => { return league.id === division.leagueId; });
+          this.leagueSelected = _.find(leagues, (league: League) => { return league.id === division.leagueId; });
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 
@@ -63,11 +63,11 @@ export class DivisionUpdateComponent implements OnInit {
     this.activatedRoute.params
       .switchMap((params: Params) => this.divisionService.getDivision(+params['id']))
       .subscribe(
-        (division) => {
+        (division: Division) => {
           this.division = division;
           this.getAllLeagues(division);
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 

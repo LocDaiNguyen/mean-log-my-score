@@ -21,7 +21,7 @@ export class DivisionListComponent implements OnInit {
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        (divisions) => {
+        (divisions: Division[]) => {
           this.divisions = divisions;
           this.setNoDivisions(divisions);
         },
@@ -29,7 +29,7 @@ export class DivisionListComponent implements OnInit {
       );
   }
 
-  setNoDivisions(divisions): void {
+  setNoDivisions(divisions: Division[]): void {
     if (divisions.length > 0) {
       this.noDivisions = false;
     } else {

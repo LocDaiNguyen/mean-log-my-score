@@ -21,7 +21,7 @@ export class LeagueListComponent implements OnInit {
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        (leagues) => {
+        (leagues: League[]) => {
           this.leagues = leagues;
           this.setNoLeagues(leagues);
         },
@@ -29,7 +29,7 @@ export class LeagueListComponent implements OnInit {
       );
   }
 
-  setNoLeagues(leagues): void {
+  setNoLeagues(leagues: League[]): void {
     if (leagues.length > 0) {
       this.noLeagues = false;
     } else {
