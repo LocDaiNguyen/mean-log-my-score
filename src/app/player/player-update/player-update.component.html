@@ -1,0 +1,55 @@
+<div *ngIf="player">
+  <h2>Update Player</h2>
+  <form (ngSubmit)="updatePlayer(form)" #form="ngForm" class="mar-top-2">
+    
+    <label for="league">League</label>
+    <select
+      [ngModel]="leagueSelected"
+      (ngModelChange)="onChangeLeague($event)"
+      name="leagueSelected"
+      class="form-control"
+      id="league"
+      required>
+      <option *ngFor="let league of leagues" [ngValue]="league">{{league.leagueName}}</option>
+    </select>
+    
+    <label for="division">Division</label>
+    <select
+      [ngModel]="divisionSelected"
+      (ngModelChange)="onChangeDivision($event)"
+      name="divisionSelected"
+      class="form-control"
+      id="division"
+      required>
+      <option *ngFor="let division of divisions | filterBy: leagueId" [ngValue]="division">{{division.divisionName}}</option>
+    </select>
+
+    <label for="team">Team</label>
+    <select
+      [ngModel]="teamSelected"
+      (ngModelChange)="onChangeTeam($event)"
+      name="teamSelected"
+      class="form-control"
+      id="team"
+      required>
+      <option *ngFor="let team of teams | filterBy: divisionId" [ngValue]="team">{{team.teamName}}</option>
+    </select>
+    
+    <div class="form-group">
+      <label for="player">Player</label>
+      <input
+        [(ngModel)]="player.playerName"
+        name="player.playerName"
+        type="text"
+        class="form-control"
+        id="player"
+        placeholder="ex Falcons, Sharks"
+        required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-block">Update Player</button>
+    <button (click)="deletePlayer(player.id)" type="button" class="btn btn-danger btn-block">Delete</button>
+    <button (click)="goBack()" type="button" class="btn btn-default btn-block">Cancel</button>
+
+  </form>
+</div>
