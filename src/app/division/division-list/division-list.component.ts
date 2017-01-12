@@ -25,7 +25,7 @@ export class DivisionListComponent implements OnInit {
           this.divisions = divisions;
           this.setNoDivisions(divisions);
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 

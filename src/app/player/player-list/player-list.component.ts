@@ -25,7 +25,7 @@ export class PlayerListComponent implements OnInit {
           this.players = players;
           this.setNoPlayers(players);
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 

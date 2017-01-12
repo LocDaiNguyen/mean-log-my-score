@@ -25,7 +25,7 @@ export class TeamListComponent implements OnInit {
           this.teams = teams;
           this.setNoTeams(teams);
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 

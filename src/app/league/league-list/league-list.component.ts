@@ -25,7 +25,7 @@ export class LeagueListComponent implements OnInit {
           this.leagues = leagues;
           this.setNoLeagues(leagues);
         },
-        (error) => { this.error = error; }
+        (error: string) => { this.error = error; }
       );
   }
 
