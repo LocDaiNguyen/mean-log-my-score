@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PlayerComponent } from './player.component';
 import { PlayerListComponent } from './player-list/player-list.component';
+import { PlayerNewComponent } from './player-new/player-new.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: '',
         component: PlayerListComponent
+      },
+      {
+        path: 'new',
+        component: PlayerNewComponent
       }
     ]
   }

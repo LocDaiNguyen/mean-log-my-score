@@ -1,0 +1,51 @@
+<h2>Add Player</h2>
+<form (ngSubmit)="createPlayer(form)" #form="ngForm" class="mar-top-2">
+  
+  <label for="league">League</label>
+  <select
+    ngModel
+    (ngModelChange)="onChangeLeague($event)"
+    name="leagueSelected"
+    class="form-control"
+    id="league"
+    required>
+    <option *ngFor="let league of leagues" [ngValue]="league">{{league.leagueName}}</option>
+  </select>
+  
+  <label for="division">Division</label>
+  <select
+    ngModel
+    (ngModelChange)="onChangeDivision($event)"
+    name="divisionSelected"
+    class="form-control"
+    id="division"
+    required>
+    <option *ngFor="let division of divisions | filterBy: leagueId" [ngValue]="division">{{division.divisionName}}</option>
+  </select>
+
+  <label for="team">Teams</label>
+  <select
+    ngModel
+    name="teamSelected"
+    class="form-control"
+    id="team"
+    required>
+    <option *ngFor="let team of teams | filterBy: divisionId" [ngValue]="team">{{team.teamName}}</option>
+  </select>
+  
+  <div class="form-group">
+    <label for="player">Player</label>
+    <input
+      ngModel
+      name="playerName"
+      type="text"
+      class="form-control"
+      id="player"
+      placeholder="ex John"
+      required>
+  </div>
+  
+  <button type="submit" class="btn btn-primary btn-block">Add Player</button>
+  <button (click)="goBack()" type="button" class="btn btn-danger btn-block">Cancel</button>
+
+</form>
