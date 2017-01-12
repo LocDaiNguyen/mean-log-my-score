@@ -37,45 +37,38 @@ export class TeamUpdateComponent implements OnInit {
   updateTeam(): void {
     this.teamService.updateTeam(this.team)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => {this.goBack()},
+        (error) => {this.error = error}
       );
   }
 
-  deleteDivision(id: any): void {
+  deleteTeam(id: any): void {
     this.teamService.delteTeam(id)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => {this.goBack()},
+        (error) => {this.error = error}
       );
   }
 
   getAllLeagues(team): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => {
+        (leagues) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, function(league) {
-            return league.id === team.leagueId;
-          });
+          this.leagueSelected = _.find(leagues, (league) => {return league.id === team.leagueId});
         },
-        error => this.error = error
+        (error) => {this.error = error}
       );
   }
 
   getAllDivisions(team): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        divisions => {
-          // this.divisions = _.filter(divisions, function(division) {
-          //   return division.leagueId === team.leagueId;
-          // });
+        (divisions) => {
           this.divisions = divisions;
-          this.divisionSelected = _.find(divisions, function(division) {
-            return division.id === team.divisionId;
-          });
+          this.divisionSelected = _.find(divisions, (division) => {return division.id === team.divisionId});
         },
-        error => this.error = error
+        (error) => {this.error = error}
       );
   }
 
@@ -83,18 +76,6 @@ export class TeamUpdateComponent implements OnInit {
     this.leagueId = {leagueId: league.id};
     this.team.leagueId = league.id;
     this.team.leagueName = league.leagueName;
-    // this.divisionService.getAllDivisions()
-    //   .subscribe(
-    //     divisions => {
-    //       this.divisions = _.filter(divisions, function(division) {
-    //         return division.leagueId === league.id;
-    //       });
-    //       this.divisionSelected = _.find(divisions, function(division) {
-    //         return division.leagueId === league.id;
-    //       });
-    //     },
-    //     error => this.error = error
-    //   );
   }
 
   onChangeDivision(division): void {
@@ -110,13 +91,13 @@ export class TeamUpdateComponent implements OnInit {
     this.activatedRoute.params
       .switchMap((params: Params) => this.teamService.getTeam(+params['id']))
       .subscribe(
-        team => {
+        (team) => {
           this.team = team;
           this.getAllLeagues(team);
           this.getAllDivisions(team);
           this.leagueId = {leagueId: team.leagueId};
         },
-        error => this.error = error
+        (error) => {this.error = error}
       );
   }
 
