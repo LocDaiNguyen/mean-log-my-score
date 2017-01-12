@@ -25,11 +25,11 @@ export class DivisionListComponent implements OnInit {
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        divisions => {
+        (divisions) => {
           this.divisions = divisions;
           this.setNoDivisions(divisions);
         },
-        error => this.error = error
+        (error) => { this.error = error; }
       );
   }
 

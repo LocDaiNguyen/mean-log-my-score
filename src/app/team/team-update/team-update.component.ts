@@ -37,16 +37,16 @@ export class TeamUpdateComponent implements OnInit {
   updateTeam(): void {
     this.teamService.updateTeam(this.team)
       .subscribe(
-        () => {this.goBack()},
-        (error) => {this.error = error}
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
   deleteTeam(id: any): void {
     this.teamService.delteTeam(id)
       .subscribe(
-        () => {this.goBack()},
-        (error) => {this.error = error}
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
@@ -55,9 +55,9 @@ export class TeamUpdateComponent implements OnInit {
       .subscribe(
         (leagues) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, (league) => {return league.id === team.leagueId});
+          this.leagueSelected = _.find(leagues, (league) => { return league.id === team.leagueId; });
         },
-        (error) => {this.error = error}
+        (error) => { this.error = error; }
       );
   }
 
@@ -66,14 +66,14 @@ export class TeamUpdateComponent implements OnInit {
       .subscribe(
         (divisions) => {
           this.divisions = divisions;
-          this.divisionSelected = _.find(divisions, (division) => {return division.id === team.divisionId});
+          this.divisionSelected = _.find(divisions, (division) => { return division.id === team.divisionId; });
         },
-        (error) => {this.error = error}
+        (error) => { this.error = error; }
       );
   }
 
   onChangeLeague(league): void {
-    this.leagueId = {leagueId: league.id};
+    this.leagueId = { leagueId: league.id };
     this.team.leagueId = league.id;
     this.team.leagueName = league.leagueName;
   }
@@ -95,9 +95,9 @@ export class TeamUpdateComponent implements OnInit {
           this.team = team;
           this.getAllLeagues(team);
           this.getAllDivisions(team);
-          this.leagueId = {leagueId: team.leagueId};
+          this.leagueId = { leagueId: team.leagueId };
         },
-        (error) => {this.error = error}
+        (error) => { this.error = error; }
       );
   }
 

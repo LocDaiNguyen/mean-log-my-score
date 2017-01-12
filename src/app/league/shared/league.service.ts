@@ -33,7 +33,7 @@ export class LeagueService {
 
   getLeague(id: any): Observable<League> {
     return this.getAllLeagues()
-      .map(leagues => leagues.find(league => league.id === id))
+      .map((leagues) => leagues.find((league) => league.id === id))
       .catch(this.handleError);
   }
 

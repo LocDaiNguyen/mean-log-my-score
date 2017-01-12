@@ -33,7 +33,7 @@ export class DivisionService {
 
   getDivision(id: any): Observable<Division> {
     return this.getAllDivisions()
-      .map(divisions => divisions.find(division => division.id === id))
+      .map((divisions) => divisions.find((division) => division.id === id))
       .catch(this.handleError);
   }
 

@@ -28,52 +28,46 @@ export class DivisionUpdateComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  updateDivision() {
+  updateDivision(): void {
     this.divisionService.updateDivision(this.division)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
-  deleteDivision(id: string) {
+  deleteDivision(id: string): void {
     this.divisionService.deleteDivision(id)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigate(['/divisions']);
   }
 
-  getAllLeagues(division) {
+  getAllLeagues(division): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => {
+        (leagues) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, function(league) {
-            return league.id === division.leagueId;
-          });
+          this.leagueSelected = _.find(leagues, (league) => { return league.id === division.leagueId; });
         },
-        error => this.error = error
+        (error) => { this.error = error; }
       );
-  }
-
-  onChange(league): void {
-    console.log(league);
   }
 
   ngOnInit(): void {
     this.activatedRoute.params
       .switchMap((params: Params) => this.divisionService.getDivision(+params['id']))
       .subscribe(
-        division => {
+        (division) => {
           this.division = division;
           this.getAllLeagues(division);
         },
-        error => this.error = error
+        (error) => { this.error = error; }
       );
   }
 

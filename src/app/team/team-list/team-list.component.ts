@@ -25,11 +25,11 @@ export class TeamListComponent implements OnInit {
   getAllTeams(): void {
     this.teamService.getAllTeams()
       .subscribe(
-        teams => {
+        (teams) => {
           this.teams = teams;
           this.setNoTeams(teams);
         },
-        error => this.error = error
+        (error) => { this.error = error; }
       );
   }
 

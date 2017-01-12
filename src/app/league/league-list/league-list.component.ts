@@ -23,11 +23,11 @@ export class LeagueListComponent implements OnInit {
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => {
+        (leagues) => {
           this.leagues = leagues;
           this.setNoLeagues(leagues);
         },
-        error => this.error = error
+        (error) => { this.error = error; }
       );
   }
 

@@ -25,16 +25,16 @@ export class LeagueUpdateComponent implements OnInit {
   updateLeague(): void {
     this.leagueService.updateLeague(this.league)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
   deleteLeague(id: string): void {
     this.leagueService.deleteLeague(id)
       .subscribe(
-        () => this.goBack(),
-        error => this.error = error
+        () => { this.goBack(); },
+        (error) => { this.error = error; }
       );
   }
 
@@ -46,8 +46,8 @@ export class LeagueUpdateComponent implements OnInit {
     this.activatedRoute.params
       .switchMap((params: Params) => this.leagueService.getLeague(+params['id']))
       .subscribe(
-        league => this.league = league,
-        error => this.error = error
+        (league) => { this.league = league; },
+        (error) => { this.error = error; }
       );
   }
 

@@ -43,8 +43,8 @@ export class TeamNewComponent implements OnInit {
 
     this.teamService.createTeam(newTeam)
       .subscribe(
-        team => this.teams.push(team),
-        error => this.error = error
+        (team) => { this.teams.push(team); },
+        (error) => { this.error = error; }
       );
 
      this.goBack();
@@ -53,33 +53,29 @@ export class TeamNewComponent implements OnInit {
   getAllTeams(): void {
     this.teamService.getAllTeams()
       .subscribe(
-        teams => this.teams = teams,
-        error => this.error = error
-      )
+        (teams) => { this.teams = teams; },
+        (error) => { this.error = error; }
+      );
   }
 
   getAllLeagues(): void {
     this.leagueService.getAllLeagues()
       .subscribe(
-        leagues => {
-          this.leagues = leagues;
-        },
-        error => this.error = error
+        (leagues) => { this.leagues = leagues; },
+        (error) => { this.error = error; }
       );
   }
 
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
       .subscribe(
-        divisions => {
-          this.divisions = divisions;
-        },
-        error => this.error = error
+        (divisions) => { this.divisions = divisions; },
+        (error) => { this.error = error; }
       );
   }
 
   onChangeLeague(league): void {
-    this.leagueId = {leagueId: league.id};
+    this.leagueId = { leagueId: league.id };
   }
 
   goBack(): void {

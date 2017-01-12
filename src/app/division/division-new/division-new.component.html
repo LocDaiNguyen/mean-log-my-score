@@ -1,5 +1,6 @@
 <h2>Add Division</h2>
 <form (ngSubmit)="createDivision(form)" #form="ngForm" class="mar-top-2">
+  
   <label for="league">League</label>
   <select
     [ngModel]="leagueSelected"
@@ -9,10 +10,20 @@
     required>
     <option *ngFor="let league of leagues" [ngValue]="league">{{league.leagueName}}</option>
   </select>
+
   <div class="form-group">
     <label for="division">Division</label>
-    <input ngModel name="divisionName" type="text" class="form-control" id="division" placeholder="ex A, B, C, D, E, Rec" required>
+    <input
+      ngModel
+      name="divisionName"
+      type="text"
+      class="form-control"
+      id="division"
+      placeholder="ex A, B, C, D, E, Rec"
+      required>
   </div>
-  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+  <button type="submit" class="btn btn-primary btn-block">Add Division</button>
   <button (click)="goBack()" type="button" class="btn btn-danger btn-block">Cancel</button>
+
 </form>

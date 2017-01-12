@@ -33,7 +33,7 @@ export class TeamService {
 
   getTeam(id: any): Observable<Team> {
     return this.getAllTeams()
-      .map(teams => teams.find(team => team.id === id))
+      .map((teams) => teams.find((team) => team.id === id))
       .catch(this.handleError);
   }
 
