@@ -14,11 +14,13 @@ import { LeagueModule } from './league/league.module';
 import { DivisionModule } from './division/division.module';
 import { TeamModule } from './team/team.module';
 import { PlayerModule } from './player/player.module';
+import { SeasonModule } from './season/season.module';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
 import { TeamService } from './team/shared/team.service';
 import { PlayerService } from './player/shared/player.service';
+import { SeasonService } from './season/shared/season.service';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { PlayerService } from './player/shared/player.service';
     DivisionModule,
     TeamModule,
     PlayerModule,
+    SeasonModule,
   ],
   providers: [
     LeagueService,
     DivisionService,
     TeamService,
     PlayerService,
+    SeasonService,
   ],
   bootstrap: [AppComponent]
 })

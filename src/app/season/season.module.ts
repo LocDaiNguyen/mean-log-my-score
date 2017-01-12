@@ -7,11 +7,13 @@ import { SeasonNewComponent } from './season-new/season-new.component';
 import { SeasonUpdateComponent } from './season-update/season-update.component';
 
 import { SeasonRoutingModule } from './season-routing.module';
+import { FilterByPipeModule } from '../shared/filter-by.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SeasonRoutingModule,
+    FilterByPipeModule,
   ],
   declarations: [
     SeasonComponent,

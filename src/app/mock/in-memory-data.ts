@@ -128,6 +128,24 @@ export class InMemoryData implements InMemoryDbService {
     ];
 
 
+
+
+    let seasons = [
+      {
+        id: 1,
+        seasonName: 'ARL A Winter 2017',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+        teamId: 1,
+        teamName: 'Falcons',
+      }
+    ];
+
+
     return {leagues, divisions, teams, players};
   }
 }
