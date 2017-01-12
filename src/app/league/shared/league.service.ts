@@ -3,17 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 
 import { League } from './league.model';
 
@@ -33,7 +26,7 @@ export class LeagueService {
 
   getLeague(id: any): Observable<League> {
     return this.getAllLeagues()
-      .map((leagues) => leagues.find((league) => league.id === id))
+      .map((leagues: League[]) => leagues.find((league: League) => league.id === id))
       .catch(this.handleError);
   }
 

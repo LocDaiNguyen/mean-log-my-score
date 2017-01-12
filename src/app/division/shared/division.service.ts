@@ -3,17 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 
 import { Division } from './division.model';
 
@@ -33,17 +26,17 @@ export class DivisionService {
 
   getDivision(id: any): Observable<Division> {
     return this.getAllDivisions()
-      .map((divisions) => divisions.find((division) => division.id === id))
+      .map((divisions: Division[]) => divisions.find((division: Division) => division.id === id))
       .catch(this.handleError);
   }
 
-  createDivisiion(division): Observable<Division> {
+  createDivisiion(division: Division): Observable<Division> {
     return this.http.post(this.divisionsUrl, JSON.stringify(division), {headers: this.headers})
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
-  updateDivision(division): Observable<Division> {
+  updateDivision(division: Division): Observable<Division> {
     const divisionUrl = `${this.divisionsUrl}/${division.id}`;
     return this.http.put(divisionUrl, JSON.stringify(division), {headers: this.headers})
       .map((response: Response) => response.json())

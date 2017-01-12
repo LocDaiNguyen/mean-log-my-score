@@ -3,17 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 
 import { Team } from './team.model';
 
@@ -33,17 +26,17 @@ export class TeamService {
 
   getTeam(id: any): Observable<Team> {
     return this.getAllTeams()
-      .map((teams) => teams.find((team) => team.id === id))
+      .map((teams: Team[]) => teams.find((team: Team) => team.id === id))
       .catch(this.handleError);
   }
 
-  createTeam(team): Observable<Team> {
+  createTeam(team: Team): Observable<Team> {
     return this.http.post(this.teamsUrl, JSON.stringify(team), {headers: this.headers})
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
-  updateTeam(team): Observable<Team> {
+  updateTeam(team: Team): Observable<Team> {
     const teamUrl = `${this.teamsUrl}/${team.id}`;
     return this.http.put(teamUrl, JSON.stringify(team), {headers: this.headers})
       .map((response: Response) => response.json())
