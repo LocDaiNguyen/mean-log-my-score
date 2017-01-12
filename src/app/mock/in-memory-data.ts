@@ -146,6 +146,6 @@ export class InMemoryData implements InMemoryDbService {
     ];
 
 
-    return {leagues, divisions, teams, players};
+    return {leagues, divisions, teams, players, seasons};
   }
 }
