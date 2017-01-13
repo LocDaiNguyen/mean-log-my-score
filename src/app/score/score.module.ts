@@ -7,6 +7,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
 
 import { ScoreComponent } from './score.component';
 import { ScoreListComponent } from './score-list/score-list.component';
+import { ScoreNewComponent } from './score-new/score-new.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ScoreListComponent } from './score-list/score-list.component';
   declarations: [
     ScoreComponent,
     ScoreListComponent,
+    ScoreNewComponent,
   ]
 })
 export class ScoreModule { }

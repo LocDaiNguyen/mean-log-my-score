@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ScoreComponent } from './score.component';
 import { ScoreListComponent } from './score-list/score-list.component';
+import { ScoreNewComponent } from './score-new/score-new.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: '',
         component: ScoreListComponent
+      },
+      {
+        path: 'new',
+        component: ScoreNewComponent
       }
     ]
   }

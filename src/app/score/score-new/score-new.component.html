@@ -1,0 +1,90 @@
+<h2>Add Score</h2>
+<form (ngSubmit)="createScore(form)" #form="ngForm" class="mar-top-2">
+  
+  <label for="game">Game</label>
+  <select
+    ngModel
+    (ngModelChange)="onChangeGame($event)"
+    name="gameSelected"
+    class="form-control"
+    id="game"
+    required>
+    <option *ngFor="let game of games" [ngValue]="game">vs {{game.opponentName}} {{game.date | date: 'EEE MMM d y h:mm'}} {{game.divisionName}} {{game.leagueName}} </option>
+  </select>
+
+  <label for="scoreType">Score Type</label>
+  <select
+    ngModel
+    name="scoreType"
+    class="form-control"
+    id="scoreType"
+    required>
+    <option *ngFor="let scoreType of scoreTypes" [ngValue]="scoreType">{{scoreType}}</option>
+  </select>
+
+  <label for="goalScorer">Goal Scorer</label>
+  <select
+    ngModel
+    name="goalScorer"
+    class="form-control"
+    id="goalScorer"
+    required>
+    <option *ngFor="let player of players | filterBy: teamId" [ngValue]="player">{{player.playerName}}</option>
+  </select>
+
+  <label for="assistorOne">Assistor One</label>
+  <select
+    ngModel
+    name="assistorOne"
+    class="form-control"
+    id="assistorOne"
+    required>
+    <option *ngFor="let player of players | filterBy: teamId" [ngValue]="player">{{player.playerName}}</option>
+  </select>
+
+  <label for="assistorTwo">Assistor Two</label>
+  <select
+    ngModel
+    name="assistorTwo"
+    class="form-control"
+    id="assistorTwo"
+    required>
+    <option *ngFor="let player of players | filterBy: teamId" [ngValue]="player">{{player.playerName}}</option>
+  </select>
+
+  <label for="situation">Situation</label>
+  <select
+    ngModel
+    name="situation"
+    class="form-control"
+    id="situation"
+    required>
+    <option *ngFor="let situation of situations" [ngValue]="situation">{{situation}}</option>
+  </select>
+
+  <label for="period">Period</label>
+  <select
+    ngModel
+    name="period"
+    class="form-control"
+    id="period"
+    required>
+    <option *ngFor="let period of periods" [ngValue]="period">{{period}}</option>
+  </select>
+
+  <div class="form-group">
+    <label for="scoreTime">Time</label>
+    <input
+      ngModel
+      name="scoreTime"
+      type="text"
+      class="form-control"
+      id="scoreTime"
+      placeholder="11:33"
+      required>
+  </div>
+  
+  <button type="submit" class="btn btn-primary btn-block">Add Score</button>
+  <button (click)="goBack()" type="button" class="btn btn-danger btn-block">Cancel</button>
+
+</form>
