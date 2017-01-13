@@ -12,6 +12,7 @@ export class Game {
   opponentId: any;
   opponentName: string;
   date: string;
+  time: string;
   gameType: string;
   id?: any;
 
@@ -29,6 +30,7 @@ export class Game {
     opponentId: any,
     opponentName: string,
     date: string,
+    time: string,
     gameType: string,
     id?: any
   ) {
@@ -45,6 +47,7 @@ export class Game {
     this.opponentId = opponentId;
     this.opponentName = opponentName;
     this.date = date;
+    this.time = time;
     this.gameType = gameType;
     this.id = id;
   }

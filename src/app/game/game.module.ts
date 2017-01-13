@@ -7,6 +7,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
 
 import { GameComponent } from './game.component';
 import { GameListComponent } from './game-list/game-list.component';
+import { GameNewComponent } from './game-new/game-new.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { GameListComponent } from './game-list/game-list.component';
   declarations: [
     GameComponent,
     GameListComponent,
+    GameNewComponent,
   ]
 })
 export class GameModule { }

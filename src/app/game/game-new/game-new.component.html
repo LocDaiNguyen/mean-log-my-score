@@ -1,0 +1,62 @@
+<h2>Add Game</h2>
+<form (ngSubmit)="createGame(form)" #form="ngForm" class="mar-top-2">
+  
+  <label for="season">Season</label>
+  <select
+    ngModel
+    (ngModelChange)="onChangeSeason($event)"
+    name="seasonSelected"
+    class="form-control"
+    id="season"
+    required>
+    <option *ngFor="let season of seasons" [ngValue]="season">{{season.seasonName}}</option>
+  </select>
+
+  <label for="team">Opponent</label>
+  <select
+    ngModel
+    name="teamSelected"
+    class="form-control"
+    id="team"
+    required>
+    <option *ngFor="let team of teams | filterBy: divisionId" [ngValue]="team">{{team.teamName}}</option>
+  </select>
+
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input
+      ngModel
+      name="date"
+      type="text"
+      class="form-control"
+      id="date"
+      placeholder="ex Fri Jan 20 2017"
+      required>
+  </div>
+
+  <div class="form-group">
+    <label for="time">Time</label>
+    <input
+      ngModel
+      name="time"
+      type="text"
+      class="form-control"
+      id="time"
+      placeholder="ex 20:00:00 GMT-0500 (EST)"
+      required>
+  </div>
+
+  <label for="gameType">Game Type</label>
+  <select
+    ngModel
+    name="gameType"
+    class="form-control"
+    id="gameType"
+    required>
+    <option *ngFor="let gameType of gameTypes" [ngValue]="gameType">{{gameType}}</option>
+  </select>
+  
+  <button type="submit" class="btn btn-primary btn-block">Add Game</button>
+  <button (click)="goBack()" type="button" class="btn btn-danger btn-block">Cancel</button>
+
+</form>
