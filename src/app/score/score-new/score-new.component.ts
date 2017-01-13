@@ -22,8 +22,11 @@ export class ScoreNewComponent implements OnInit {
   players: Player[];
   teamId = {};
   scoreTypes: Array<string>
+  scoreType: string;
   situations: Array<string>;
+  situation: string;
   periods: Array<string>;
+  period: string;
   scoreTime: string;
 
   constructor(
@@ -53,15 +56,15 @@ export class ScoreNewComponent implements OnInit {
       form.value.gameSelected.gameType,
       form.value.gameSelected.gameId,
       form.value.scoreType,
+      form.value.situation,
+      form.value.period,
+      form.value.scoreTime,
       form.value.goalScorerId,
       form.value.goalScorerName,
       form.value.assistorOneId,
       form.value.assistorOneName,
       form.value.assistorTwoId,
       form.value.assistorTwoName,
-      form.value.situation,
-      form.value.period,
-      form.value.scoreTime
     )
 
     if (!newScore) { return; }
@@ -112,8 +115,11 @@ export class ScoreNewComponent implements OnInit {
     this.getAllGames();
     this.getAllPlayers();
     this.scoreTypes = ['Goal', 'Assist'];
+    this.scoreType = 'Goal'
     this.situations = ['Even Strength', 'Power Play', 'Short Handed'];
+    this.situation = 'Even Strength';
     this.periods = ['1st', '2nd', '3rd', 'OT', 'Shootout'];
+    this.period = '1st';
   }
 
 }

@@ -16,15 +16,15 @@ export class Score {
   gameType: string;
   gameId: any;
   scoreType: string;
-  goalScorerId: any;
-  goalScorerName: string;
-  assistorOneId: any;
-  assistorOneName: string;
-  assistorTwoId: any;
-  assistorTwoName: string;
   situation: string;
   period: string;
   scoreTime: string;
+  goalScorerId?: any;
+  goalScorerName?: string;
+  assistorOneId?: any;
+  assistorOneName?: string;
+  assistorTwoId?: any;
+  assistorTwoName?: string;
   id?: any;
 
   constructor(
@@ -45,15 +45,15 @@ export class Score {
     gameType: string,
     gameId: any,
     scoreType: string,
-    goalScorerId: any,
-    goalScorerName: string,
-    assistorOneId: any,
-    assistorOneName: string,
-    assistorTwoId: any,
-    assistorTwoName: string,
     situation: string,
     period: string,
     scoreTime: string,
+    goalScorerId?: any,
+    goalScorerName?: string,
+    assistorOneId?: any,
+    assistorOneName?: string,
+    assistorTwoId?: any,
+    assistorTwoName?: string,
     id?: any
   ) {
     this.leagueId = leagueId;
@@ -73,15 +73,15 @@ export class Score {
     this.gameType = gameType;
     this.gameId = gameId,
     this.scoreType = scoreType,
+    this.situation = situation,
+    this.period = period,
+    this.scoreTime = scoreTime,
     this.goalScorerId = goalScorerId,
     this.goalScorerName = goalScorerName,
     this.assistorOneId = assistorOneId,
     this.assistorOneName = assistorOneName,
     this.assistorTwoId = assistorTwoId,
     this.assistorTwoName = assistorTwoName,
-    this.situation = situation,
-    this.period = period,
-    this.scoreTime = scoreTime,
     this.id = id;
   }
 }
