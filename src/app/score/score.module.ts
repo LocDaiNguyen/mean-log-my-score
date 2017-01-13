@@ -6,6 +6,7 @@ import { ScoreRoutingModule } from './score-routing.module';
 import { FilterByPipeModule } from '../shared/filter-by.module';
 
 import { ScoreComponent } from './score.component';
+import { ScoreListComponent } from './score-list/score-list.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ScoreComponent } from './score.component';
   ],
   declarations: [
     ScoreComponent,
+    ScoreListComponent,
   ]
 })
 export class ScoreModule { }
