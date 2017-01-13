@@ -16,6 +16,7 @@ import { TeamModule } from './team/team.module';
 import { PlayerModule } from './player/player.module';
 import { SeasonModule } from './season/season.module';
 import { GameModule } from './game/game.module';
+import { ScoreModule } from './score/score.module';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
@@ -41,6 +42,7 @@ import { GameService } from './game/shared/game.service';
     PlayerModule,
     SeasonModule,
     GameModule,
+    ScoreModule,
   ],
   providers: [
     LeagueService,
