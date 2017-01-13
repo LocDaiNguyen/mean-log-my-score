@@ -6,6 +6,7 @@ import { GameRoutingModule } from './game-routing.module';
 import { FilterByPipeModule } from '../shared/filter-by.module';
 
 import { GameComponent } from './game.component';
+import { GameListComponent } from './game-list/game-list.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { GameComponent } from './game.component';
   ],
   declarations: [
     GameComponent,
+    GameListComponent,
   ]
 })
 export class GameModule { }
