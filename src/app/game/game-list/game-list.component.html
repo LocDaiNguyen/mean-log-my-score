@@ -33,7 +33,7 @@
         <td>{{game.teamName}}</td>
         <td>{{game.opponentName}}</td>
         <td>{{game.date | date: 'EEE MMM d y'}}</td>
-        <td>{{game.date | date: 'h:mm' }}</td>
+        <td>{{game.time | date: 'h:mm' }}</td>
         <td>{{game.gameType}}</td>
         <td>
           <a [routerLink]="['/games', game.id]" class="btn btn-default">

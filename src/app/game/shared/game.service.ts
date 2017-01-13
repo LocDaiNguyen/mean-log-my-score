@@ -43,7 +43,7 @@ export class GameService {
       .catch(this.handleError);
   }
 
-  delete(id: any): Observable<void> {
+  deleteGame(id: any): Observable<void> {
     const gameUrl = `${this.gameUrl}/${id}`;
     return this.http.delete(gameUrl, {headers: this.headers})
       .map((response: Response) => response.json())

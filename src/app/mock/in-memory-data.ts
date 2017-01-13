@@ -154,6 +154,7 @@ export class InMemoryData implements InMemoryDbService {
         opponentId: 2,
         opponentName: 'Rebels',
         date: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
+        time: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
         gameType: 'Regular',
         playerId: 1,
         playerName: 'Loc Nguyen',
