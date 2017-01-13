@@ -24,6 +24,7 @@ import { TeamService } from './team/shared/team.service';
 import { PlayerService } from './player/shared/player.service';
 import { SeasonService } from './season/shared/season.service';
 import { GameService } from './game/shared/game.service';
+import { ScoreService } from './score/shared/score.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { GameService } from './game/shared/game.service';
     PlayerService,
     SeasonService,
     GameService,
+    ScoreService,
   ],
   bootstrap: [AppComponent]
 })

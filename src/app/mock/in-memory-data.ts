@@ -134,14 +134,14 @@ export class InMemoryData implements InMemoryDbService {
       {
         id: 1,
         seasonName: 'ARL A Winter 2017',
-        playerId: 1,
-        playerName: 'Loc Nguyen',
         leagueId: 1,
         leagueName: 'Adult Recreation League',
         divisionId: 1,
         divisionName: 'A',
         teamId: 1,
         teamName: 'Falcons',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
       }
     ];
 
@@ -156,8 +156,6 @@ export class InMemoryData implements InMemoryDbService {
         date: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
         time: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
         gameType: 'Regular',
-        playerId: 1,
-        playerName: 'Loc Nguyen',
         leagueId: 1,
         leagueName: 'Adult Recreation League',
         divisionId: 1,
@@ -166,10 +164,47 @@ export class InMemoryData implements InMemoryDbService {
         teamName: 'Falcons',
         seasonId: 1,
         seasonName: 'ARL A Winter 2017',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
       }
     ];
 
 
-    return {leagues, divisions, teams, players, seasons, games};
+
+
+    let scores = [
+      {
+        id: 1,
+        scoreType: 'goal',
+        goalScorerId: 1,
+        goalScorerName: 'Loc Nguyen',
+        assistorOneId: 2,
+        assistorOneName: 'Tony',
+        assistorTwoId: 2,
+        assistorTwoName: 'Trung',
+        situation: 'Even Strength',
+        period: '1st',
+        scoreTime: '10:33',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+        teamId: 1,
+        teamName: 'Falcons',
+        seasonId: 1,
+        seasonName: 'ARL A Winter 2017',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
+        gameId: 1,
+        opponentId: 2,
+        opponentName: 'Rebels',
+        date: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
+        time: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
+        gameType: 'Regular',
+      }
+    ];
+
+
+    return {leagues, divisions, teams, players, seasons, games, scores};
   }
 }
