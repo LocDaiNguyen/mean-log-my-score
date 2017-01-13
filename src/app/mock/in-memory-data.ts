@@ -146,6 +146,29 @@ export class InMemoryData implements InMemoryDbService {
     ];
 
 
-    return {leagues, divisions, teams, players, seasons};
+
+
+    let games = [
+      {
+        id: 1,
+        opponentId: 2,
+        opponentName: 'Rebels',
+        date: 'Fri Jan 20 2017 20:00:00 GMT-0500 (EST)',
+        gameType: 'Regular',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+        teamId: 1,
+        teamName: 'Falcons',
+        seasonId: 1,
+        seasonName: 'ARL A Winter 2017',
+      }
+    ];
+
+
+    return {leagues, divisions, teams, players, seasons, games};
   }
 }
