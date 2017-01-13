@@ -205,13 +205,13 @@ export class InMemoryData implements InMemoryDbService {
     let scores = [
       {
         id: 1,
-        scoreType: 'goal',
+        scoreType: 'Goal',
         goalScorerId: 1,
         goalScorerName: 'Loc Nguyen',
         assistorOneId: 2,
-        assistorOneName: 'Tony',
-        assistorTwoId: 2,
-        assistorTwoName: 'Trung',
+        assistorOneName: 'Tony Vo',
+        assistorTwoId: 3,
+        assistorTwoName: 'Trung Nguyen',
         situation: 'Even Strength',
         period: '1st',
         scoreTime: '10:33',
