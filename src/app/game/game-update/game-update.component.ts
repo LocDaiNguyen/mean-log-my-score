@@ -84,7 +84,6 @@ export class GameUpdateComponent implements OnInit {
       .switchMap((params: Params) => this.gameService.getGame(+params['id']))
       .subscribe(
         (game: Game) => {
-          console.log(game);
           this.game = game;
           this.getAllSeasons(game);
           this.getAllTeams(game);
