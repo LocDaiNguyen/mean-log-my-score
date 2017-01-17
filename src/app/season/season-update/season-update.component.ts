@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import * as _ from 'lodash';
 
 import { Season } from '../shared/season.model';
 import { SeasonService } from '../shared/season.service';
@@ -67,7 +66,7 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         (leagues: League[]) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, (league: League) => { return league.id === season.leagueId; });
+          this.leagueSelected = leagues.find((league: League) => { return league.id === season.leagueId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -78,7 +77,7 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         (divisions: Division[]) => {
           this.divisions = divisions;
-          this.divisionSelected = _.find(divisions, (division: Division) => { return division.id === season.divisionId; });
+          this.divisionSelected = divisions.find((division: Division) => { return division.id === season.divisionId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -89,7 +88,7 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         (teams: Team[]) => {
           this.teams = teams;
-          this.teamSelected = _.find(teams, (team: Team) => { return team.id === season.teamId; });
+          this.teamSelected = teams.find((team: Team) => { return team.id === season.teamId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -100,7 +99,7 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         (players: Player[]) => {
           this.players = players;
-          this.playerSelected = _.find(players, (player: Player) => { return player.id === season.playerId; });
+          this.playerSelected = players.find((player: Player) => { return player.id === season.playerId; });
         },
         (error: string) => { this.error = error; }
       );

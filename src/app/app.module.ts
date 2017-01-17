@@ -3,20 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryData } from './mock/in-memory-data';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthModule } from './auth/auth.module';
-import { LeagueModule } from './league/league.module';
-import { DivisionModule } from './division/division.module';
-import { TeamModule } from './team/team.module';
-import { PlayerModule } from './player/player.module';
-import { SeasonModule } from './season/season.module';
-import { GameModule } from './game/game.module';
-import { ScoreModule } from './score/score.module';
+import { LoginComponent } from './auth/login/login.component';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
@@ -29,6 +22,7 @@ import { ScoreService } from './score/shared/score.service';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,14 +30,6 @@ import { ScoreService } from './score/shared/score.service';
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryData),
     AppRoutingModule,
-    AuthModule,
-    LeagueModule,
-    DivisionModule,
-    TeamModule,
-    PlayerModule,
-    SeasonModule,
-    GameModule,
-    ScoreModule,
   ],
   providers: [
     LeagueService,

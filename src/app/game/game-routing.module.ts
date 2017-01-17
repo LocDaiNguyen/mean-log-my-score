@@ -8,7 +8,7 @@ import { GameUpdateComponent } from './game-update/game-update.component';
 
 const routes: Routes = [
   {
-    path: 'games',
+    path: '',
     component: GameComponent,
     children: [
       {

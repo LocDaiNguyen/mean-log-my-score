@@ -8,7 +8,7 @@ import { ScoreUpdateComponent } from './score-update/score-update.component';
 
 const routes: Routes = [
   {
-    path: 'scores',
+    path: '',
     component: ScoreComponent,
     children: [
       {

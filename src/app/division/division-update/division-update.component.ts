@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import * as _ from 'lodash';
 
 import { Division } from '../shared/division.model';
 import { DivisionService } from '../shared/division.service';
@@ -53,7 +52,7 @@ export class DivisionUpdateComponent implements OnInit {
       .subscribe(
         (leagues: League[]) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, (league: League) => { return league.id === division.leagueId; });
+          this.leagueSelected = leagues.find((league: League) => { return league.id === division.leagueId; });
         },
         (error: string) => { this.error = error; }
       );

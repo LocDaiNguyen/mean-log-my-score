@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import * as _ from 'lodash';
 
 import { Score } from '../shared/score.model';
 import { ScoreService } from '../shared/score.service';
@@ -70,7 +69,7 @@ export class ScoreUpdateComponent implements OnInit {
       .subscribe(
         (games: Game[]) => {
           this.games = games;
-          this.gameSelected = _.find(games, (game: Game) => { return game.id === score.gameId; });
+          this.gameSelected = games.find((game: Game) => { return game.id === score.gameId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -81,9 +80,9 @@ export class ScoreUpdateComponent implements OnInit {
       .subscribe(
         (players: Player[]) => {
           this.players = players;
-          this.goalScorer = _.find(players, (player: Player) => { return player.id === score.goalScorerId; });
-          this.assistorOne = _.find(players, (player: Player) => { return player.id === score.assistorOneId; });
-          this.assistorTwo = _.find(players, (player: Player) => { return player.id === score.assistorTwoId; });
+          this.goalScorer = players.find((player: Player) => { return player.id === score.goalScorerId; });
+          this.assistorOne = players.find((player: Player) => { return player.id === score.assistorOneId; });
+          this.assistorTwo = players.find((player: Player) => { return player.id === score.assistorTwoId; });
         },
         (error: string) => { this.error = error; }
       );

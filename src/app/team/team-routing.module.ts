@@ -8,7 +8,7 @@ import { TeamUpdateComponent } from './team-update/team-update.component';
 
 const routes: Routes = [
   {
-    path: 'teams',
+    path: '',
     component: TeamComponent,
     children: [
       {

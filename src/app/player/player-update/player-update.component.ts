@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import * as _ from 'lodash';
 
 import { Player } from '../shared/player.model';
 import { PlayerService } from '../shared/player.service';
@@ -61,7 +60,7 @@ export class PlayerUpdateComponent implements OnInit {
       .subscribe(
         (leagues: League[]) => {
           this.leagues = leagues;
-          this.leagueSelected = _.find(leagues, (league: League) => { return league.id === player.leagueId; });
+          this.leagueSelected = leagues.find((league: League) => { return league.id === player.leagueId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -72,7 +71,7 @@ export class PlayerUpdateComponent implements OnInit {
       .subscribe(
         (divisions: Division[]) => {
           this.divisions = divisions;
-          this.divisionSelected = _.find(divisions, (division: Division) => { return division.id === player.divisionId; });
+          this.divisionSelected = divisions.find((division: Division) => { return division.id === player.divisionId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -83,7 +82,7 @@ export class PlayerUpdateComponent implements OnInit {
       .subscribe(
         (teams: Team[]) => {
           this.teams = teams;
-          this.teamSelected = _.find(teams, (team: Team) => { return team.id === player.teamId; });
+          this.teamSelected = teams.find((team: Team) => { return team.id === player.teamId; });
         },
         (error: string) => { this.error = error; }
       );

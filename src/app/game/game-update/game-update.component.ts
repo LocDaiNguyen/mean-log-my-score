@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import * as _ from 'lodash';
 
 import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
@@ -58,7 +57,7 @@ export class GameUpdateComponent implements OnInit {
       .subscribe(
         (seasons: Season[]) => {
           this.seasons = seasons;
-          this.seasonSelected = _.find(seasons, (season: Season) => { return season.id === game.seasonId; });
+          this.seasonSelected = seasons.find((season: Season) => { return season.id === game.seasonId; });
         },
         (error: string) => { this.error = error; }
       );
@@ -69,7 +68,7 @@ export class GameUpdateComponent implements OnInit {
       .subscribe(
         (teams: Team[]) => {
           this.teams = teams;
-          this.teamSelected = _.find(teams, (team: Team) => { return team.id === game.teamId; });
+          this.teamSelected = teams.find((team: Team) => { return team.id === game.teamId; });
         },
         (error: string) => { this.error = error; }
       );

@@ -8,7 +8,7 @@ import { DivisionUpdateComponent } from './division-update/division-update.compo
 
 const routes: Routes = [
   {
-    path: 'divisions',
+    path: '',
     component: DivisionComponent,
     children: [
       {

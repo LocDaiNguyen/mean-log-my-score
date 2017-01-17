@@ -7,6 +7,34 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent
+  },
+  {
+    path: 'leagues',
+    loadChildren: 'app/league/league.module#LeagueModule'
+  },
+  {
+    path: 'divisions',
+    loadChildren: 'app/division/division.module#DivisionModule'
+  },
+  {
+    path: 'teams',
+    loadChildren: 'app/team/team.module#TeamModule'
+  },
+  {
+    path: 'players',
+    loadChildren: 'app/player/player.module#PlayerModule'
+  },
+  {
+    path: 'seasons',
+    loadChildren: 'app/season/season.module#SeasonModule'
+  },
+  {
+    path: 'games',
+    loadChildren: 'app/game/game.module#GameModule'
+  },
+  {
+    path: 'scores',
+    loadChildren: 'app/score/score.module#ScoreModule'
   }
 ];
 

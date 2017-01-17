@@ -8,7 +8,7 @@ import { PlayerUpdateComponent } from './player-update/player-update.component';
 
 const routes: Routes = [
   {
-    path: 'players',
+    path: '',
     component: PlayerComponent,
     children: [
       {

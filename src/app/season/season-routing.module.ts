@@ -8,7 +8,7 @@ import { SeasonUpdateComponent } from './season-update/season-update.component';
 
 const routes: Routes = [
   {
-    path: 'seasons',
+    path: '',
     component: SeasonComponent,
     children: [
       {

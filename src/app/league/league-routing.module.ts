@@ -8,7 +8,7 @@ import { LeagueUpdateComponent } from './league-update/league-update.component';
 
 const routes: Routes = [
   {
-    path: 'leagues',
+    path: '',
     component: LeagueComponent,
     children: [
       {
