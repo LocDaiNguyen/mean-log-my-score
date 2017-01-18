@@ -14,7 +14,8 @@ import { League } from './league.model';
 export class LeagueService {
 
   private leaguesUrl = 'app/leagues';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private newHeaders = new Headers({'Content-Type': 'application/json'});
+  private headers = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -31,21 +32,21 @@ export class LeagueService {
   }
 
   createLeague(league: League): Observable<League> {
-    return this.http.post(this.leaguesUrl, JSON.stringify(league), {headers: this.headers})
+    return this.http.post(this.leaguesUrl, JSON.stringify(league), this.headers)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateLeague(league: League): Observable<League> {
     const leagueUrl = `${this.leaguesUrl}/${league.id}`;
-    return this.http.put(leagueUrl, JSON.stringify(league), {headers: this.headers})
+    return this.http.put(leagueUrl, JSON.stringify(league), this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   deleteLeague(id: number | string): Observable<void> {
     const leagueUrl = `${this.leaguesUrl}/${id}`;
-    return this.http.delete(leagueUrl, {headers: this.headers})
+    return this.http.delete(leagueUrl, this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }

@@ -14,7 +14,8 @@ import { Team } from './team.model';
 export class TeamService {
 
   private teamsUrl = 'app/teams';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private newHeaders = new Headers({'Content-Type': 'application/json'});
+  private headers = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -31,21 +32,21 @@ export class TeamService {
   }
 
   createTeam(team: Team): Observable<Team> {
-    return this.http.post(this.teamsUrl, JSON.stringify(team), {headers: this.headers})
+    return this.http.post(this.teamsUrl, JSON.stringify(team), this.headers)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateTeam(team: Team): Observable<Team> {
     const teamUrl = `${this.teamsUrl}/${team.id}`;
-    return this.http.put(teamUrl, JSON.stringify(team), {headers: this.headers})
+    return this.http.put(teamUrl, JSON.stringify(team), this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   delteTeam(id: number | string): Observable<void> {
     const teamUrl = `${this.teamsUrl}/${id}`;
-    return this.http.delete(teamUrl, {headers: this.headers})
+    return this.http.delete(teamUrl, this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }

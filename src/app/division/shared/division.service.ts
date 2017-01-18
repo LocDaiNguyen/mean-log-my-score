@@ -14,7 +14,8 @@ import { Division } from './division.model';
 export class DivisionService {
 
   private divisionsUrl = 'app/divisions';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private newHeaders = new Headers({'Content-Type': 'application/json'});
+  private headers = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -31,21 +32,21 @@ export class DivisionService {
   }
 
   createDivisiion(division: Division): Observable<Division> {
-    return this.http.post(this.divisionsUrl, JSON.stringify(division), {headers: this.headers})
+    return this.http.post(this.divisionsUrl, JSON.stringify(division), this.headers)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateDivision(division: Division): Observable<Division> {
     const divisionUrl = `${this.divisionsUrl}/${division.id}`;
-    return this.http.put(divisionUrl, JSON.stringify(division), {headers: this.headers})
+    return this.http.put(divisionUrl, JSON.stringify(division), this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   deleteDivision(id: number | string): Observable<void> {
     const divisionUrl = `${this.divisionsUrl}/${id}`;
-    return this.http.delete(divisionUrl, {headers: this.headers})
+    return this.http.delete(divisionUrl, this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }

@@ -14,7 +14,8 @@ import { Season } from './season.model';
 export class SeasonService {
 
   private seasonUrl = 'app/seasons';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private newHeaders = new Headers({'Content-Type': 'application/json'});
+  private headers = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -31,21 +32,21 @@ export class SeasonService {
   }
 
   createSeason(season: Season): Observable<Season> {
-    return this.http.post(this.seasonUrl, JSON.stringify(season), {headers: this.headers})
+    return this.http.post(this.seasonUrl, JSON.stringify(season), this.headers)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateSeason(season: Season): Observable<Season> {
     const seasonUrl = `${this.seasonUrl}/${season.id}`;
-    return this.http.put(seasonUrl, JSON.stringify(season), {headers: this.headers})
+    return this.http.put(seasonUrl, JSON.stringify(season), this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   deleteSeason(id: number | string): Observable<void> {
     const seasonUrl = `${this.seasonUrl}/${id}`;
-    return this.http.delete(seasonUrl, {headers: this.headers})
+    return this.http.delete(seasonUrl, this.headers)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
