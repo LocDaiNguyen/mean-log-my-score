@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 import { LeagueService } from './league/shared/league.service';
 import { DivisionService } from './division/shared/division.service';
@@ -23,6 +24,7 @@ import { ScoreService } from './score/shared/score.service';
   declarations: [
     AppComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

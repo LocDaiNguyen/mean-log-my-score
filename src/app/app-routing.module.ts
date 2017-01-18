@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'scores',
     loadChildren: 'app/score/score.module#ScoreModule'
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    outlet: 'signup'
   },
   {
     path: '',

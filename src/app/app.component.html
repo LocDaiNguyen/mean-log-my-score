@@ -10,9 +10,11 @@
         <li role="presentation" routerLinkActive="active"><a routerLink="/seasons">Seasons</a></li>
         <li role="presentation" routerLinkActive="active"><a routerLink="/games">Games</a></li>
         <li role="presentation" routerLinkActive="active"><a routerLink="/scores">Scores</a></li>
-      </ul>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="[{ outlets: { signup: ['signup'] } }]">Signup</a></li>
+      </ul>      
     </nav>
     <h3 class="text-muted">Log My Score</h3>
   </div>
   <router-outlet></router-outlet>
+  <router-outlet name="signup"></router-outlet>
 </div>
