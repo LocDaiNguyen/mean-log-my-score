@@ -12,16 +12,21 @@ const routes: Routes = [
     component: PlayerComponent,
     children: [
       {
-        path: '',
-        component: PlayerListComponent
-      },
-      {
         path: 'new',
         component: PlayerNewComponent
       },
       {
         path: ':id',
         component: PlayerUpdateComponent
+      },
+      {
+        path: '',
+        component: PlayerListComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }

@@ -12,10 +12,6 @@ const routes: Routes = [
     component: LeagueComponent,
     children: [
       {
-        path: '',
-        component: LeagueListComponent
-      },
-      {
         path: 'new',
         component: LeagueNewComponent
       },
@@ -23,6 +19,15 @@ const routes: Routes = [
         path: ':id',
         component: LeagueUpdateComponent
       },
+      {
+        path: '',
+        component: LeagueListComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
     ]
   }
 ];

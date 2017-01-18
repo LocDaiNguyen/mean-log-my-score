@@ -5,10 +5,6 @@ import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LoginComponent
-  },
-  {
     path: 'leagues',
     loadChildren: 'app/league/league.module#LeagueModule'
   },
@@ -35,6 +31,15 @@ const routes: Routes = [
   {
     path: 'scores',
     loadChildren: 'app/score/score.module#ScoreModule'
+  },
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

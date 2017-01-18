@@ -12,16 +12,21 @@ const routes: Routes = [
     component: SeasonComponent,
     children: [
       {
-        path: '',
-        component: SeasonListComponent
-      },
-      {
         path: 'new',
         component: SeasonNewComponent
       },
       {
         path: ':id',
         component: SeasonUpdateComponent
+      },
+      {
+        path: '',
+        component: SeasonListComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }

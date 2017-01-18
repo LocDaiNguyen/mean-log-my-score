@@ -12,16 +12,21 @@ const routes: Routes = [
     component: TeamComponent,
     children: [
       {
-        path: '',
-        component: TeamListComponent
-      },
-      {
         path: 'new',
         component: TeamNewComponent
       },
       {
         path: ':id',
         component: TeamUpdateComponent
+      },
+      {
+        path: '',
+        component: TeamListComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }

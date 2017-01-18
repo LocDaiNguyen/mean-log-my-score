@@ -8,13 +8,9 @@ import { DisconnectComponent } from './disconnect/disconnect.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: AuthComponent,
     children: [
-      {
-        path: '',
-        component: LoginComponent
-      },
       {
         path: 'login',
         component: LoginComponent,
@@ -26,6 +22,15 @@ const routes: Routes = [
       {
         path: 'disconnect',
         component: DisconnectComponent
+      },
+      {
+        path: '',
+        component: LoginComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   },

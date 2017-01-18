@@ -12,16 +12,21 @@ const routes: Routes = [
     component: DivisionComponent,
     children: [
       {
-        path: '',
-        component: DivisionListComponent
-      },
-      {
         path: 'new',
         component: DivisionNewComponent
       },
       {
         path: ':id',
         component: DivisionUpdateComponent
+      },
+      {
+        path: '',
+        component: DivisionListComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }
