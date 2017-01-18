@@ -24,7 +24,7 @@ export class DivisionService {
       .catch(this.handleError);
   }
 
-  getDivision(id: any): Observable<Division> {
+  getDivision(id: number | string): Observable<Division> {
     return this.getAllDivisions()
       .map((divisions: Division[]) => divisions.find((division: Division) => division.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class DivisionService {
       .catch(this.handleError);
   }
 
-  deleteDivision(id: any): Observable<void> {
+  deleteDivision(id: number | string): Observable<void> {
     const divisionUrl = `${this.divisionsUrl}/${id}`;
     return this.http.delete(divisionUrl, {headers: this.headers})
       .map((response: Response) => response.json())

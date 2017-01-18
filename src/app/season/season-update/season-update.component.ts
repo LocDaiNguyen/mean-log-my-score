@@ -53,7 +53,7 @@ export class SeasonUpdateComponent implements OnInit {
       );
   }
 
-  deleteSeason(id: any): void {
+  deleteSeason(id: number | string): void {
     this.seasonService.deleteSeason(id)
       .subscribe(
         () => { this.goBack(); },

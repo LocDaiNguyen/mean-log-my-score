@@ -4,7 +4,7 @@ export class Team {
   divisionId: any;
   divisionName: string;
   teamName: string;
-  id?: any;
+  id?: number | string;
 
   constructor(
     leagueId: any,
@@ -12,7 +12,7 @@ export class Team {
     divisionId: any,
     divisionName: string,
     teamName: string,
-    id?: any
+    id?: number | string
   ) {
     this.leagueId = leagueId;
     this.leagueName = leagueName;

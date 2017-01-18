@@ -1,6 +1,6 @@
 export class League {
   leagueName: string;
-  id?: any;
+  id?: number | string;
 
   constructor(leagueName: string) {
     this.leagueName = leagueName;

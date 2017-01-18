@@ -8,7 +8,7 @@ export class Season {
   playerId: any;
   playerName: string;
   seasonName: string;
-  id?: any;
+  id?: number | string;
 
   constructor(
     leagueId: any,
@@ -20,7 +20,7 @@ export class Season {
     playerId: any,
     playerName: string,
     seasonName: string,
-    id?: any
+    id?: number | string
   ) {
     this.leagueId = leagueId;
     this.leagueName = leagueName;

@@ -24,7 +24,7 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  getTeam(id: any): Observable<Team> {
+  getTeam(id: number | string): Observable<Team> {
     return this.getAllTeams()
       .map((teams: Team[]) => teams.find((team: Team) => team.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  delteTeam(id: any): Observable<void> {
+  delteTeam(id: number | string): Observable<void> {
     const teamUrl = `${this.teamsUrl}/${id}`;
     return this.http.delete(teamUrl, {headers: this.headers})
       .map((response: Response) => response.json())

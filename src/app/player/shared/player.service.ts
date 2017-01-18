@@ -24,7 +24,7 @@ export class PlayerService {
       .catch(this.handleError);
   }
 
-  getPlayer(id: any): Observable<Player> {
+  getPlayer(id: number | string): Observable<Player> {
     return this.getAllPlayers()
       .map((players: Player[]) => players.find((player: Player) => player.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class PlayerService {
       .catch(this.handleError);
   }
 
-  deletePlayer(id: any): Observable<void> {
+  deletePlayer(id: number | string): Observable<void> {
     const playerUrl = `${this.playersUrl}/${id}`;
     return this.http.delete(playerUrl, {headers: this.headers})
       .map((response: Response) => response.json())

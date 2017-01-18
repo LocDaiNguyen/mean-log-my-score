@@ -6,7 +6,7 @@ export class Player {
   teamId: any;
   teamName: string;
   playerName: string;
-  id?: any;
+  id?: number | string;
 
   constructor(
     leagueId: any,
@@ -16,7 +16,7 @@ export class Player {
     teamId: any,
     teamName: string,
     playerName: string,
-    id?: any
+    id?: number | string
   ) {
     this.leagueId = leagueId;
     this.leagueName = leagueName;

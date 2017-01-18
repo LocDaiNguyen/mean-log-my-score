@@ -24,7 +24,7 @@ export class SeasonService {
       .catch(this.handleError);
   }
 
-  getSeason(id: any): Observable<Season> {
+  getSeason(id: number | string): Observable<Season> {
     return this.getAllSeasons()
       .map((seasons: Season[]) => seasons.find((season: Season) => season.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class SeasonService {
       .catch(this.handleError);
   }
 
-  deleteSeason(id: any): Observable<void> {
+  deleteSeason(id: number | string): Observable<void> {
     const seasonUrl = `${this.seasonUrl}/${id}`;
     return this.http.delete(seasonUrl, {headers: this.headers})
       .map((response: Response) => response.json())

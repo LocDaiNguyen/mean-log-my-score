@@ -56,7 +56,7 @@ export class ScoreUpdateComponent implements OnInit {
       );
   }
 
-  deleteScore(id: any): void {
+  deleteScore(id: number | string): void {
     this.scoreService.deleteScore(id)
       .subscribe(
         () => { this.goBack(); },

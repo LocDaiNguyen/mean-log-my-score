@@ -24,7 +24,7 @@ export class LeagueService {
       .catch(this.handleError);
   }
 
-  getLeague(id: any): Observable<League> {
+  getLeague(id: number | string): Observable<League> {
     return this.getAllLeagues()
       .map((leagues: League[]) => leagues.find((league: League) => league.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class LeagueService {
       .catch(this.handleError);
   }
 
-  deleteLeague(id: any): Observable<void> {
+  deleteLeague(id: number | string): Observable<void> {
     const leagueUrl = `${this.leaguesUrl}/${id}`;
     return this.http.delete(leagueUrl, {headers: this.headers})
       .map((response: Response) => response.json())

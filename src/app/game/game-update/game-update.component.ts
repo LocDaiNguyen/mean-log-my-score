@@ -44,7 +44,7 @@ export class GameUpdateComponent implements OnInit {
       );
   }
 
-  deleteGame(id: any): void {
+  deleteGame(id: number | string): void {
     this.gameService.deleteGame(id)
       .subscribe(
         () => { this.goBack(); },

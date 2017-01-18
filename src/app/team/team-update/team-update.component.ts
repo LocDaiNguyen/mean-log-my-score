@@ -41,7 +41,7 @@ export class TeamUpdateComponent implements OnInit {
       );
   }
 
-  deleteTeam(id: any): void {
+  deleteTeam(id: number | string): void {
     this.teamService.delteTeam(id)
       .subscribe(
         () => { this.goBack(); },

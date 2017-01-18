@@ -47,7 +47,7 @@ export class PlayerUpdateComponent implements OnInit {
       );
   }
 
-  deletePlayer(id: any): void {
+  deletePlayer(id: number | string): void {
     this.playerService.deletePlayer(id)
       .subscribe(
         () => { this.goBack(); },

@@ -30,7 +30,7 @@ export class LeagueUpdateComponent implements OnInit {
       );
   }
 
-  deleteLeague(id: any): void {
+  deleteLeague(id: number | string): void {
     this.leagueService.deleteLeague(id)
       .subscribe(
         () => { this.goBack(); },

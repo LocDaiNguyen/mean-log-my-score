@@ -35,7 +35,7 @@ export class DivisionUpdateComponent implements OnInit {
       );
   }
 
-  deleteDivision(id: any): void {
+  deleteDivision(id: number | string): void {
     this.divisionService.deleteDivision(id)
       .subscribe(
         () => { this.goBack(); },

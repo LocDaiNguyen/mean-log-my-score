@@ -25,7 +25,7 @@ export class Score {
   assistorOneName?: string;
   assistorTwoId?: any;
   assistorTwoName?: string;
-  id?: any;
+  id?: number | string;
 
   constructor(
     leagueId: any,
@@ -54,7 +54,7 @@ export class Score {
     assistorOneName?: string,
     assistorTwoId?: any,
     assistorTwoName?: string,
-    id?: any
+    id?: number | string
   ) {
     this.leagueId = leagueId;
     this.leagueName = leagueName;

@@ -24,7 +24,7 @@ export class ScoreService {
       .catch(this.handleError);
   }
 
-  getScore(id: any): Observable<Score> {
+  getScore(id: number | string): Observable<Score> {
     return this.getAllScores()
       .map((scores: Score[]) => scores.find((score: Score) => score.id === id))
       .catch(this.handleError);
@@ -43,7 +43,7 @@ export class ScoreService {
       .catch(this.handleError);
   }
 
-  deleteScore(id: any): Observable<void> {
+  deleteScore(id: number | string): Observable<void> {
     const scoreUrl = `${this.scoreUrl}/${id}`;
     return this.http.delete(scoreUrl, {headers: this.headers})
       .map((response: Response) => response.json())

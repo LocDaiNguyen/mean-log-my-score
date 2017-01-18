@@ -14,7 +14,7 @@ export class Game {
   date: string;
   time: string;
   gameType: string;
-  id?: any;
+  id?: number | string;
 
   constructor(
     leagueId: any,
@@ -32,7 +32,7 @@ export class Game {
     date: string,
     time: string,
     gameType: string,
-    id?: any
+    id?: number | string
   ) {
     this.leagueId = leagueId;
     this.leagueName = leagueName;
