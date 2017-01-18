@@ -42,7 +42,7 @@ export class SeasonUpdateComponent implements OnInit {
     private teamService: TeamService,
     private playerService: PlayerService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateSeason(): void {
@@ -129,11 +129,11 @@ export class SeasonUpdateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/seasons']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.seasonService.getSeason(+params['id']))
       .subscribe(
         (season: Season) => {

@@ -30,7 +30,7 @@ export class TeamUpdateComponent implements OnInit {
     private leagueService: LeagueService,
     private divisionService: DivisionService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateTeam(): void {
@@ -83,11 +83,11 @@ export class TeamUpdateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/teams']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.teamService.getTeam(+params['id']))
       .subscribe(
         (team: Team) => {

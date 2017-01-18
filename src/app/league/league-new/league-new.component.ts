@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { League } from '../shared/league.model';
 import { LeagueService } from '../shared/league.service';
@@ -17,7 +17,8 @@ export class LeagueNewComponent implements OnInit {
 
   constructor(
     private leagueService: LeagueService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   createLeague(form: NgForm): '' | void {
@@ -44,7 +45,7 @@ export class LeagueNewComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/leagues']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {

@@ -39,7 +39,7 @@ export class ScoreUpdateComponent implements OnInit {
     private gameService: GameService,
     private playerService: PlayerService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateScore(): void {
@@ -89,11 +89,11 @@ export class ScoreUpdateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/scores']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit() {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.scoreService.getScore(+params['id']))
       .subscribe(
         (score: Score) => {

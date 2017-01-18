@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Season } from '../shared/season.model';
 import { SeasonService } from '../shared/season.service';
@@ -36,7 +36,8 @@ export class SeasonNewComponent implements OnInit {
     private divisionService: DivisionService,
     private teamService: TeamService,
     private playerService: PlayerService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   createSeason(form: NgForm): '' | void {
@@ -117,7 +118,7 @@ export class SeasonNewComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/seasons']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Division } from '../shared/division.model';
 import { DivisionService } from '../shared/division.service';
@@ -22,7 +22,8 @@ export class DivisionNewComponent implements OnInit {
   constructor(
     private divisionService: DivisionService,
     private leagueService: LeagueService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   createDivision(form: NgForm): '' | void {
@@ -64,7 +65,7 @@ export class DivisionNewComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/divisions']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {

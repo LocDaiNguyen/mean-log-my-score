@@ -24,7 +24,7 @@ export class DivisionUpdateComponent implements OnInit {
     private divisionService: DivisionService,
     private leagueService: LeagueService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateDivision(): void {
@@ -43,10 +43,6 @@ export class DivisionUpdateComponent implements OnInit {
       );
   }
 
-  goBack(): void {
-    this.router.navigate(['/divisions']);
-  }
-
   getAllLeagues(division: Division): void {
     this.leagueService.getAllLeagues()
       .subscribe(
@@ -58,8 +54,12 @@ export class DivisionUpdateComponent implements OnInit {
       );
   }
 
+  goBack(): void {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
   ngOnInit(): void {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.divisionService.getDivision(+params['id']))
       .subscribe(
         (division: Division) => {

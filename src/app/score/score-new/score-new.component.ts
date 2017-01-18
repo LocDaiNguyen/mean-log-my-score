@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Score } from '../shared/score.model';
 import { ScoreService } from '../shared/score.service';
@@ -33,7 +33,8 @@ export class ScoreNewComponent implements OnInit {
     private scoreService: ScoreService,
     private gameService: GameService,
     private playerService: PlayerService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   createScore(form: NgForm): '' | void {
@@ -107,7 +108,7 @@ export class ScoreNewComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/scores']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {

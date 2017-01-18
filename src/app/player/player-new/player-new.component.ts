@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Player } from '../shared/player.model';
 import { PlayerService } from '../shared/player.service';
@@ -31,7 +31,8 @@ export class PlayerNewComponent implements OnInit {
     private leagueService: LeagueService,
     private divisionService: DivisionService,
     private teamService: TeamService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   createPlayer(form: NgForm): '' | void {
@@ -98,7 +99,7 @@ export class PlayerNewComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/players']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {

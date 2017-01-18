@@ -19,7 +19,7 @@ export class LeagueUpdateComponent implements OnInit {
   constructor(
     private leagueService: LeagueService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateLeague(): void {
@@ -39,11 +39,11 @@ export class LeagueUpdateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/leagues']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.leagueService.getLeague(+params['id']))
       .subscribe(
         (league: League) => { this.league = league; },

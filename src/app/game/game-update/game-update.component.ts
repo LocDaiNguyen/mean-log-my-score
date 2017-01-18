@@ -33,7 +33,7 @@ export class GameUpdateComponent implements OnInit {
     private seasonService: SeasonService,
     private teamService: TeamService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   updateGame(): void {
@@ -75,11 +75,11 @@ export class GameUpdateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/games']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params
+    this.route.params
       .switchMap((params: Params) => this.gameService.getGame(+params['id']))
       .subscribe(
         (game: Game) => {
