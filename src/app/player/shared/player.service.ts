@@ -26,8 +26,9 @@ export class PlayerService {
   }
 
   getPlayer(id: number | string): Observable<Player> {
-    return this.getAllPlayers()
-      .map((players: Player[]) => players.find((player: Player) => player.id === id))
+    const playerUrl = `${this.playersUrl}/${id}`;
+    return this.http.get(playerUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

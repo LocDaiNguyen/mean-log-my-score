@@ -26,8 +26,9 @@ export class SeasonService {
   }
 
   getSeason(id: number | string): Observable<Season> {
-    return this.getAllSeasons()
-      .map((seasons: Season[]) => seasons.find((season: Season) => season.id === id))
+    const seasonUrl = `${this.seasonsUrl}/${id}`;
+    return this.http.get(seasonUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

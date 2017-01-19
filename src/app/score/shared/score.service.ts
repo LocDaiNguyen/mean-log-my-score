@@ -26,8 +26,9 @@ export class ScoreService {
   }
 
   getScore(id: number | string): Observable<Score> {
-    return this.getAllScores()
-      .map((scores: Score[]) => scores.find((score: Score) => score.id === id))
+    const scoreUrl = `${this.scoresUrl}/${id}`;
+    return this.http.get(scoreUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

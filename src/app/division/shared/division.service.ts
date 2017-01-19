@@ -26,8 +26,9 @@ export class DivisionService {
   }
 
   getDivision(id: number | string): Observable<Division> {
-    return this.getAllDivisions()
-      .map((divisions: Division[]) => divisions.find((division: Division) => division.id === id))
+    const divisionUrl = `${this.divisionsUrl}/${id}`;
+    return this.http.get(divisionUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

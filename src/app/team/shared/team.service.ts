@@ -26,8 +26,9 @@ export class TeamService {
   }
 
   getTeam(id: number | string): Observable<Team> {
-    return this.getAllTeams()
-      .map((teams: Team[]) => teams.find((team: Team) => team.id === id))
+    const teamUrl = `${this.teamsUrl}/${id}`;
+    return this.http.get(teamUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

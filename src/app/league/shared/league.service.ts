@@ -26,8 +26,9 @@ export class LeagueService {
   }
 
   getLeague(id: number | string): Observable<League> {
-    return this.getAllLeagues()
-      .map((leagues: League[]) => leagues.find((league: League) => league.id === id))
+    const leagueUrl = `${this.leaguesUrl}/${id}`;
+    return this.http.get(leagueUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 

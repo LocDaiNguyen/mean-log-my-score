@@ -26,8 +26,9 @@ export class GameService {
   }
 
   getGame(id: number | string): Observable<Game> {
-    return this.getAllGames()
-      .map((games: Game[]) => games.find((game: Game) => game.id === id))
+    const gameUrl = `${this.gamesUrl}/${id}`;
+    return this.http.get(gameUrl)
+      .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
