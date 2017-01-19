@@ -13,14 +13,14 @@ import { Game } from './game.model';
 @Injectable()
 export class GameService {
 
-  private gameUrl = 'app/games';
+  private gamesUrl = 'app/games';
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
   constructor(private http: Http) {}
 
   getAllGames(): Observable<Game[]> {
-    return this.http.get(this.gameUrl)
+    return this.http.get(this.gamesUrl)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
@@ -33,20 +33,20 @@ export class GameService {
   }
 
   createGame(game: Game): Observable<Game> {
-    return this.http.post(this.gameUrl, JSON.stringify(game), this.options)
+    return this.http.post(this.gamesUrl, JSON.stringify(game), this.options)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateGame(game: Game): Observable<Game> {
-    const gameUrl = `${this.gameUrl}/${game.id}`;
+    const gameUrl = `${this.gamesUrl}/${game.id}`;
     return this.http.put(gameUrl, JSON.stringify(game), this.options)
       .map(() => game)
       .catch(this.handleError);
   }
 
   deleteGame(id: number | string): Observable<void> {
-    const gameUrl = `${this.gameUrl}/${id}`;
+    const gameUrl = `${this.gamesUrl}/${id}`;
     return this.http.delete(gameUrl, this.options)
       .map(() => null)
       .catch(this.handleError);

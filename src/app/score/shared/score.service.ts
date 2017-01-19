@@ -13,14 +13,14 @@ import { Score } from './score.model';
 @Injectable()
 export class ScoreService {
 
-  private scoreUrl = 'app/scores';
+  private scoresUrl = 'app/scores';
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
   constructor(private http: Http) {}
 
   getAllScores(): Observable<Score[]> {
-    return this.http.get(this.scoreUrl)
+    return this.http.get(this.scoresUrl)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
@@ -33,20 +33,20 @@ export class ScoreService {
   }
 
   createScore(score: Score): Observable<Score> {
-    return this.http.post(this.scoreUrl, JSON.stringify(score), this.options)
+    return this.http.post(this.scoresUrl, JSON.stringify(score), this.options)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateScore(score: Score): Observable<Score> {
-    const scoreUrl = `${this.scoreUrl}/${score.id}`;
+    const scoreUrl = `${this.scoresUrl}/${score.id}`;
     return this.http.put(scoreUrl, JSON.stringify(score), this.options)
       .map(() => score)
       .catch(this.handleError);
   }
 
   deleteScore(id: number | string): Observable<void> {
-    const scoreUrl = `${this.scoreUrl}/${id}`;
+    const scoreUrl = `${this.scoresUrl}/${id}`;
     return this.http.delete(scoreUrl, this.options)
       .map(() => null)
       .catch(this.handleError);
