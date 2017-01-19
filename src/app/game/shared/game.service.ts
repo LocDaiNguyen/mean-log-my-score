@@ -14,8 +14,8 @@ import { Game } from './game.model';
 export class GameService {
 
   private gameUrl = 'app/games';
-  private newHeaders = new Headers({'Content-Type': 'application/json'});
-  private headers = {headers: this.headers};
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private options = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -32,22 +32,22 @@ export class GameService {
   }
 
   createGame(game: Game): Observable<Game> {
-    return this.http.post(this.gameUrl, JSON.stringify(game), this.headers)
+    return this.http.post(this.gameUrl, JSON.stringify(game), this.options)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateGame(game: Game): Observable<Game> {
     const gameUrl = `${this.gameUrl}/${game.id}`;
-    return this.http.put(gameUrl, JSON.stringify(game), this.headers)
-      .map((response: Response) => response.json())
+    return this.http.put(gameUrl, JSON.stringify(game), this.options)
+      .map(() => game)
       .catch(this.handleError);
   }
 
   deleteGame(id: number | string): Observable<void> {
     const gameUrl = `${this.gameUrl}/${id}`;
-    return this.http.delete(gameUrl, this.headers)
-      .map((response: Response) => response.json())
+    return this.http.delete(gameUrl, this.options)
+      .map(() => null)
       .catch(this.handleError);
   }
 

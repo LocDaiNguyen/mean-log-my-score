@@ -14,8 +14,8 @@ import { Score } from './score.model';
 export class ScoreService {
 
   private scoreUrl = 'app/scores';
-  private newHeaders = new Headers({'Content-Type': 'application/json'});
-  private headers = {headers: this.headers};
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private options = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -32,22 +32,22 @@ export class ScoreService {
   }
 
   createScore(score: Score): Observable<Score> {
-    return this.http.post(this.scoreUrl, JSON.stringify(score), this.headers)
+    return this.http.post(this.scoreUrl, JSON.stringify(score), this.options)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updateScore(score: Score): Observable<Score> {
     const scoreUrl = `${this.scoreUrl}/${score.id}`;
-    return this.http.put(scoreUrl, JSON.stringify(score), this.headers)
-      .map((response: Response) => response.json())
+    return this.http.put(scoreUrl, JSON.stringify(score), this.options)
+      .map(() => score)
       .catch(this.handleError);
   }
 
   deleteScore(id: number | string): Observable<void> {
     const scoreUrl = `${this.scoreUrl}/${id}`;
-    return this.http.delete(scoreUrl, this.headers)
-      .map((response: Response) => response.json())
+    return this.http.delete(scoreUrl, this.options)
+      .map(() => null)
       .catch(this.handleError);
   }
 

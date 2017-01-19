@@ -14,8 +14,8 @@ import { Player } from './player.model';
 export class PlayerService {
 
   private playersUrl = 'app/players';
-  private newHeaders = new Headers({'Content-Type': 'application/json'});
-  private headers = {headers: this.headers};
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private options = {headers: this.headers};
 
   constructor(private http: Http) {}
 
@@ -32,22 +32,22 @@ export class PlayerService {
   }
 
   createPlayer(player: Player): Observable<Player> {
-    return this.http.post(this.playersUrl, JSON.stringify(player), this.headers)
+    return this.http.post(this.playersUrl, JSON.stringify(player), this.options)
       .map((response: Response) => response.json().data)
       .catch(this.handleError);
   }
 
   updatePlayer(player: Player): Observable<Player> {
     const playerUrl = `${this.playersUrl}/${player.id}`;
-    return this.http.put(playerUrl, JSON.stringify(player), this.headers)
-      .map((response: Response) => response.json())
+    return this.http.put(playerUrl, JSON.stringify(player), this.options)
+      .map(() => player)
       .catch(this.handleError);
   }
 
   deletePlayer(id: number | string): Observable<void> {
     const playerUrl = `${this.playersUrl}/${id}`;
-    return this.http.delete(playerUrl, this.headers)
-      .map((response: Response) => response.json())
+    return this.http.delete(playerUrl, this.options)
+      .map(() => null)
       .catch(this.handleError);
   }
 
