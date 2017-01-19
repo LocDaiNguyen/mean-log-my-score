@@ -1,5 +1,6 @@
+<h2>Login</h2>
 <form class="mar-top-2">
-  <div class="form-group">
+  <!--<div class="form-group">
     <label for="email">Email</label>
     <input type="email" class="form-control" id="email" placeholder="Email">
   </div>
@@ -11,6 +12,9 @@
     <label>
       <input type="checkbox"> Remember Me
     </label>
-  </div>
-  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  </div>-->
+  <!--<button type="submit" class="btn btn-primary btn-block">Submit</button>-->
+  {{ message }}
+  <button (click)="login()"  *ngIf="!authService.isLoggedIn" type="button" class="btn btn-primary btn-block">Login</button>
+  <button (click)="logout()" *ngIf="authService.isLoggedIn" type="button" class="btn btn-default btn-block">Logout</button>
 </form>

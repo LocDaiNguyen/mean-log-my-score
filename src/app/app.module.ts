@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LoginComponent } from './auth/login/login.component';
+import { LoginRoutingModule } from './auth/login/login-routing.module';
 import { SignupComponent } from './auth/signup/signup.component';
 
 import { LeagueService } from './league/shared/league.service';
@@ -32,6 +33,7 @@ import { ScoreService } from './score/shared/score.service';
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryData),
     AppRoutingModule,
+    LoginRoutingModule,
   ],
   providers: [
     LeagueService,
