@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { League } from './league.model';
+import { AppStore } from '../../app.store';
+import { ADD_LEAGUE, CREATE_LEAGUE, UPDATE_LEAGUE, DELETE_LEAGUE } from './league.reducer';
 
 @Injectable()
 export class LeagueService {
@@ -17,52 +16,40 @@ export class LeagueService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  leagues$: Observable<League[]> = this.store.select('leagues');
 
-  getAllLeagues(): Observable<League[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllLeagues() {
     return this.http.get(this.leaguesUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_LEAGUE, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getLeague(id: number | string): Observable<League> {
-    const leagueUrl = `${this.leaguesUrl}/${id}`;
-    return this.http.get(leagueUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  saveLeague(league: League) {
+    return (league.id) ? this.updateLeague(league) : this.createLeague(league);
   }
 
-  createLeague(league: League): Observable<League> {
+  createLeague(league: League) {
     return this.http.post(this.leaguesUrl, JSON.stringify(league), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_LEAGUE, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updateLeague(league: League): Observable<League> {
+  updateLeague(league: League) {
     const leagueUrl = `${this.leaguesUrl}/${league.id}`;
     return this.http.put(leagueUrl, JSON.stringify(league), this.options)
-      .map(() => league)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_LEAGUE, payload: league }));
   }
 
-  deleteLeague(id: number | string): Observable<void> {
-    const leagueUrl = `${this.leaguesUrl}/${id}`;
+  deleteLeague(league: League) {
+    const leagueUrl = `${this.leaguesUrl}/${league.id}`;
     return this.http.delete(leagueUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_LEAGUE, payload: league }));
   }
 }

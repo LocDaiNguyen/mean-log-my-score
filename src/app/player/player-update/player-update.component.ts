@@ -52,19 +52,19 @@ export class PlayerUpdateComponent implements OnInit {
       .subscribe(
         () => { this.goBack(); },
         (error: string) => { this.error = error; }
-      )
-  }
-
-  getAllLeagues(player: Player): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.leagueSelected = leagues.find((league: League) => { return league.id === player.leagueId; });
-        },
-        (error: string) => { this.error = error; }
       );
   }
+
+  // getAllLeagues(player: Player): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => {
+  //         this.leagues = leagues;
+  //         this.leagueSelected = leagues.find((league: League) => { return league.id === player.leagueId; });
+  //       },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(player: Player): void {
     this.divisionService.getAllDivisions()
@@ -115,7 +115,7 @@ export class PlayerUpdateComponent implements OnInit {
       .subscribe(
         (player: Player) => {
           this.player = player;
-          this.getAllLeagues(player);
+          // this.getAllLeagues(player);
           this.getAllDivisions(player);
           this.getAllTeams(player);
           this.leagueId = { leagueId: player.leagueId };

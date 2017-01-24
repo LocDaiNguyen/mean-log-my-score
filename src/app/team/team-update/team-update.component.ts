@@ -49,16 +49,16 @@ export class TeamUpdateComponent implements OnInit {
       );
   }
 
-  getAllLeagues(team: Team): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.leagueSelected = leagues.find((league: League) => { return league.id === team.leagueId; });
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(team: Team): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => {
+  //         this.leagues = leagues;
+  //         this.leagueSelected = leagues.find((league: League) => { return league.id === team.leagueId; });
+  //       },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(team: Team): void {
     this.divisionService.getAllDivisions()
@@ -92,7 +92,7 @@ export class TeamUpdateComponent implements OnInit {
       .subscribe(
         (team: Team) => {
           this.team = team;
-          this.getAllLeagues(team);
+          // this.getAllLeagues(team);
           this.getAllDivisions(team);
           this.leagueId = { leagueId: team.leagueId };
         },

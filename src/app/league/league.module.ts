@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LeagueComponent } from './league.component';
 import { LeagueListComponent } from './league-list/league-list.component';
-import { LeagueNewComponent } from './league-new/league-new.component';
-import { LeagueUpdateComponent } from './league-update/league-update.component';
+import { LeagueDetailComponent } from './league-detail/league-detail.component';
 
 import { LeagueRoutingModule } from './league-routing.module';
 
@@ -19,8 +18,7 @@ import { LeagueRoutingModule } from './league-routing.module';
   declarations: [
     LeagueComponent,
     LeagueListComponent,
-    LeagueNewComponent,
-    LeagueUpdateComponent,
+    LeagueDetailComponent,
   ]
 })
 export class LeagueModule { }

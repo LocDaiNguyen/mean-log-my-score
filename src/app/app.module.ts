@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryData } from './mock/in-memory-data';
+import { StoreModule } from '@ngrx/store';
+
+import { leagues } from './league/shared/league.reducer';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,9 +34,10 @@ import { ScoreService } from './score/shared/score.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryData),
     AppRoutingModule,
     LoginRoutingModule,
+    InMemoryWebApiModule.forRoot(InMemoryData),
+    StoreModule.provideStore({ leagues }),
   ],
   providers: [
     LeagueService,

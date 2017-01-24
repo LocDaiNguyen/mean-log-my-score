@@ -1,20 +1,20 @@
 <!-- INITIAL SCREEN (NO LEAGUES PRESENT) -->
-<div *ngIf="noLeagues === true" class="mar-top-2">
+<!--<div *ngIf="noLeagues === true" class="mar-top-2">
   <div class="text-center">
     <h2><span class="glyphicon glyphicon-star" aria-hidden="true"></span></h2>
     <h3>Add Leagues</h3>
     <p>You have leagues you play in. Good leagues, bad leagues, you want to play in them all. No problem! Here is where you add leagues you play in. Yes, even the bad ones ;)</p>
     <a [routerLink]="['new']" class="btn btn-primary">Add Leagues</a>
   </div>
-</div>
+</div>-->
 
 
 
 
 <!-- LEAGUES SCREEN -->
-<div *ngIf="noLeagues === false">
+<!--<div *ngIf="noLeagues === false">-->
   <h2>Leagues</h2>
-  <a [routerLink]="['new']" class="btn btn-primary btn-block">New League</a>
+  <!--<a [routerLink]="['new']" class="btn btn-primary btn-block">New League</a>-->
   <table class="table mar-top-2">
     <thead>
       <tr>
@@ -23,14 +23,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let league of leagues">
+      <tr *ngFor="let league of leagues" (click)="selected.emit(league)">
         <td>{{league.leagueName}}</td>
-        <td>
+        <!--<td>
           <a [routerLink]="[league.id]" class="btn btn-default">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
           </a>
+        </td>-->
+        <td>
+          <button (click)="deleted.emit(league); $event.stopPropagation();" type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
-</div>
+<!--</div>-->

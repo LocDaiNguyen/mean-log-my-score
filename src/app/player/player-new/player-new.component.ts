@@ -45,7 +45,7 @@ export class PlayerNewComponent implements OnInit {
       form.value.teamSelected.id,
       form.value.teamSelected.teamName,
       form.value.playerName
-    )
+    );
 
     if (!newPlayer) { return; }
 
@@ -66,13 +66,13 @@ export class PlayerNewComponent implements OnInit {
       );
   }
 
-  getAllLeagues(): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => { this.leagues = leagues; },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => { this.leagues = leagues; },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
@@ -104,7 +104,7 @@ export class PlayerNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPlayers();
-    this.getAllLeagues();
+    // this.getAllLeagues();
     this.getAllDivisions();
     this.getAllTeams();
   }

@@ -43,16 +43,16 @@ export class DivisionUpdateComponent implements OnInit {
       );
   }
 
-  getAllLeagues(division: Division): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.leagueSelected = leagues.find((league: League) => { return league.id === division.leagueId; });
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(division: Division): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => {
+  //         this.leagues = leagues;
+  //         this.leagueSelected = leagues.find((league: League) => { return league.id === division.leagueId; });
+  //       },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   goBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
@@ -64,7 +64,7 @@ export class DivisionUpdateComponent implements OnInit {
       .subscribe(
         (division: Division) => {
           this.division = division;
-          this.getAllLeagues(division);
+          // this.getAllLeagues(division);
         },
         (error: string) => { this.error = error; }
       );

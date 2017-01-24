@@ -52,7 +52,7 @@ export class SeasonNewComponent implements OnInit {
       form.value.playerSelected.id,
       form.value.playerSelected.playerName,
       form.value.seasonName
-    )
+    );
 
     if (!newSeason) { return; }
 
@@ -73,13 +73,13 @@ export class SeasonNewComponent implements OnInit {
       );
   }
 
-  getAllLeagues(): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => { this.leagues = leagues; },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => { this.leagues = leagues; },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
@@ -123,7 +123,7 @@ export class SeasonNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllSeasons();
-    this.getAllLeagues();
+    // this.getAllLeagues();
     this.getAllDivisions();
     this.getAllTeams();
     this.getAllPlayers();

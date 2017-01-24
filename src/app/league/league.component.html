@@ -1,5 +1,14 @@
 <div class="row">
-  <div class="col-sm-12">
-    <router-outlet></router-outlet>
+  <div class="col-sm-6">
+    <lms-league-list  [leagues]="leagues$ | async"
+                      (selected)="selectLeague($event)"
+                      (deleted)="deleteLeague($event)"
+    ></lms-league-list>
+  </div>
+  <div class="col-sm-6">
+    <lms-league-detail  [league]="selectedLeague"
+                        (saved)="saveLeague($event)"
+                        (cancelled)="resetLeague($event)"
+    ></lms-league-detail>
   </div>
 </div>

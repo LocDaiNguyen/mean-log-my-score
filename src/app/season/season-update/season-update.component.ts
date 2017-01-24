@@ -58,19 +58,19 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         () => { this.goBack(); },
         (error: string) => { this.error = error; }
-      )
-  }
-
-  getAllLeagues(season: Season): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.leagueSelected = leagues.find((league: League) => { return league.id === season.leagueId; });
-        },
-        (error: string) => { this.error = error; }
       );
   }
+
+  // getAllLeagues(season: Season): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => {
+  //         this.leagues = leagues;
+  //         this.leagueSelected = leagues.find((league: League) => { return league.id === season.leagueId; });
+  //       },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(season: Season): void {
     this.divisionService.getAllDivisions()
@@ -138,7 +138,7 @@ export class SeasonUpdateComponent implements OnInit {
       .subscribe(
         (season: Season) => {
           this.season = season;
-          this.getAllLeagues(season);
+          // this.getAllLeagues(season);
           this.getAllDivisions(season);
           this.getAllTeams(season);
           this.getAllPlayers(season);

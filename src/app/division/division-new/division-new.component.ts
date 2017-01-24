@@ -53,16 +53,16 @@ export class DivisionNewComponent implements OnInit {
       );
   }
 
-  getAllLeagues(): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.leagueSelected = leagues[0];
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => {
+  //         this.leagues = leagues;
+  //         this.leagueSelected = leagues[0];
+  //       },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   goBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
@@ -70,7 +70,7 @@ export class DivisionNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllDivisions();
-    this.getAllLeagues();
+    // this.getAllLeagues();
   }
 
 }

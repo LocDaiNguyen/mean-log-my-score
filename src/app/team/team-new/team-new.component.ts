@@ -59,13 +59,13 @@ export class TeamNewComponent implements OnInit {
       );
   }
 
-  getAllLeagues(): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => { this.leagues = leagues; },
-        (error: string) => { this.error = error; }
-      );
-  }
+  // getAllLeagues(): void {
+  //   this.leagueService.getAllLeagues()
+  //     .subscribe(
+  //       (leagues: League[]) => { this.leagues = leagues; },
+  //       (error: string) => { this.error = error; }
+  //     );
+  // }
 
   getAllDivisions(): void {
     this.divisionService.getAllDivisions()
@@ -85,7 +85,7 @@ export class TeamNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTeams();
-    this.getAllLeagues();
+    // this.getAllLeagues();
     this.getAllDivisions();
   }
 

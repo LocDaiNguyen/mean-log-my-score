@@ -1,44 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { League } from '../shared/league.model';
-import { LeagueService } from '../shared/league.service';
 
 @Component({
   selector: 'lms-league-list',
   templateUrl: './league-list.component.html',
-  styleUrls: ['./league-list.component.css']
+  styleUrls: ['./league-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeagueListComponent implements OnInit {
 
-  error: string;
-  leagues: League[];
-  noLeagues: boolean;
+  @Input() leagues: League[];
+  @Output() selected = new EventEmitter();
+  @Output() deleted = new EventEmitter();
 
-  constructor(
-    private leagueService: LeagueService
-  ) { }
+  constructor() { }
 
-  getAllLeagues(): void {
-    this.leagueService.getAllLeagues()
-      .subscribe(
-        (leagues: League[]) => {
-          this.leagues = leagues;
-          this.setNoLeagues(leagues);
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
-
-  setNoLeagues(leagues: League[]): void {
-    if (leagues.length > 0) {
-      this.noLeagues = false;
-    } else {
-      this.noLeagues = true;
-    }
-  }
-
-  ngOnInit(): void {
-    this.getAllLeagues();
-  }
+  ngOnInit() { }
 
 }
