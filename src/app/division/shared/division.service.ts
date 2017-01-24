@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { Division } from './division.model';
+import { AppStore } from '../../app.store';
+import { ADD_DIVISION, CREATE_DIVISION, UPDATE_DIVISION, DELETE_DIVISION } from './division.reducer';
 
 @Injectable()
 export class DivisionService {
@@ -17,52 +16,40 @@ export class DivisionService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  divisions$: Observable<Division[]> = this.store.select('divisions');
 
-  getAllDivisions(): Observable<Division[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllDivisions() {
     return this.http.get(this.divisionsUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_DIVISION, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getDivision(id: number | string): Observable<Division> {
-    const divisionUrl = `${this.divisionsUrl}/${id}`;
-    return this.http.get(divisionUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  saveDivision(division: Division) {
+    return (division.id) ? this.updateDivision(division) : this.createDivision(division);
   }
 
-  createDivisiion(division: Division): Observable<Division> {
+  createDivision(division: Division) {
     return this.http.post(this.divisionsUrl, JSON.stringify(division), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_DIVISION, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updateDivision(division: Division): Observable<Division> {
+  updateDivision(division: Division) {
     const divisionUrl = `${this.divisionsUrl}/${division.id}`;
     return this.http.put(divisionUrl, JSON.stringify(division), this.options)
-      .map(() => division)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_DIVISION, payload: division }));
   }
 
-  deleteDivision(id: number | string): Observable<void> {
-    const divisionUrl = `${this.divisionsUrl}/${id}`;
+  deleteDivision(division: Division) {
+    const divisionUrl = `${this.divisionsUrl}/${division.id}`;
     return this.http.delete(divisionUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_DIVISION, payload: division }));
   }
 }

@@ -8,6 +8,7 @@ import { InMemoryData } from './mock/in-memory-data';
 import { StoreModule } from '@ngrx/store';
 
 import { leagues } from './league/shared/league.reducer';
+import { divisions } from './division/shared/division.reducer';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,7 +38,7 @@ import { ScoreService } from './score/shared/score.service';
     AppRoutingModule,
     LoginRoutingModule,
     InMemoryWebApiModule.forRoot(InMemoryData),
-    StoreModule.provideStore({ leagues }),
+    StoreModule.provideStore({ leagues, divisions }),
   ],
   providers: [
     LeagueService,

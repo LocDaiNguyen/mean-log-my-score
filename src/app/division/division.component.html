@@ -1,5 +1,14 @@
 <div class="row">
-  <div class="col-sm-12">
-    <router-outlet></router-outlet>
+  <div class="col-sm-6">
+    <lms-division-list  [divisions]="divisions$ | async"
+                        (selected)="selectDivision($event)"
+                        (deleted)="deleteDivision($event)"
+    ></lms-division-list>
+  </div>
+  <div class="col-sm-6">
+    <lms-division-detail  [division]="selectedDivision"
+                          (saved)="saveDivision($event)"
+                          (cancelled)="resetDivision($event)"
+    ></lms-division-detail>
   </div>
 </div>

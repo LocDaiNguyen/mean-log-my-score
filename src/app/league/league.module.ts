@@ -8,7 +8,6 @@ import { LeagueDetailComponent } from './league-detail/league-detail.component';
 
 import { LeagueRoutingModule } from './league-routing.module';
 
-
 @NgModule({
   imports: [
     CommonModule,

@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DivisionComponent } from './division.component';
 import { DivisionListComponent } from './division-list/division-list.component';
-import { DivisionNewComponent } from './division-new/division-new.component';
-import { DivisionUpdateComponent } from './division-update/division-update.component';
+import { DivisionDetailComponent } from './division-detail/division-detail.component';
 
 import { DivisionRoutingModule } from './division-routing.module';
 
@@ -18,8 +17,7 @@ import { DivisionRoutingModule } from './division-routing.module';
   declarations: [
     DivisionComponent,
     DivisionListComponent,
-    DivisionNewComponent,
-    DivisionUpdateComponent,
+    DivisionDetailComponent,
   ]
 })
 export class DivisionModule { }
