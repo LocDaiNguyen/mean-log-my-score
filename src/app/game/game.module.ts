@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { GameComponent } from './game.component';
 import { GameListComponent } from './game-list/game-list.component';
-import { GameNewComponent } from './game-new/game-new.component';
-import { GameUpdateComponent } from './game-update/game-update.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 
 import { GameRoutingModule } from './game-routing.module';
 import { FilterByPipeModule } from '../shared/filter-by.module';
@@ -20,8 +19,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
   declarations: [
     GameComponent,
     GameListComponent,
-    GameNewComponent,
-    GameUpdateComponent,
+    GameDetailComponent,
   ]
 })
 export class GameModule { }

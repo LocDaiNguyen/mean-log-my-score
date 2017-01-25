@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { Game } from '../shared/game.model';
-import { GameService } from '../shared/game.service';
 
 @Component({
   selector: 'lms-game-list',
@@ -10,33 +9,12 @@ import { GameService } from '../shared/game.service';
 })
 export class GameListComponent implements OnInit {
 
-  error: string;
-  games: Game[];
-  noGames: boolean;
+  @Input() games: Game[];
+  @Output() selected = new EventEmitter();
+  @Output() deleted = new EventEmitter();
 
-  constructor(private gameService: GameService) { }
+  constructor() { }
 
-  getAllGames(): void {
-    this.gameService.getAllGames()
-      .subscribe(
-        (games: Game[]) => {
-          this.games = games;
-          this.setNoGames(games);
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
-
-  setNoGames(games: Game[]): void {
-    if (games.length > 0) {
-      this.noGames = false;
-    } else {
-      this.noGames = true;
-    }
-  }
-
-  ngOnInit(): void {
-    this.getAllGames();
-  }
+  ngOnInit() { }
 
 }

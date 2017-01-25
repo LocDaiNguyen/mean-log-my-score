@@ -3,6 +3,7 @@ import { Division } from './division/shared/division.model';
 import { Team } from './team/shared/team.model';
 import { Player } from './player/shared/player.model';
 import { Season } from './season/shared/season.model';
+import { Game } from './game/shared/game.model';
 
 export interface AppStore {
   leagues: League[];
@@ -10,4 +11,5 @@ export interface AppStore {
   teams: Team[];
   players: Player[];
   seasons: Season[];
+  games: Game[];
 }
