@@ -1,5 +1,14 @@
 <div class="row">
-  <div class="col-sm-12">
-    <router-outlet></router-outlet>
+  <div class="col-sm-6">
+    <lms-season-list  [seasons]="seasons$ | async"
+                      (selected)="selectSeason($event)"
+                      (deleted)="deleteSeason($event)"
+    ></lms-season-list>
+  </div>
+  <div class="col-sm-6">
+    <lms-season-detail  [season]="selectedSeason"
+                        (saved)="saveSeason($event)"
+                        (cancelled)="resetSeason($event)"
+    ></lms-season-detail>
   </div>
 </div>

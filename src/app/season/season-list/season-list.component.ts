@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { Season } from '../shared/season.model';
-import { SeasonService } from '../shared/season.service';
 
 @Component({
   selector: 'lms-season-list',
@@ -10,33 +9,12 @@ import { SeasonService } from '../shared/season.service';
 })
 export class SeasonListComponent implements OnInit {
 
-  error: string;
-  seasons: Season[];
-  noSeasons; boolean;
+  @Input() seasons: Season[];
+  @Output() selected = new EventEmitter();
+  @Output() deleted = new EventEmitter();
 
-  constructor(private seasonService: SeasonService) { }
+  constructor() { }
 
-  getAllSeasons(): void {
-    this.seasonService.getAllSeasons()
-      .subscribe(
-        (seasons: Season[]) => {
-          this.seasons = seasons;
-          this.setNoSeasons(seasons);
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
-
-  setNoSeasons(seasons: Season[]): void {
-    if (seasons.length > 0) {
-      this.noSeasons = false;
-    } else {
-      this.noSeasons = true;
-    }
-  }
-
-  ngOnInit(): void {
-    this.getAllSeasons();
-  }
+  ngOnInit() { }
 
 }

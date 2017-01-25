@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { SeasonComponent } from './season.component';
 import { SeasonListComponent } from './season-list/season-list.component';
-import { SeasonNewComponent } from './season-new/season-new.component';
-import { SeasonUpdateComponent } from './season-update/season-update.component';
+import { SeasonDetailComponent } from './season-detail/season-detail.component';
 
 import { SeasonRoutingModule } from './season-routing.module';
 import { FilterByPipeModule } from '../shared/filter-by.module';
@@ -20,8 +19,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
   declarations: [
     SeasonComponent,
     SeasonListComponent,
-    SeasonNewComponent,
-    SeasonUpdateComponent
+    SeasonDetailComponent,
   ]
 })
 export class SeasonModule { }

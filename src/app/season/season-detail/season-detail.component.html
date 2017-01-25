@@ -1,0 +1,109 @@
+<h2 *ngIf="selectedSeason.id">Edit {{originalName}}</h2>
+<h2 *ngIf="!selectedSeason.id">Add Season</h2>
+
+<form (ngSubmit)="save(form)" #form="ngForm">
+  
+  <label for="league">League</label>
+  <input
+    *ngIf="selectedSeason.id"
+    [disabled]="selectedSeason.id"
+    [ngModel]="selectedSeason.leagueName"
+    name="leagueName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedSeason.id"
+    [(ngModel)]="selectedLeague"
+    (ngModelChange)="onChangeLeague($event)"
+    name="league"
+    class="form-control"
+    id="league"
+    required
+  >
+    <option *ngFor="let league of leagues$ | async" [ngValue]="league">{{league.leagueName}}</option>
+  </select>
+
+  <label for="division">Division</label>
+  <input
+    *ngIf="selectedSeason.id"
+    [disabled]="selectedSeason.id"
+    [ngModel]="selectedSeason.divisionName"
+    name="divisionName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedSeason.id"
+    [(ngModel)]="selectedDivision"
+    (ngModelChange)="onChangeDivision($event)"
+    name="division"
+    class="form-control"
+    id="division"
+    required
+  >
+    <option *ngFor="let division of divisions$ | async | filterBy: league" [ngValue]="division">{{division.divisionName}}</option>
+  </select>
+
+  <label for="team">Team</label>
+  <input
+    *ngIf="selectedSeason.id"
+    [disabled]="selectedSeason.id"
+    [ngModel]="selectedSeason.teamName"
+    name="teamName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedSeason.id"
+    [(ngModel)]="selectedTeam"
+    (ngModelChange)="onChangeTeam($event)"
+    name="team"
+    class="form-control"
+    id="team"
+    required
+  >
+    <option *ngFor="let team of teams$ | async | filterBy: division" [ngValue]="team">{{team.teamName}}</option>
+  </select>
+
+  <label for="player">Player</label>
+  <input
+    *ngIf="selectedSeason.id"
+    [disabled]="selectedSeason.id"
+    [ngModel]="selectedSeason.playerName"
+    name="playerName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedSeason.id"
+    [(ngModel)]="selectedPlayer"
+    name="player"
+    class="form-control"
+    id="player"
+    required
+  >
+    <option *ngFor="let player of players$ | async | filterBy: team" [ngValue]="player">{{player.playerName}}</option>
+  </select>
+  
+  <div class="form-group">
+    <label for="season">Season</label>
+    <input
+      [(ngModel)]="selectedSeason.seasonName"
+      name="seasonName"
+      type="text"
+      class="form-control"
+      id="season"
+      placeholder="ex ARL Winter 2017"
+      required
+    >
+  </div>
+  
+  <button (click)="cancel(selectedSeason)" type="button" class="btn btn-default">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+
+</form>

@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { Season } from './season.model';
+import { AppStore } from '../../app.store';
+import { ADD_SEASON, CREATE_SEASON, UPDATE_SEASON, DELETE_SEASON } from './season.reducer';
 
 @Injectable()
 export class SeasonService {
@@ -17,52 +16,40 @@ export class SeasonService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  seasons$: Observable<Season[]> = this.store.select('seasons');
 
-  getAllSeasons(): Observable<Season[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllSeasons() {
     return this.http.get(this.seasonsUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_SEASON, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getSeason(id: number | string): Observable<Season> {
-    const seasonUrl = `${this.seasonsUrl}/${id}`;
-    return this.http.get(seasonUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  saveSeason(season: Season) {
+    return (season.id) ? this.updateSeason(season) : this.createSeason(season);
   }
 
-  createSeason(season: Season): Observable<Season> {
+  createSeason(season: Season) {
     return this.http.post(this.seasonsUrl, JSON.stringify(season), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_SEASON, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updateSeason(season: Season): Observable<Season> {
+  updateSeason(season: Season) {
     const seasonUrl = `${this.seasonsUrl}/${season.id}`;
     return this.http.put(seasonUrl, JSON.stringify(season), this.options)
-      .map(() => season)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_SEASON, payload: season }));
   }
 
-  deleteSeason(id: number | string): Observable<void> {
-    const seasonUrl = `${this.seasonsUrl}/${id}`;
+  deleteSeason(season: Season) {
+    const seasonUrl = `${this.seasonsUrl}/${season.id}`;
     return this.http.delete(seasonUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_SEASON, payload: season }));
   }
 }
