@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { Team } from './team.model';
+import { AppStore } from '../../app.store';
+import { ADD_TEAM, CREATE_TEAM, UPDATE_TEAM, DELETE_TEAM } from './team.reducer';
 
 @Injectable()
 export class TeamService {
@@ -17,52 +16,40 @@ export class TeamService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  teams$: Observable<Team[]> = this.store.select('teams');
 
-  getAllTeams(): Observable<Team[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllTeams() {
     return this.http.get(this.teamsUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_TEAM, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getTeam(id: number | string): Observable<Team> {
-    const teamUrl = `${this.teamsUrl}/${id}`;
-    return this.http.get(teamUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  saveTeam(team: Team) {
+    return (team.id) ? this.updateTeam(team) : this.createTeam(team);
   }
 
-  createTeam(team: Team): Observable<Team> {
+  createTeam(team: Team) {
     return this.http.post(this.teamsUrl, JSON.stringify(team), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_TEAM, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updateTeam(team: Team): Observable<Team> {
+  updateTeam(team: Team) {
     const teamUrl = `${this.teamsUrl}/${team.id}`;
     return this.http.put(teamUrl, JSON.stringify(team), this.options)
-      .map(() => team)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_TEAM, payload: team }));
   }
 
-  delteTeam(id: number | string): Observable<void> {
-    const teamUrl = `${this.teamsUrl}/${id}`;
+  deleteTeam(team: Team) {
+    const teamUrl = `${this.teamsUrl}/${team.id}`;
     return this.http.delete(teamUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_TEAM, payload: team }));
   }
 }

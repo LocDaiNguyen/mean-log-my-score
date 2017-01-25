@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { Team } from '../shared/team.model';
-import { TeamService } from '../shared/team.service';
 
 @Component({
   selector: 'lms-team-list',
@@ -10,35 +9,12 @@ import { TeamService } from '../shared/team.service';
 })
 export class TeamListComponent implements OnInit {
 
-  error: string;
-  teams: Team[];
-  noTeams: boolean;
+  @Input() teams: Team[];
+  @Output() selected = new EventEmitter();
+  @Output() deleted = new EventEmitter();
 
-  constructor(
-    private teamService: TeamService
-  ) { }
+  constructor() { }
 
-  getAllTeams(): void {
-    this.teamService.getAllTeams()
-      .subscribe(
-        (teams: Team[]) => {
-          this.teams = teams;
-          this.setNoTeams(teams);
-        },
-        (error: string) => { this.error = error; }
-      );
-  }
-
-  setNoTeams(teams: Team[]): void {
-    if (teams.length > 0) {
-      this.noTeams = false;
-    } else {
-      this.noTeams = true;
-    }
-  }
-
-  ngOnInit(): void {
-    this.getAllTeams();
-  }
+  ngOnInit() { }
 
 }

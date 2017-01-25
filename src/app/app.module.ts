@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { leagues } from './league/shared/league.reducer';
 import { divisions } from './division/shared/division.reducer';
+import { teams } from './team/shared/team.reducer';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,7 @@ import { ScoreService } from './score/shared/score.service';
     AppRoutingModule,
     LoginRoutingModule,
     InMemoryWebApiModule.forRoot(InMemoryData),
-    StoreModule.provideStore({ leagues, divisions }),
+    StoreModule.provideStore({ leagues, divisions, teams }),
   ],
   providers: [
     LeagueService,

@@ -1,7 +1,7 @@
 /**
  * Created by vadimdez on 28/06/16.
  */
-import { Pipe, Injectable } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 
 @Pipe({
   name: 'filterBy',
@@ -9,19 +9,19 @@ import { Pipe, Injectable } from '@angular/core';
 })
 
 @Injectable()
-export class FilterByPipe {
+export class FilterByPipe implements PipeTransform {
 
   private filterByString(filter) {
     filter = filter.toLowerCase();
     return value => {
       return !filter || value.toLowerCase().indexOf(filter) !== -1;
-    }
+    };
   }
 
   private filterByBoolean(filter) {
     return value => {
       return Boolean(value) === filter;
-    }
+    };
   }
 
   private filterByObject(filter) {
@@ -50,7 +50,7 @@ export class FilterByPipe {
       }
 
       return true;
-    }
+    };
   }
 
   /**
@@ -62,7 +62,7 @@ export class FilterByPipe {
   private filterDefault(filter) {
     return value => {
       return !filter || filter == value;
-    }
+    };
   }
 
   private isNumber(value) {

@@ -44,15 +44,15 @@ export class DivisionDetailComponent implements OnInit {
       leagueName: form.value.league.leagueName
     };
     this.saved.emit(newDivision);
-    this.resetLeague();
+    this.resetValues();
   }
 
   cancel(division: Division) {
-    this.resetLeague();
+    this.resetValues();
     this.cancelled.emit(division);
   }
 
-  resetLeague() {
+  resetValues() {
     this.selectedLeague = {id: null, leagueName: ''};
   }
 

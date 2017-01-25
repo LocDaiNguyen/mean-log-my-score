@@ -1,0 +1,65 @@
+<h2 *ngIf="selectedTeam.id">Edit {{originalName}}</h2>
+<h2 *ngIf="!selectedTeam.id">Add Team</h2>
+
+<form (ngSubmit)="save(form)" #form="ngForm">
+  
+  <label for="league">League</label>
+  <input
+    *ngIf="selectedTeam.id"
+    [disabled]="selectedTeam.id"
+    [ngModel]="selectedTeam.leagueName"
+    name="leagueName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedTeam.id"
+    [(ngModel)]="selectedLeague"
+    (ngModelChange)="onChangeLeague($event)"
+    name="league"
+    class="form-control"
+    id="league"
+    required
+  >
+    <option *ngFor="let league of leagues$ | async" [ngValue]="league">{{league.leagueName}}</option>
+  </select>
+
+  <label for="division">Division</label>
+  <input
+    *ngIf="selectedTeam.id"
+    [disabled]="selectedTeam.id"
+    [ngModel]="selectedTeam.divisionName"
+    name="divisionName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedTeam.id"
+    [(ngModel)]="selectedDivision"
+    name="division"
+    class="form-control"
+    id="division"
+    required
+  >
+    <option *ngFor="let division of divisions$ | async | filterBy: league" [ngValue]="division">{{division.divisionName}}</option>
+  </select>
+  
+  <div class="form-group">
+    <label for="team">Team</label>
+    <input
+      [(ngModel)]="selectedTeam.teamName"
+      name="teamName"
+      type="text"
+      class="form-control"
+      id="team"
+      placeholder="ex Falcons"
+      required
+    >
+  </div>
+  
+  <button (click)="cancel(selectedTeam)" type="button" class="btn btn-default">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
