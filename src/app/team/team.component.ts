@@ -25,7 +25,14 @@ export class TeamComponent implements OnInit {
   }
 
   resetTeam() {
-    let emptyTeam: Team = {id: null, teamName: '', leagueId: null, leagueName: '', divisionId: null, divisionName: ''};
+    let emptyTeam: Team = {
+      id: null,
+      teamName: '',
+      leagueId: null,
+      leagueName: '',
+      divisionId: null,
+      divisionName: ''
+    };
     this.selectedTeam = emptyTeam;
   }
 

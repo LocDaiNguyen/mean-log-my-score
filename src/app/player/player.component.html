@@ -1,5 +1,14 @@
 <div class="row">
-  <div class="col-sm-12">
-    <router-outlet></router-outlet>
+  <div class="col-sm-6">
+    <lms-player-list  [players]="players$ | async"
+                      (selected)="selectPlayer($event)"
+                      (deleted)="deletePlayer($event)"
+    ></lms-player-list>
+  </div>
+  <div class="col-sm-6">
+    <lms-player-detail  [player]="selectedPlayer"
+                        (saved)="savePlayer($event)"
+                        (cancelled)="resetPlayer($event)"
+    ></lms-player-detail>
   </div>
 </div>

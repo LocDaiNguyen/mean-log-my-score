@@ -1,0 +1,87 @@
+<h2 *ngIf="selectedPlayer.id">Edit {{originalName}}</h2>
+<h2 *ngIf="!selectedPlayer.id">Add Player</h2>
+
+<form (ngSubmit)="save(form)" #form="ngForm">
+  
+  <label for="league">League</label>
+  <input
+    *ngIf="selectedPlayer.id"
+    [disabled]="selectedPlayer.id"
+    [ngModel]="selectedPlayer.leagueName"
+    name="leagueName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedPlayer.id"
+    [(ngModel)]="selectedLeague"
+    (ngModelChange)="onChangeLeague($event)"
+    name="league"
+    class="form-control"
+    id="league"
+    required
+  >
+    <option *ngFor="let league of leagues$ | async" [ngValue]="league">{{league.leagueName}}</option>
+  </select>
+
+  <label for="division">Division</label>
+  <input
+    *ngIf="selectedPlayer.id"
+    [disabled]="selectedPlayer.id"
+    [ngModel]="selectedPlayer.divisionName"
+    name="divisionName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedPlayer.id"
+    [(ngModel)]="selectedDivision"
+    (ngModelChange)="onChangeDivision($event)"
+    name="division"
+    class="form-control"
+    id="division"
+    required
+  >
+    <option *ngFor="let division of divisions$ | async | filterBy: league" [ngValue]="division">{{division.divisionName}}</option>
+  </select>
+
+  <label for="team">Team</label>
+  <input
+    *ngIf="selectedPlayer.id"
+    [disabled]="selectedPlayer.id"
+    [ngModel]="selectedPlayer.teamName"
+    name="teamName"
+    type="text"
+    class="form-control"
+  >
+  
+  <select
+    *ngIf="!selectedPlayer.id"
+    [(ngModel)]="selectedTeam"
+    name="team"
+    class="form-control"
+    id="team"
+    required
+  >
+    <option *ngFor="let team of teams$ | async | filterBy: division" [ngValue]="team">{{team.teamName}}</option>
+  </select>
+  
+  <div class="form-group">
+    <label for="player">Player</label>
+    <input
+      [(ngModel)]="selectedPlayer.playerName"
+      name="playerName"
+      type="text"
+      class="form-control"
+      id="player"
+      placeholder="ex Johnny Hockey"
+      required
+    >
+  </div>
+  
+  <button (click)="cancel(selectedPlayer)" type="button" class="btn btn-default">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+
+</form>

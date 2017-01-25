@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { Player } from './player.model';
+import { AppStore } from '../../app.store';
+import { ADD_PLAYER, CREATE_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from './player.reducer';
 
 @Injectable()
 export class PlayerService {
@@ -17,52 +16,40 @@ export class PlayerService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  players$: Observable<Player[]> = this.store.select('players');
 
-  getAllPlayers(): Observable<Player[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllPlayers() {
     return this.http.get(this.playersUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_PLAYER, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getPlayer(id: number | string): Observable<Player> {
-    const playerUrl = `${this.playersUrl}/${id}`;
-    return this.http.get(playerUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  savePlayer(player: Player) {
+    return (player.id) ? this.updatePlayer(player) : this.createPlayer(player);
   }
 
-  createPlayer(player: Player): Observable<Player> {
+  createPlayer(player: Player) {
     return this.http.post(this.playersUrl, JSON.stringify(player), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_PLAYER, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updatePlayer(player: Player): Observable<Player> {
+  updatePlayer(player: Player) {
     const playerUrl = `${this.playersUrl}/${player.id}`;
     return this.http.put(playerUrl, JSON.stringify(player), this.options)
-      .map(() => player)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_PLAYER, payload: player }));
   }
 
-  deletePlayer(id: number | string): Observable<void> {
-    const playerUrl = `${this.playersUrl}/${id}`;
+  deletePlayer(player: Player) {
+    const playerUrl = `${this.playersUrl}/${player.id}`;
     return this.http.delete(playerUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_PLAYER, payload: player }));
   }
 }

@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { PlayerComponent } from './player.component';
 import { PlayerListComponent } from './player-list/player-list.component';
-import { PlayerNewComponent } from './player-new/player-new.component';
-import { PlayerUpdateComponent } from './player-update/player-update.component';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
 
 import { PlayerRoutingModule } from './player-routing.module';
 import { FilterByPipeModule } from '../shared/filter-by.module';
@@ -20,8 +19,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
   declarations: [
     PlayerComponent,
     PlayerListComponent,
-    PlayerNewComponent,
-    PlayerUpdateComponent,
+    PlayerDetailComponent,
   ]
 })
 export class PlayerModule { }

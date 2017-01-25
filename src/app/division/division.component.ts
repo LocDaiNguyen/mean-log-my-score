@@ -25,7 +25,12 @@ export class DivisionComponent implements OnInit {
   }
 
   resetDivision() {
-    let emptyDivision: Division = {id: null, divisionName: '', leagueId: null, leagueName: ''};
+    let emptyDivision: Division = {
+      id: null,
+      divisionName: '',
+      leagueId: null,
+      leagueName: ''
+    };
     this.selectedDivision = emptyDivision;
   }
 
