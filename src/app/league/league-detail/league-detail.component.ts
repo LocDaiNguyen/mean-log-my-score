@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { League } from '../shared/league.model';
 
@@ -24,5 +25,25 @@ export class LeagueDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
+
+  save(form: NgForm) {
+    if (this.selectedLeague.id) {
+      return this.saved.emit(this.selectedLeague);
+    }
+    let newLeague: League = {
+      leagueName: form.value.leagueName
+    };
+    this.saved.emit(newLeague);
+    this.resetValues();
+  }
+
+  cancel(league: League) {
+    this.resetValues();
+    this.cancelled.emit(league);
+  }
+
+  resetValues() {
+    this.selectedLeague = {id: null, leagueName: ''};
+  }
 
 }

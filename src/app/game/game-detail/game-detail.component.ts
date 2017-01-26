@@ -32,7 +32,6 @@ export class GameDetailComponent implements OnInit {
   @Output() cancelled = new EventEmitter();
 
   @Input() set game(value: Game) {
-    console.log(value);
     if (value) {
       this.originalName = `${value.teamName} vs ${value.opponentName}`;
       this.teams$
@@ -70,13 +69,13 @@ export class GameDetailComponent implements OnInit {
     let newGame: Game = {
       leagueId: form.value.season.leagueId,
       leagueName: form.value.season.leagueName,
-      divisionId: form.value.season.id,
+      divisionId: form.value.season.divisionId,
       divisionName: form.value.season.divisionName,
-      teamId: form.value.season.id,
+      teamId: form.value.season.teamId,
       teamName: form.value.season.teamName,
-      playerId: form.value.season.id,
+      playerId: form.value.season.playerId,
       playerName: form.value.season.playerName,
-      seasonId: form.value.season.id,
+      seasonId: form.value.season.seasonId,
       seasonName: form.value.season.seasonName,
       opponentId: form.value.opponent.id,
       opponentName: form.value.opponent.teamName,

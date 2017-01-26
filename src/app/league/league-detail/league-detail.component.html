@@ -1,7 +1,7 @@
 <h2 *ngIf="selectedLeague.id">Edit {{originalName}}</h2>
 <h2 *ngIf="!selectedLeague.id">Add League</h2>
 
-<form novalidate>
+<form (ngSubmit)="save(form)" #form="ngForm">
   
   <div class="form-group">
     <label for="league">League</label>
@@ -15,7 +15,7 @@
     >
   </div>
   
-  <button (click)="cancelled.emit(selectedLeague)" type="submit" class="btn btn-default">Canel</button>
-  <button (click)="saved.emit(selectedLeague)" type="submit" class="btn btn-primary">Save</button>
+  <button (click)="cancel(selectedLeague)" type="button" class="btn btn-default">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
 
 </form>

@@ -18,12 +18,14 @@
   <table class="table mar-top-2">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Leagues</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let league of leagues" (click)="selected.emit(league)">
+        <td>{{league.id}}</td>
         <td>{{league.leagueName}}</td>
         <!--<td>
           <a [routerLink]="[league.id]" class="btn btn-default">

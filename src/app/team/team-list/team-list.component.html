@@ -18,6 +18,7 @@
   <table class="table mar-top-2">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Teams</th>
         <th>Leagues</th>
         <th>Divisions</th>
@@ -26,6 +27,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let team of teams" (click)="selected.emit(team)">
+        <td>{{team.id}}</td>
         <td>{{team.teamName}}</td>
         <td>{{team.leagueName}}</td>
         <td>{{team.divisionName}}</td>
