@@ -1,5 +1,14 @@
 <div class="row">
-  <div class="col-sm-12">
-    <router-outlet></router-outlet>
+  <div class="col-sm-6">
+    <lms-score-list [scores]="scores$ | async"
+                    (selected)="selectScore($event)"
+                    (deleted)="deleteScore($event)"
+    ></lms-score-list>
+  </div>
+  <div class="col-sm-6">
+    <lms-score-detail [score]="selectedScore"
+                      (saved)="saveScore($event)"
+                      (cancelled)="resetScore($event)"
+    ></lms-score-detail>
   </div>
 </div>

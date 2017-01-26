@@ -5,14 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 
 import { Game } from '../shared/game.model';
-import { League } from '../../league/shared/league.model';
-import { LeagueService } from '../../league/shared/league.service';
-import { Division } from '../../division/shared/division.model';
-import { DivisionService } from '../../division/shared/division.service';
 import { Team } from '../../team/shared/team.model';
 import { TeamService } from '../../team/shared/team.service';
-import { Player } from '../../player/shared/player.model';
-import { PlayerService } from '../../player/shared/player.service';
 import { Season } from '../../season/shared/season.model';
 import { SeasonService } from '../../season/shared/season.service';
 
@@ -27,17 +21,18 @@ export class GameDetailComponent implements OnInit {
   originalName: string;
   selectedGame: Game;
   seasons$: Observable<Season[]> = this.seasonService.seasons$;
-  division = { divisionId: null };
   teams$: Observable<Team[]> = this.teamService.teams$;
-  opponents: Team[];
-  selectedOpponent: Team;
   selectedSeason: Season;
+  selectedOpponent: Team;
+  opponents: Team[];
+  division = { divisionId: null };
   gameTypes: Array<string> = ['Recreation', 'Regular', 'Playoffs', 'Championship'];
 
   @Output() saved = new EventEmitter();
   @Output() cancelled = new EventEmitter();
 
   @Input() set game(value: Game) {
+    console.log(value);
     if (value) {
       this.originalName = `${value.teamName} vs ${value.opponentName}`;
       this.teams$

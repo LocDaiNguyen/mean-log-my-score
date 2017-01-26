@@ -13,6 +13,7 @@ import { teams } from './team/shared/team.reducer';
 import { players } from './player/shared/player.reducer';
 import { seasons } from './season/shared/season.reducer';
 import { games } from './game/shared/game.reducer';
+import { scores } from './score/shared/score.reducer';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -42,7 +43,7 @@ import { ScoreService } from './score/shared/score.service';
     AppRoutingModule,
     LoginRoutingModule,
     InMemoryWebApiModule.forRoot(InMemoryData),
-    StoreModule.provideStore({ leagues, divisions, teams, players, seasons, games }),
+    StoreModule.provideStore({ leagues, divisions, teams, players, seasons, games, scores }),
   ],
   providers: [
     LeagueService,

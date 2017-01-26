@@ -1,0 +1,122 @@
+<h2 *ngIf="selectedScore.id">Edit {{originalName}}</h2>
+<h2 *ngIf="!selectedScore.id">Add Score</h2>
+
+<form (ngSubmit)="save(form)" #form="ngForm">
+
+  <label for="game">Game</label>
+  <input
+    *ngIf="selectedScore.id"
+    [disabled]="selectedScore.id"
+    [ngModel]="gameName"
+    name="gameName"
+    type="text"
+    class="form-control">
+  
+  <select
+    *ngIf="!selectedScore.id"
+    [(ngModel)]="selectedGame"
+    (ngModelChange)="onChangeGame($event)"
+    name="game"
+    class="form-control"
+    id="game"
+    required>
+    <option *ngFor="let game of games$ | async" [ngValue]="game">vs {{game.opponentName}} {{game.date | date: 'EEE MMM d y h:mm'}} {{game.divisionName}} {{game.leagueName}} </option>
+  </select>
+
+  <label for="scoreType">ScoreType</label>
+  <select
+    [(ngModel)]="selectedScore.scoreType"
+    name="scoreType"
+    class="form-control"
+    id="scoreType"
+    required>
+    <option
+      *ngFor="let scoreType of scoreTypes | filterBy: division"
+      [ngValue]="scoreType"
+      >{{scoreType}}</option>
+  </select>
+
+  <label for="goalScorer">Goal Scorer</label>
+  <select
+    [(ngModel)]="selectedGoalScorer"
+    (ngModelChange)="onChangeGoalScorer($event)"
+    name="goalScorer"
+    class="form-control"
+    id="goalScorer"
+    required>
+    <option
+      *ngFor="let goalScorer of players$ | async | filterBy: team"
+      [ngValue]="goalScorer"
+      >{{goalScorer.playerName}}</option>
+  </select>
+
+  <label for="assistorOne">Assistor One</label>
+  <select
+    [(ngModel)]="selectedAssistorOne"
+    (ngModelChange)="onChangeAssistorOne($event)"
+    name="assistorOne"
+    class="form-control"
+    id="assistorOne"
+    required>
+    <option
+      *ngFor="let assistorOne of players$ | async | filterBy: team"
+      [ngValue]="assistorOne"
+      >{{assistorOne.playerName}}</option>
+  </select>
+
+  <label for="assistorTwo">Assistor Two</label>
+  <select
+    [(ngModel)]="selectedAssistorTwo"
+    (ngModelChange)="onChangeAssistorTwo($event)"
+    name="assistorTwo"
+    class="form-control"
+    id="assistorTwo"
+    required>
+    <option
+      *ngFor="let assistorTwo of players$ | async | filterBy: team"
+      [ngValue]="assistorTwo"
+      >{{assistorTwo.playerName}}</option>
+  </select>
+
+  <label for="situation">Situation</label>
+  <select
+    [(ngModel)]="selectedScore.situation"
+    name="situation"
+    class="form-control"
+    id="situation"
+    required>
+    <option
+      *ngFor="let situation of situations"
+      [ngValue]="situation"
+      >{{situation}}</option>
+  </select>
+
+  <label for="period">Period</label>
+  <select
+    [(ngModel)]="selectedScore.period"
+    name="period"
+    class="form-control"
+    id="period"
+    required>
+    <option
+      *ngFor="let period of periods"
+      [ngValue]="period"
+      >{{period}}</option>
+  </select>
+
+  <div class="form-group">
+    <label for="scoreTime">Score Time</label>
+    <input
+      [(ngModel)]="selectedScore.scoreTime"
+      name="scoreTime"
+      type="text"
+      class="form-control"
+      id="scoreTime"
+      placeholder="ex 7:11"
+      required>
+  </div>
+  
+  <button (click)="cancel(selectedScore)" type="button" class="btn btn-default">Cancel</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+
+</form>

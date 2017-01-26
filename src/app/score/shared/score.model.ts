@@ -71,17 +71,17 @@ export class Score {
     this.date = date;
     this.time = time;
     this.gameType = gameType;
-    this.gameId = gameId,
-    this.scoreType = scoreType,
-    this.situation = situation,
-    this.period = period,
-    this.scoreTime = scoreTime,
-    this.goalScorerId = goalScorerId,
-    this.goalScorerName = goalScorerName,
-    this.assistorOneId = assistorOneId,
-    this.assistorOneName = assistorOneName,
-    this.assistorTwoId = assistorTwoId,
-    this.assistorTwoName = assistorTwoName,
+    this.gameId = gameId;
+    this.scoreType = scoreType;
+    this.situation = situation;
+    this.period = period;
+    this.scoreTime = scoreTime;
+    this.goalScorerId = goalScorerId;
+    this.goalScorerName = goalScorerName;
+    this.assistorOneId = assistorOneId;
+    this.assistorOneName = assistorOneName;
+    this.assistorTwoId = assistorTwoId;
+    this.assistorTwoName = assistorTwoName;
     this.id = id;
   }
 }

@@ -2,13 +2,12 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-// Observable class extensions
-import 'rxjs/add/observable/throw';
-// Observable operators
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Store } from '@ngrx/store';
 
 import { Score } from './score.model';
+import { AppStore } from '../../app.store';
+import { ADD_SCORE, CREATE_SCORE, UPDATE_SCORE, DELETE_SCORE } from './score.reducer';
 
 @Injectable()
 export class ScoreService {
@@ -17,52 +16,40 @@ export class ScoreService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = {headers: this.headers};
 
-  constructor(private http: Http) {}
+  scores$: Observable<Score[]> = this.store.select('scores');
 
-  getAllScores(): Observable<Score[]> {
+  constructor(
+    private http: Http,
+    private store: Store<AppStore>
+  ) {}
+
+  getAllScores() {
     return this.http.get(this.scoresUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: ADD_SCORE, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  getScore(id: number | string): Observable<Score> {
-    const scoreUrl = `${this.scoresUrl}/${id}`;
-    return this.http.get(scoreUrl)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+  saveScore(score: Score) {
+    return (score.id) ? this.updateScore(score) : this.createScore(score);
   }
 
-  createScore(score: Score): Observable<Score> {
+  createScore(score: Score) {
     return this.http.post(this.scoresUrl, JSON.stringify(score), this.options)
-      .map((response: Response) => response.json().data)
-      .catch(this.handleError);
+      .map(response => response.json().data)
+      .map(payload => ({ type: CREATE_SCORE, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  updateScore(score: Score): Observable<Score> {
+  updateScore(score: Score) {
     const scoreUrl = `${this.scoresUrl}/${score.id}`;
     return this.http.put(scoreUrl, JSON.stringify(score), this.options)
-      .map(() => score)
-      .catch(this.handleError);
+      .subscribe(action => this.store.dispatch({ type: UPDATE_SCORE, payload: score }));
   }
 
-  deleteScore(id: number | string): Observable<void> {
-    const scoreUrl = `${this.scoresUrl}/${id}`;
+  deleteScore(score: Score) {
+    const scoreUrl = `${this.scoresUrl}/${score.id}`;
     return this.http.delete(scoreUrl, this.options)
-      .map(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .subscribe(action => this.store.dispatch({ type: DELETE_SCORE, payload: score }));
   }
 }

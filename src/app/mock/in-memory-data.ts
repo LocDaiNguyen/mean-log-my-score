@@ -204,6 +204,24 @@ export class InMemoryData implements InMemoryDbService {
         seasonName: 'ARL A Winter 2017',
         playerId: 1,
         playerName: 'Loc Nguyen',
+      },
+      {
+        id: 2,
+        opponentId: 3,
+        opponentName: 'Stingers',
+        date: 'Fri Jan 27 2017 20:00:00 GMT-0500 (EST)',
+        time: 'Fri Jan 27 2017 20:00:00 GMT-0500 (EST)',
+        gameType: 'Regular',
+        leagueId: 1,
+        leagueName: 'Adult Recreation League',
+        divisionId: 1,
+        divisionName: 'A',
+        teamId: 1,
+        teamName: 'Falcons',
+        seasonId: 1,
+        seasonName: 'ARL A Winter 2017',
+        playerId: 1,
+        playerName: 'Loc Nguyen',
       }
     ];
 
