@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup, FormControl, FormControlName, FormArray, Validators } from '@angular/forms';
 
 import { League } from '../shared/league.model';
 
@@ -11,6 +11,7 @@ import { League } from '../shared/league.model';
 })
 export class LeagueDetailComponent implements OnInit {
 
+  leagueForm: FormGroup;
   originalName: string;
   selectedLeague: League;
 
@@ -18,23 +19,39 @@ export class LeagueDetailComponent implements OnInit {
   @Output() cancelled = new EventEmitter();
 
   @Input() set league(value: League) {
-    if (value) { this.originalName = value.leagueName; }
+    if (value) {
+      this.originalName = value.leagueName;
+      this.leagueForm.patchValue({
+        leagueName: value.leagueName
+      });
+    }
     this.selectedLeague = Object.assign({}, value);
   }
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.leagueForm = this.formBuilder.group({
+      'leagueName': ['', Validators.required]
+    });
+  }
 
-  save(form: NgForm) {
-    if (this.selectedLeague.id) {
-      return this.saved.emit(this.selectedLeague);
+  save() {
+    if (this.leagueForm.dirty && this.leagueForm.valid) {
+      if (this.selectedLeague.id) {
+        let league = Object.assign({}, this.selectedLeague, this.leagueForm.value);
+        console.log('old', league);
+        return this.saved.emit(league);
+      }
+      let newLeague: League = {
+        leagueName: this.leagueForm.value.leagueName
+      };
+      console.log('new', newLeague);
+      this.saved.emit(newLeague);
+      this.resetValues();
     }
-    let newLeague: League = {
-      leagueName: form.value.leagueName
-    };
-    this.saved.emit(newLeague);
-    this.resetValues();
   }
 
   cancel(league: League) {
@@ -43,7 +60,7 @@ export class LeagueDetailComponent implements OnInit {
   }
 
   resetValues() {
-    this.selectedLeague = {id: null, leagueName: ''};
+    this.leagueForm.reset();
   }
 
 }

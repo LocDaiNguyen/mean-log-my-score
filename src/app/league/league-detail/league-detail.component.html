@@ -1,13 +1,12 @@
 <h2 *ngIf="selectedLeague.id">Edit {{originalName}}</h2>
 <h2 *ngIf="!selectedLeague.id">Add League</h2>
 
-<form (ngSubmit)="save(form)" #form="ngForm">
+<form (ngSubmit)="save()" [formGroup]="leagueForm">
   
   <div class="form-group">
     <label for="league">League</label>
     <input
-      [(ngModel)]="selectedLeague.leagueName"
-      name="leagueName"
+      formControlName="leagueName"
       type="text"
       class="form-control"
       id="league"

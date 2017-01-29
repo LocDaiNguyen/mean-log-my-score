@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LeagueComponent } from './league.component';
 import { LeagueListComponent } from './league-list/league-list.component';
@@ -12,6 +12,7 @@ import { LeagueRoutingModule } from './league-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     LeagueRoutingModule,
   ],
   declarations: [
