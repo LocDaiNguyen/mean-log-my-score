@@ -40,9 +40,6 @@ export class DivisionComponent implements OnInit {
 
   saveDivision(division: Division) {
     this.divisionService.saveDivision(division);
-    this.divisionService.divisions$.subscribe(
-      div => console.log(div)
-    );
     this.resetDivision();
   }
 

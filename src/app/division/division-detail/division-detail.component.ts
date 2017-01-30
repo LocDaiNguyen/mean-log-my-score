@@ -53,7 +53,7 @@ export class DivisionDetailComponent implements OnInit {
     let leagueEl = this.divisionForm.get('league');
     let divisionNameEl = this.divisionForm.get('divisionName');
 
-    this.divisionForm.get('divisionName').valueChanges
+    divisionNameEl.valueChanges
       .subscribe(
         (value) => {
           if (leagueNameEl.value !== null && leagueEl.value === null) {
@@ -61,7 +61,6 @@ export class DivisionDetailComponent implements OnInit {
             leagueEl.reset('');
           } else if (leagueNameEl.value === null && leagueEl.value === null) {
             leagueEl.setValidators(Validators.required);
-            leagueEl.reset(null);
           }
         }
       );
@@ -74,9 +73,9 @@ export class DivisionDetailComponent implements OnInit {
         this.saved.emit(division);
       } else {
         let newDivision: Division = {
-          divisionName: this.divisionForm.value.divisionName,
           leagueId: this.divisionForm.value.league.id,
-          leagueName: this.divisionForm.value.league.leagueName
+          leagueName: this.divisionForm.value.league.leagueName,
+          divisionName: this.divisionForm.value.divisionName
         };
         this.saved.emit(newDivision);
       }
