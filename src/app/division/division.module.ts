@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DivisionComponent } from './division.component';
 import { DivisionListComponent } from './division-list/division-list.component';
@@ -12,6 +12,7 @@ import { DivisionRoutingModule } from './division-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DivisionRoutingModule,
   ],
   declarations: [

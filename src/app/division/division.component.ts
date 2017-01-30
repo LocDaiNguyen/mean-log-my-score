@@ -27,9 +27,9 @@ export class DivisionComponent implements OnInit {
   resetDivision() {
     let emptyDivision: Division = {
       id: null,
-      divisionName: '',
+      divisionName: null,
       leagueId: null,
-      leagueName: ''
+      leagueName: null
     };
     this.selectedDivision = emptyDivision;
   }
@@ -40,6 +40,9 @@ export class DivisionComponent implements OnInit {
 
   saveDivision(division: Division) {
     this.divisionService.saveDivision(division);
+    this.divisionService.divisions$.subscribe(
+      div => console.log(div)
+    );
     this.resetDivision();
   }
 

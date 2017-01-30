@@ -1,40 +1,31 @@
 <h2 *ngIf="selectedDivision.id">Edit {{originalName}}</h2>
 <h2 *ngIf="!selectedDivision.id">Add Division</h2>
 
-<form (ngSubmit)="save(form)" #form="ngForm">
+<form (ngSubmit)="save()" [formGroup]="divisionForm">
   
   <label for="league">League</label>
   <input
     *ngIf="selectedDivision.id"
-    [disabled]="selectedDivision.id"
-    [ngModel]="selectedDivision.leagueName"
-    name="leagueName"
+    formControlName="leagueName"
     type="text"
-    class="form-control"
-  >
+    class="form-control">
   
   <select
     *ngIf="!selectedDivision.id"
-    [(ngModel)]="selectedLeague"
-    name="league"
+    formControlName="league"
     class="form-control"
-    id="league"
-    required
-  >
+    id="league">
     <option *ngFor="let league of leagues$ | async" [ngValue]="league">{{league.leagueName}}</option>
   </select>
   
   <div class="form-group">
     <label for="division">Division</label>
     <input
-      [(ngModel)]="selectedDivision.divisionName"
-      name="divisionName"
+      formControlName="divisionName"
       type="text"
       class="form-control"
       id="division"
-      placeholder="ex A, B, C, D, E, Rec"
-      required
-    >
+      placeholder="ex A, B, C, D, E, Rec">
   </div>
   
   <button (click)="cancel(selectedDivision)" type="button" class="btn btn-default">Cancel</button>
