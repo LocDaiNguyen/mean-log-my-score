@@ -27,13 +27,13 @@ export class PlayerComponent implements OnInit {
   resetPlayer() {
     let emptyPlayer: Player = {
       id: null,
-      playerName: '',
+      playerName: null,
       leagueId: null,
-      leagueName: '',
+      leagueName: null,
       divisionId: null,
-      divisionName: '',
+      divisionName: null,
       teamId: null,
-      teamName: ''
+      teamName: null
     };
     this.selectedPlayer = emptyPlayer;
   }

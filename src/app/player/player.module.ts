@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PlayerComponent } from './player.component';
 import { PlayerListComponent } from './player-list/player-list.component';
@@ -13,6 +13,7 @@ import { FilterByPipeModule } from '../shared/filter-by.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     PlayerRoutingModule,
     FilterByPipeModule,
   ],

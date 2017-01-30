@@ -1,87 +1,64 @@
 <h2 *ngIf="selectedPlayer.id">Edit {{originalName}}</h2>
 <h2 *ngIf="!selectedPlayer.id">Add Player</h2>
 
-<form (ngSubmit)="save(form)" #form="ngForm">
+<form (ngSubmit)="save()" [formGroup]="playerForm">
   
   <label for="league">League</label>
   <input
     *ngIf="selectedPlayer.id"
-    [disabled]="selectedPlayer.id"
-    [ngModel]="selectedPlayer.leagueName"
-    name="leagueName"
+    formControlName="leagueName"
     type="text"
-    class="form-control"
-  >
+    class="form-control">
   
   <select
     *ngIf="!selectedPlayer.id"
-    [(ngModel)]="selectedLeague"
-    (ngModelChange)="onChangeLeague($event)"
-    name="league"
+    formControlName="league"
     class="form-control"
-    id="league"
-    required
-  >
+    id="league">
     <option *ngFor="let league of leagues$ | async" [ngValue]="league">{{league.leagueName}}</option>
   </select>
 
   <label for="division">Division</label>
   <input
     *ngIf="selectedPlayer.id"
-    [disabled]="selectedPlayer.id"
-    [ngModel]="selectedPlayer.divisionName"
-    name="divisionName"
+    formControlName="divisionName"
     type="text"
-    class="form-control"
-  >
+    class="form-control">
   
   <select
     *ngIf="!selectedPlayer.id"
-    [(ngModel)]="selectedDivision"
-    (ngModelChange)="onChangeDivision($event)"
-    name="division"
+    formControlName="division"
     class="form-control"
-    id="division"
-    required
-  >
+    id="division">
     <option *ngFor="let division of divisions$ | async | filterBy: league" [ngValue]="division">{{division.divisionName}}</option>
   </select>
 
   <label for="team">Team</label>
   <input
     *ngIf="selectedPlayer.id"
-    [disabled]="selectedPlayer.id"
-    [ngModel]="selectedPlayer.teamName"
-    name="teamName"
+    formControlName="teamName"
     type="text"
-    class="form-control"
-  >
+    class="form-control">
   
   <select
     *ngIf="!selectedPlayer.id"
-    [(ngModel)]="selectedTeam"
-    name="team"
+    formControlName="team"
     class="form-control"
-    id="team"
-    required
-  >
+    id="team">
     <option *ngFor="let team of teams$ | async | filterBy: division" [ngValue]="team">{{team.teamName}}</option>
   </select>
   
   <div class="form-group">
     <label for="player">Player</label>
     <input
-      [(ngModel)]="selectedPlayer.playerName"
-      name="playerName"
+      formControlName="playerName"
       type="text"
       class="form-control"
       id="player"
-      placeholder="ex Johnny Hockey"
-      required
-    >
+      placeholder="ex Johnny Hockey">
   </div>
   
-  <button (click)="cancel(selectedPlayer)" type="button" class="btn btn-default">Cancel</button>
+  <button (click)="cancel()" type="button" class="btn btn-default">Cancel</button>
   <button type="submit" class="btn btn-primary">Save</button>
 
 </form>
