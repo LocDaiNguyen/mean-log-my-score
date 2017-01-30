@@ -71,22 +71,22 @@ export class DivisionDetailComponent implements OnInit {
     if (this.divisionForm.dirty && this.divisionForm.valid) {
       if (this.selectedDivision.id) {
         let division = Object.assign({}, this.selectedDivision, {divisionName: this.divisionForm.value.divisionName});
-        console.log(division);
-        return this.saved.emit(division);
+        this.saved.emit(division);
+      } else {
+        let newDivision: Division = {
+          divisionName: this.divisionForm.value.divisionName,
+          leagueId: this.divisionForm.value.league.id,
+          leagueName: this.divisionForm.value.league.leagueName
+        };
+        this.saved.emit(newDivision);
       }
-      let newDivision: Division = {
-        divisionName: this.divisionForm.value.divisionName,
-        leagueId: this.divisionForm.value.league.id,
-        leagueName: this.divisionForm.value.league.leagueName
-      };
-      this.saved.emit(newDivision);
       this.resetValues();
     }
   }
 
-  cancel(division: Division) {
+  cancel() {
     this.resetValues();
-    this.cancelled.emit(division);
+    this.cancelled.emit();
   }
 
   resetValues() {
