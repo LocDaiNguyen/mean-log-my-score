@@ -27,15 +27,15 @@ export class SeasonComponent implements OnInit {
   resetSeason() {
     let emptySeason: Season = {
       id: null,
-      seasonName: '',
+      seasonName: null,
       leagueId: null,
-      leagueName: '',
+      leagueName: null,
       divisionId: null,
-      divisionName: '',
+      divisionName: null,
       teamId: null,
-      teamName: '',
+      teamName: null,
       playerId: null,
-      playerName: ''
+      playerName: null
     };
     this.selectedSeason = emptySeason;
   }

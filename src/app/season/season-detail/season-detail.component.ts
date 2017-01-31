@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
 
 import { Season } from '../shared/season.model';
 import { League } from '../../league/shared/league.model';
@@ -22,29 +21,36 @@ import { PlayerService } from '../../player/shared/player.service';
 })
 export class SeasonDetailComponent implements OnInit {
 
+  seasonForm: FormGroup;
   originalName: string;
   selectedSeason: Season;
-  selectedLeague: League;
   leagues$: Observable<League[]> = this.leagueService.leagues$;
-  league = { leagueId: null };
-  selectedDivision: Division;
   divisions$: Observable<Division[]> = this.divisionService.divisions$;
-  division = { divisionId: null };
-  selectedTeam: Team;
   teams$: Observable<Team[]> = this.teamService.teams$;
-  team = { teamId: null };
-  selectedPlayer: Player;
   players$: Observable<Player[]> = this.playerService.players$;
+  league = { leagueId: null };
+  division = { divisionId: null };
+  team = { teamId: null };
 
   @Output() saved = new EventEmitter();
   @Output() cancelled = new EventEmitter();
 
   @Input() set season(value: Season) {
-    if (value) { this.originalName = value.seasonName; }
+    if (value) {
+      this.originalName = value.seasonName;
+      this.seasonForm.patchValue({
+        leagueName: value.leagueName,
+        divisionName: value.divisionName,
+        teamName: value.teamName,
+        playerName: value.playerName,
+        seasonName: value.seasonName
+      });
+    }
     this.selectedSeason = Object.assign({}, value);
   }
 
   constructor(
+    private formBuilder: FormBuilder,
     private leagueService: LeagueService,
     private divisionService: DivisionService,
     private teamService: TeamService,
@@ -56,72 +62,111 @@ export class SeasonDetailComponent implements OnInit {
     this.divisionService.getAllDivisions();
     this.teamService.getAllTeams();
     this.playerService.getAllPlayers();
+
+    this.seasonForm = this.formBuilder.group({
+      'leagueName': {value: null, disabled: true},
+      'league': [null, Validators.required],
+      'divisionName': {value: null, disabled: true},
+      'division': [null, Validators.required],
+      'teamName': {value: null, disabled: true},
+      'team': [null, Validators.required],
+      'playerName': {value: null, disabled: true},
+      'player': [null, Validators.required],
+      'seasonName': [null, Validators.required]
+    });
+
+    let leagueNameEl = this.seasonForm.get('leagueName');
+    let leagueEl = this.seasonForm.get('league');
+    let divisionNameEl = this.seasonForm.get('divisionName');
+    let divisionEl = this.seasonForm.get('division');
+    let teamNameEl = this.seasonForm.get('teamName');
+    let teamEl = this.seasonForm.get('team');
+    let playerNameEl = this.seasonForm.get('playerName');
+    let playerEl = this.seasonForm.get('player');
+    let seasonNameEl = this.seasonForm.get('seasonName');
+
+    leagueEl.valueChanges
+      .subscribe(
+        (league) => {
+          if (leagueEl.value !== null) {
+            this.league = { leagueId: league.id };
+            divisionEl.reset(null);
+          }
+        }
+      );
+
+    divisionEl.valueChanges
+      .subscribe(
+        (division) => {
+          if (divisionEl.value !== null) {
+            this.division = { divisionId: division.id };
+            teamEl.reset(null);
+          }
+        }
+      );
+
+    teamEl.valueChanges
+      .subscribe(
+        (team) => {
+          if (teamEl.value !== null) {
+            this.team = { teamId: team.id };
+            playerEl.reset(null);
+          }
+        }
+      );
+
+    seasonNameEl.valueChanges
+      .subscribe(
+        (value) => {
+          if (leagueNameEl.value !== null && leagueEl.value === null) {
+            leagueEl.clearValidators();
+            leagueEl.reset('');
+            divisionEl.clearValidators();
+            divisionEl.reset('');
+            teamEl.clearValidators();
+            teamEl.reset('');
+            playerEl.clearValidators();
+            playerEl.reset('');
+          } else if (leagueNameEl.value === null && leagueEl.value === null) {
+            leagueEl.setValidators(Validators.required);
+            divisionEl.setValidators(Validators.required);
+            teamEl.setValidators(Validators.required);
+            playerEl.setValidators(Validators.required);
+          }
+        }
+      );
   }
 
-  save(form: NgForm) {
-    if (this.selectedSeason.id) {
-      return this.saved.emit(this.selectedSeason);
+  save() {
+    if (this.seasonForm.dirty && this.seasonForm.valid) {
+      if (this.selectedSeason.id) {
+        let season = Object.assign({}, this.selectedSeason, {seasonName: this.seasonForm.value.seasonName});
+        this.saved.emit(season);
+      } else {
+        let newSeason: Season = {
+          leagueId: this.seasonForm.value.league.id,
+          leagueName: this.seasonForm.value.league.leagueName,
+          divisionId: this.seasonForm.value.division.id,
+          divisionName: this.seasonForm.value.division.divisionName,
+          teamId: this.seasonForm.value.team.id,
+          teamName: this.seasonForm.value.team.teamName,
+          playerId: this.seasonForm.value.player.id,
+          playerName: this.seasonForm.value.player.playerName,
+          seasonName: this.seasonForm.value.seasonName
+        };
+        this.saved.emit(newSeason);
+      }
+      this.resetValues();
     }
-    let newSeason: Season = {
-      seasonName: form.value.seasonName,
-      leagueId: form.value.league.id,
-      leagueName: form.value.league.leagueName,
-      divisionId: form.value.division.id,
-      divisionName: form.value.division.divisionName,
-      teamId: form.value.team.id,
-      teamName: form.value.team.teamName,
-      playerId: form.value.player.id,
-      playerName: form.value.player.playerName
-    };
-    this.saved.emit(newSeason);
-    this.resetValues();
   }
 
-  cancel(season: Season) {
+  cancel() {
     this.resetValues();
-    this.cancelled.emit(season);
+    this.cancelled.emit();
   }
 
   resetValues() {
-    this.selectedLeague = {
-      id: null,
-      leagueName: ''};
-    this.selectedDivision = {
-      id: null,
-      divisionName: '',
-      leagueId: null,
-      leagueName: ''
-    };
-    this.selectedTeam = {
-      id: null,
-      teamName: '',
-      divisionId: null,
-      divisionName: '',
-      leagueId: null,
-      leagueName: ''
-    };
-    this.selectedPlayer = {
-      id: null,
-      playerName: '',
-      divisionId: null,
-      divisionName: '',
-      leagueId: null,
-      leagueName: '',
-      teamId: null,
-      teamName: ''
-    };
-  }
-
-  onChangeLeague(league): void {
-    this.league = { leagueId: league.id };
-  }
-
-  onChangeDivision(division): void {
-    this.division = { divisionId: division.id };
-  }
-
-  onChangeTeam(team): void {
-    this.team = { teamId: team.id };
+    this.seasonForm.reset();
   }
 
 }

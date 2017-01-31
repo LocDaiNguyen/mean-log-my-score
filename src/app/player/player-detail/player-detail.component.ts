@@ -21,10 +21,7 @@ export class PlayerDetailComponent implements OnInit {
 
   playerForm: FormGroup;
   originalName: string;
-  selectedLeague: League;
-  selectedDivision: Division;
   selectedPlayer: Player;
-  selectedTeam: Team;
   leagues$: Observable<League[]> = this.leagueService.leagues$;
   divisions$: Observable<Division[]> = this.divisionService.divisions$;
   teams$: Observable<Team[]> = this.teamService.teams$;
@@ -123,13 +120,13 @@ export class PlayerDetailComponent implements OnInit {
         this.saved.emit(player);
       } else {
         let newPlayer: Player = {
-          playerName: this.playerForm.value.playerName,
           leagueId: this.playerForm.value.league.id,
           leagueName: this.playerForm.value.league.leagueName,
           divisionId: this.playerForm.value.division.id,
           divisionName: this.playerForm.value.division.divisionName,
           teamId: this.playerForm.value.team.id,
-          teamName: this.playerForm.value.team.teamName
+          teamName: this.playerForm.value.team.teamName,
+          playerName: this.playerForm.value.playerName
         };
         this.saved.emit(newPlayer);
       }
@@ -137,9 +134,9 @@ export class PlayerDetailComponent implements OnInit {
     }
   }
 
-  cancel(player: Player) {
+  cancel() {
     this.resetValues();
-    this.cancelled.emit(player);
+    this.cancelled.emit();
   }
 
   resetValues() {
