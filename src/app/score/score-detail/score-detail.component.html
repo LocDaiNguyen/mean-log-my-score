@@ -37,8 +37,8 @@
         *ngFor="let goalScorer of players$
           | async
           | filterBy: team
-          | filterExcludeSelf: assistorOne
-          | filterExcludeSelf: assistorTwo"
+          | filterExclude: assistorOne
+          | filterExclude: assistorTwo"
         [ngValue]="goalScorer">{{goalScorer.playerName}}</option>
     </select>
   
@@ -51,8 +51,8 @@
         *ngFor="let assistorOne of players$
           | async
           | filterBy: team
-          | filterExcludeSelf: scorer
-          | filterExcludeSelf: assistorTwo"
+          | filterExclude: scorer
+          | filterExclude: assistorTwo"
         [ngValue]="assistorOne">{{assistorOne.playerName}}</option>
     </select>
   
@@ -65,8 +65,8 @@
         *ngFor="let assistorTwo of players$
           | async
           | filterBy: team
-          | filterExcludeSelf: scorer
-          | filterExcludeSelf: assistorOne"
+          | filterExclude: scorer
+          | filterExclude: assistorOne"
         [ngValue]="assistorTwo">{{assistorTwo.playerName}}</option>
     </select>
   

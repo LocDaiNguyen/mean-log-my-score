@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 
 @Pipe({
-  name: 'filterExcludeSelf',
+  name: 'filterExclude',
   pure: false
 })
 
 @Injectable()
-export class FilterExcludeSelfPipe implements PipeTransform {
+export class FilterExcludePipe implements PipeTransform {
 
   private filterByString(filter) {
     filter = filter.toLowerCase();

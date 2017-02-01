@@ -24,7 +24,7 @@
       formControlName="opponent"
       class="form-control"
       id="opponent">
-      <option *ngFor="let opponent of teams$ | async | filterBy: division | filterExcludeSelf: team" [ngValue]="opponent">{{opponent.teamName}}</option>
+      <option *ngFor="let opponent of teams$ | async | filterBy: division | filterExclude: team" [ngValue]="opponent">{{opponent.teamName}}</option>
     </select>
     
     <div class="form-group">

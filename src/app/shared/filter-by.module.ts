@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 
 import { FilterByPipe } from './filter-by.pipe';
-import { FilterExcludeSelfPipe } from './filter-exclude-self.pipe';
+import { FilterExcludePipe } from './filter-exclude.pipe';
 
 @NgModule({
   imports: [],
   declarations: [
     FilterByPipe,
-    FilterExcludeSelfPipe
+    FilterExcludePipe
   ],
   exports: [
     FilterByPipe,
-    FilterExcludeSelfPipe
+    FilterExcludePipe
   ]
 })
 export class FilterByPipeModule { }
