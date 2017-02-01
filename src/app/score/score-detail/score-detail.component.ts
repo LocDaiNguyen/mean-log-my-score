@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
 
 import { Score } from '../shared/score.model';
 import { Player } from '../../player/shared/player.model';
@@ -18,16 +17,20 @@ import { GameService } from '../../game/shared/game.service';
 })
 export class ScoreDetailComponent implements OnInit {
 
+  scoreForm: FormGroup;
   originalName: string;
   gameName: string;
-  games$: Observable<Game[]> = this.gameService.games$;
-  players$: Observable<Player[]> = this.playerService.players$;
   selectedScore: Score;
   selectedGame: Game;
   selectedGoalScorer: Player;
   selectedAssistorOne: Player;
   selectedAssistorTwo: Player;
+  games$: Observable<Game[]> = this.gameService.games$;
+  players$: Observable<Player[]> = this.playerService.players$;
   team = { teamId: null };
+  scorer = { id: null};
+  assistorOne = { id: null };
+  assistorTwo = { id: null };
   scoreTypes: Array<string> = ['Goal', 'Assist'];
   situations: Array<string> = ['Even Strength', 'Power Play', 'Short Handed'];
   periods: Array<string> = ['1st', '2nd', '3rd', 'OT', 'Shootout'];
@@ -42,7 +45,7 @@ export class ScoreDetailComponent implements OnInit {
       this.games$
         .subscribe(
           games => {
-            let game = games.find(game => game.id === value.gameId);
+            let game = games.find(g => g.id === value.gameId);
             if (game) {
               this.selectedGame = game;
             }
@@ -65,12 +68,28 @@ export class ScoreDetailComponent implements OnInit {
             }
           }
         );
+      this.scoreForm.patchValue({
+        gameName: value.seasonName,
+        scoreInfo: {
+          scoreType: value.scoreType,
+          goalScorer: this.selectedGoalScorer,
+          assistorOne: this.selectedAssistorOne,
+          assistorTwo: this.selectedAssistorTwo,
+          situation: value.situation,
+          period: value.period,
+          scoreTime: value.scoreTime
+        }
+      });
       this.team = { teamId: value.teamId };
+      this.scorer = { id: value.goalScorerId };
+      this.assistorOne = { id: value.assistorOneId };
+      this.assistorTwo = { id: value.assistorTwoId };
     }
     this.selectedScore = Object.assign({}, value);
   }
 
   constructor(
+    private formBuilder: FormBuilder,
     private playerService: PlayerService,
     private gameService: GameService
   ) { }
@@ -78,97 +97,141 @@ export class ScoreDetailComponent implements OnInit {
   ngOnInit() {
     this.playerService.getAllPlayers();
     this.gameService.getAllGames();
+
+    this.scoreForm = this.formBuilder.group({
+      'gameName': {value: null, disabled: true},
+      'game': [null, Validators.required],
+      'scoreInfo': this.formBuilder.group({
+        'scoreType': [null, Validators.required],
+        'goalScorer': [null, Validators.required],
+        'assistorOne': null,
+        'assistorTwo': null,
+        'situation': [null, Validators.required],
+        'period': [null, Validators.required],
+        'scoreTime': [null, Validators.required]
+      })
+    });
+
+    let gameNameEl = this.scoreForm.get('gameName');
+    let gameEl = this.scoreForm.get('game');
+    let scoreInfoEl = this.scoreForm.get('scoreInfo');
+    let scoreTypeEl = this.scoreForm.get('scoreInfo').get('scoreType');
+    let goalScorerEl = this.scoreForm.get('scoreInfo').get('goalScorer');
+    let assistorOneEl = this.scoreForm.get('scoreInfo').get('assistorOne');
+    let assistorTwoEl = this.scoreForm.get('scoreInfo').get('assistorTwo');
+    let situationEl = this.scoreForm.get('scoreInfo').get('situation');
+    let periodEl = this.scoreForm.get('scoreInfo').get('period');
+    let scoreTimeEl = this.scoreForm.get('scoreInfo').get('scoreTime');
+
+    gameEl.valueChanges
+      .subscribe(
+        (game) => {
+          if (gameEl.value !== null) {
+            this.team = { teamId: game.teamId };
+          }
+        }
+      );
+
+    goalScorerEl.valueChanges
+      .subscribe(
+        (goalScorer) => {
+          if (goalScorerEl.value !== null) {
+            this.scorer = { id: goalScorer.id };
+          }
+        }
+      );
+
+    assistorOneEl.valueChanges
+      .subscribe(
+        (assistorOne) => {
+          if (assistorOneEl.value !== null) {
+            this.assistorOne = { id: assistorOne.id };
+          }
+        }
+      );
+
+    assistorTwoEl.valueChanges
+      .subscribe(
+        (assistorTwo) => {
+          if (assistorTwoEl.value !== null) {
+            this.assistorTwo = { id: assistorTwo.id };
+          }
+        }
+      );
+
+    scoreInfoEl.valueChanges
+      .subscribe(
+        (value) => {
+          if (gameNameEl.value !== null && gameEl.value === null) {
+            gameEl.clearValidators();
+            gameEl.reset('');
+          } else if (gameNameEl.value === null && gameEl.value === null) {
+            gameEl.setValidators(Validators.required);
+          }
+        }
+      );
   }
 
-  save(form: NgForm) {
-    if (this.selectedScore.id) {
-      return this.saved.emit(this.selectedScore);
+  save() {
+    if (this.scoreForm.dirty && this.scoreForm.valid) {
+      if (this.selectedScore.id) {
+        let score = Object.assign(
+          {},
+          this.selectedScore,
+          {scoreType: this.scoreForm.value.scoreInfo.scoreType},
+          {situation: this.scoreForm.value.scoreInfo.situation},
+          {period: this.scoreForm.value.scoreInfo.period},
+          {scoreTime: this.scoreForm.value.scoreInfo.scoreTime},
+          {goalScorerId: this.scoreForm.value.scoreInfo.goalScorer.id},
+          {goalScorerName: this.scoreForm.value.scoreInfo.goalScorer.playerName},
+          {assistorOneId: this.scoreForm.value.scoreInfo.assistorOne.id},
+          {assistorOneName: this.scoreForm.value.scoreInfo.assistorOne.playerName},
+          {assistorTwoId: this.scoreForm.value.scoreInfo.assistorTwo.id},
+          {assistorTwoName: this.scoreForm.value.scoreInfo.assistorTwo.playerName},
+        );
+        this.saved.emit(score);
+      } else {
+        let newScore: Score = {
+          leagueId: this.scoreForm.value.game.leagueId,
+          leagueName: this.scoreForm.value.game.leagueName,
+          divisionId: this.scoreForm.value.game.divisionId,
+          divisionName: this.scoreForm.value.game.divisionName,
+          teamId: this.scoreForm.value.game.teamId,
+          teamName: this.scoreForm.value.game.teamName,
+          playerId: this.scoreForm.value.game.playerId,
+          playerName: this.scoreForm.value.game.playerName,
+          seasonId: this.scoreForm.value.game.seasonId,
+          seasonName: this.scoreForm.value.game.seasonName,
+          opponentId: this.scoreForm.value.game.opponentId,
+          opponentName: this.scoreForm.value.game.opponentName,
+          date: this.scoreForm.value.game.date,
+          time: this.scoreForm.value.game.time,
+          gameType: this.scoreForm.value.game.gameType,
+          gameId: this.scoreForm.value.game.gameId,
+          scoreType: this.scoreForm.value.scoreInfo.scoreType,
+          situation: this.scoreForm.value.scoreInfo.situation,
+          period: this.scoreForm.value.scoreInfo.period,
+          scoreTime: this.scoreForm.value.scoreInfo.scoreTime,
+          goalScorerId: this.scoreForm.value.scoreInfo.goalScorer.id,
+          goalScorerName: this.scoreForm.value.scoreInfo.goalScorer.playerName,
+          assistorOneId: this.scoreForm.value.scoreInfo.assistorOne.id,
+          assistorOneName: this.scoreForm.value.scoreInfo.assistorOne.playerName,
+          assistorTwoId: this.scoreForm.value.scoreInfo.assistorTwo.id,
+          assistorTwoName: this.scoreForm.value.scoreInfo.assistorTwo.playerName
+        };
+        this.saved.emit(newScore);
+      }
+    this.resetValues();
     }
-    let newScore: Score = {
-      leagueId: form.value.game.leagueId,
-      leagueName: form.value.game.leagueName,
-      divisionId: form.value.game.divisionId,
-      divisionName: form.value.game.divisionName,
-      teamId: form.value.game.teamId,
-      teamName: form.value.game.teamName,
-      playerId: form.value.game.playerId,
-      playerName: form.value.game.playerName,
-      seasonId: form.value.game.seasonId,
-      seasonName: form.value.game.seasonName,
-      opponentId: form.value.game.opponentId,
-      opponentName: form.value.game.opponentName,
-      date: form.value.game.date,
-      time: form.value.game.time,
-      gameType: form.value.game.gameType,
-      gameId: form.value.game.gameId,
-      scoreType: form.value.scoreType,
-      situation: form.value.situation,
-      period: form.value.period,
-      scoreTime: form.value.scoreTime,
-      goalScorerId: form.value.goalScorer.id,
-      goalScorerName: form.value.goalScorer.playerName,
-      assistorOneId: form.value.assistorOne.id,
-      assistorOneName: form.value.assistorOne.playerName,
-      assistorTwoId: form.value.assistorTwo.id,
-      assistorTwoName: form.value.assistorTwo.playerName
-    };
-    this.saved.emit(newScore);
-    this.resetValues();
   }
 
-  cancel(score: Score) {
+  cancel() {
     this.resetValues();
-    this.cancelled.emit(score);
+    this.cancelled.emit();
   }
 
   resetValues() {
-    this.selectedScore = {
-      id: null,
-      leagueId: null,
-      leagueName: '',
-      divisionId: null,
-      divisionName: '',
-      teamId: null,
-      teamName: '',
-      playerId: null,
-      playerName: '',
-      seasonId: null,
-      seasonName: '',
-      opponentId: null,
-      opponentName: '',
-      date: '',
-      time: '',
-      gameType: '',
-      gameId: null,
-      scoreType: '',
-      situation: '',
-      period: '',
-      scoreTime: '',
-      goalScorerId: null,
-      goalScorerName: '',
-      assistorOneId: null,
-      assistorOneName: '',
-      assistorTwoId: null,
-      assistorTwoName: ''
-    };
-    this.selectedGame = {
-      id: null,
-      leagueId: null,
-      leagueName: '',
-      divisionId: null,
-      divisionName: '',
-      teamId: null,
-      teamName: '',
-      playerId: null,
-      playerName: '',
-      seasonId: null,
-      seasonName: '',
-      opponentId: null,
-      opponentName: '',
-      date: '',
-      time: '',
-      gameType: '',
-    };
+    this.scoreForm.reset();
     this.selectedGoalScorer = {
       id: null,
       leagueId: null,
@@ -202,23 +265,19 @@ export class ScoreDetailComponent implements OnInit {
     this.team = { teamId: null };
   }
 
-  onChangeGame(game: Game) {
-    this.team = { teamId: game.teamId };
-  }
+  // onChangeGoalScorer(goalScorer: Player) {
+  //   this.selectedScore.goalScorerId = goalScorer.id;
+  //   this.selectedScore.goalScorerName = goalScorer.playerName;
+  // }
 
-  onChangeGoalScorer(goalScorer: Player) {
-    this.selectedScore.goalScorerId = goalScorer.id;
-    this.selectedScore.goalScorerName = goalScorer.playerName;
-  }
+  // onChangeAssistorOne(assistorOne: Player) {
+  //   this.selectedScore.assistorOneId = assistorOne.id;
+  //   this.selectedScore.assistorOneName = assistorOne.playerName;
+  // }
 
-  onChangeAssistorOne(assistorOne: Player) {
-    this.selectedScore.assistorOneId = assistorOne.id;
-    this.selectedScore.assistorOneName = assistorOne.playerName;
-  }
-
-  onChangeAssistorTwo(assistorTwo: Player) {
-    this.selectedScore.assistorTwoId = assistorTwo.id;
-    this.selectedScore.assistorTwoName = assistorTwo.playerName;
-  }
+  // onChangeAssistorTwo(assistorTwo: Player) {
+  //   this.selectedScore.assistorTwoId = assistorTwo.id;
+  //   this.selectedScore.assistorTwoName = assistorTwo.playerName;
+  // }
 
 }

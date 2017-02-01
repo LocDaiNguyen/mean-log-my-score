@@ -28,31 +28,31 @@ export class ScoreComponent implements OnInit {
     let emptyScore: Score = {
       id: null,
       leagueId: null,
-      leagueName: '',
+      leagueName: null,
       divisionId: null,
-      divisionName: '',
+      divisionName: null,
       teamId: null,
-      teamName: '',
+      teamName: null,
       playerId: null,
-      playerName: '',
+      playerName: null,
       seasonId: null,
-      seasonName: '',
+      seasonName: null,
       opponentId: null,
-      opponentName: '',
-      date: '',
-      time: '',
-      gameType: '',
+      opponentName: null,
+      date: null,
+      time: null,
+      gameType: null,
       gameId: null,
-      scoreType: '',
-      situation: '',
-      period: '',
-      scoreTime: '',
+      scoreType: null,
+      situation: null,
+      period: null,
+      scoreTime: null,
       goalScorerId: null,
-      goalScorerName: '',
+      goalScorerName: null,
       assistorOneId: null,
-      assistorOneName: '',
+      assistorOneName: null,
       assistorTwoId: null,
-      assistorTwoName: ''
+      assistorTwoName: null
     };
     this.selectedScore = emptyScore;
   }
@@ -63,6 +63,9 @@ export class ScoreComponent implements OnInit {
 
   saveScore(score: Score) {
     this.scoreService.saveScore(score);
+    this.scoreService.scores$.subscribe(
+      item => console.table(item)
+    );
     this.resetScore();
   }
 
