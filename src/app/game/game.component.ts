@@ -28,20 +28,20 @@ export class GameComponent implements OnInit {
     let emptyGame: Game = {
       id: null,
       leagueId: null,
-      leagueName: '',
+      leagueName: null,
       divisionId: null,
-      divisionName: '',
+      divisionName: null,
       teamId: null,
-      teamName: '',
+      teamName: null,
       playerId: null,
-      playerName: '',
+      playerName: null,
       seasonId: null,
-      seasonName: '',
+      seasonName: null,
       opponentId: null,
-      opponentName: '',
-      date: '',
-      time: '',
-      gameType: ''
+      opponentName: null,
+      date: null,
+      time: null,
+      gameType: null
     };
     this.selectedGame = emptyGame;
   }

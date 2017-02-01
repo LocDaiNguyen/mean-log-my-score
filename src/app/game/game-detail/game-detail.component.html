@@ -1,78 +1,62 @@
 <h2 *ngIf="selectedGame.id">Edit {{originalName}}</h2>
 <h2 *ngIf="!selectedGame.id">Add Game</h2>
 
-<form (ngSubmit)="save(form)" #form="ngForm">
+<form (ngSubmit)="save()" [formGroup]="gameForm">
 
   <label for="season">Season</label>
   <input
     *ngIf="selectedGame.id"
-    [disabled]="selectedGame.id"
-    [ngModel]="selectedGame.seasonName"
-    name="seasonName"
+    formControlName="seasonName"
     type="text"
     class="form-control">
   
   <select
     *ngIf="!selectedGame.id"
-    [(ngModel)]="selectedSeason"
-    (ngModelChange)="onChangeSeason($event)"
-    name="season"
+    formControlName="season"
     class="form-control"
-    id="season"
-    required>
+    id="season">
     <option *ngFor="let season of seasons$ | async" [ngValue]="season">{{season.seasonName}}</option>
   </select>
 
-  <label for="opponent">Opponent</label>
-  <select
-    [(ngModel)]="selectedOpponent"
-    (ngModelChange)="onChangeOpponent($event)"
-    name="opponent"
-    class="form-control"
-    id="opponent"
-    required>
-    <option
-      *ngFor="let opponent of opponents | filterBy: division"
-      [ngValue]="opponent">
-      {{opponent.teamName}}
-    </option>
-  </select>
-  
-  <div class="form-group">
-    <label for="date">Date</label>
-    <input
-      [(ngModel)]="selectedGame.date"
-      name="date"
-      type="text"
+  <div formGroupName="gameInfo">
+    <label for="opponent">Opponent</label>
+    <select
+      formControlName="opponent"
       class="form-control"
-      id="date"
-      placeholder="ex Fri Jan 20 2017"
-      required>
-  </div>
-
-  <div class="form-group">
-    <label for="time">Time</label>
-    <input
-      [(ngModel)]="selectedGame.time"
-      name="time"
-      type="text"
-      class="form-control"
-      id="time"
-      placeholder="ex 20:00:00 GMT-0500 (EST)"
-      required>
-  </div>
-
-  <label for="gameType">Game Type</label>
-  <select
-    [(ngModel)]="selectedGame.gameType"
-    name="gameType"
-    class="form-control"
-    id="gameType"
-    required>
-    <option *ngFor="let gameType of gameTypes" [ngValue]="gameType">{{gameType}}</option>
-  </select>
+      id="opponent">
+      <option *ngFor="let opponent of teams$ | async | filterBy: division | filterExcludeSelf: team" [ngValue]="opponent">{{opponent.teamName}}</option>
+    </select>
+    
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input
+        formControlName="date"
+        type="text"
+        class="form-control"
+        id="date"
+        placeholder="ex Fri Jan 20 2017">
+    </div>
   
-  <button (click)="cancel(selectedGame)" type="button" class="btn btn-default">Cancel</button>
+    <div class="form-group">
+      <label for="time">Time</label>
+      <input
+        formControlName="time"
+        type="text"
+        class="form-control"
+        id="time"
+        placeholder="ex 20:00:00 GMT-0500 (EST)">
+    </div>
+  
+    <label for="gameType">Game Type</label>
+    <select
+      formControlName="gameType"
+      class="form-control"
+      id="gameType">
+      <option *ngFor="let gameType of gameTypes" [ngValue]="gameType">{{gameType}}</option>
+    </select>
+  </div>
+  
+  <button (click)="cancel()" type="button" class="btn btn-default">Cancel</button>
   <button type="submit" class="btn btn-primary">Save</button>
 
 </form>
