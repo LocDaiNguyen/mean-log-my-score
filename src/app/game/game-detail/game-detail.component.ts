@@ -49,8 +49,8 @@ export class GameDetailComponent implements OnInit {
           gameType: value.gameType
         }
       });
-      // this.division = { divisionId: value.divisionId };
-      // this.team = { id: value.teamId };
+      this.division = { divisionId: value.divisionId };
+      this.team = { id: value.teamId };
     }
     this.selectedGame = Object.assign({}, value);
   }
@@ -92,7 +92,7 @@ export class GameDetailComponent implements OnInit {
           if (seasonEl.value !== null) {
             this.division = { divisionId: season.divisionId };
             this.team = { id: season.teamId };
-            // opponentEl.reset(null);
+            opponentEl.reset(null);
           }
         }
       );
